@@ -1,0 +1,88 @@
+apply plugin: 'com.android.application'
+apply from: 'tinker.gradle'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        // applicationId "com.example.tinkertest"
+        applicationId "com.linsheng.FATJS"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+
+        multiDexEnabled true
+        buildConfigField "String", "MESSAGE", "\"I am the base apk\""
+        buildConfigField "String", "TINKER_ID", "\"${TINKER_ID}\""
+        buildConfigField "String", "PLATFORM", "\"all\""
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword '111111'
+            storeFile file("${rootDir}/keystore.jks")
+            storePassword '111111'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    dexOptions {
+        jumboMode = true
+    }
+}
+
+dependencies {
+    implementation 'com.squareup.okhttp3:okhttp:3.4.2'
+    implementation 'com.alibaba:fastjson:1.1.54.android'
+    // socket.io-client
+    implementation ('io.socket:socket.io-client:1.0.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation "androidx.multidex:multidex:2.0.1"
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.github.cmcy:RxPermissions:1.0.1'
+
+
+    //可选，如果不用注解构建application可不用
+//    annotationProcessor("com.tencent.tinker:tinker-android-anno:1.9.14.5") { changing = true }
+//    compileOnly("com.tencent.tinker:tinker-android-anno:1.9.14.5") { changing = true }
+
+    //tinker's main Android lib
+    implementation('com.tencent.tinker:tinker-android-lib:1.9.14.5')
+}
+
