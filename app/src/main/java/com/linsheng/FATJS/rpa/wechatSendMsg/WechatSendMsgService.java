@@ -38,10 +38,18 @@ public class WechatSendMsgService extends TaskBasic {
         AccUtils.moveFloatWindow("打开");
         AccUtils.printLogMsg("任务开启 => 读取通讯录列表");
         AccUtils.printLogMsg("open Wechat App");
-        AccUtils.openApp("微信");
+        AccUtils.openApp("抖音");
         AccUtils.timeSleep(waitSixSecond);
-        AccUtils.printLogMsg("点击通讯录");
-        AccUtils.clickNodeByPoint(AccUtils.findElementByText("通讯录"));
+        for (int i = 0; i < 15; i++) {
+            AccUtils.printLogMsg("刷视频");
+            AccUtils.timeSleep(waitFourSecond);
+            AccUtils.swipe(560,1900, 550, 300, 800);
+            AccUtils.timeSleep(waitThreeSecond);
+        }
+
+
+//        AccUtils.printLogMsg("点击通讯录");
+//        AccUtils.clickNodeByPoint(AccUtils.findElementByText("通讯录"));
 //        AccUtils.timeSleep(waitThreeSecond);
 //        AccUtils.printLogMsg("click A by FindColor");
 //        int[] x = ScreenLib.findColor( 0x191919, "1|-4|0x191919,4|1|0x191919,6|8|0x191919,2|8|0x191919,-4|9|0x191919,2|5|0xffffff", 90, 1017, 405, 1079, 858);
