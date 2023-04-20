@@ -610,7 +610,7 @@ public class AccUtils extends AccessibilityService {
         }
         return null;
     }
-    public static AccessibilityNodeInfo findElementContainByDescription(String str_param) {
+    public static AccessibilityNodeInfo findElementByContainDescription(String str_param) {
         try {
             AccessibilityNodeInfo root = getRootInActiveMy();
             recursionFindElementByContainDescription(root, str_param);

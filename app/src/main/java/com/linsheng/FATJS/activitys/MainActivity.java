@@ -12,6 +12,7 @@ import android.graphics.Point;
 import android.hardware.display.VirtualDisplay;
 import android.media.ImageReader;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -26,8 +27,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.linsheng.FATJS.AccUtils;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.bean.Variable;
 import com.linsheng.FATJS.config.WindowPermissionCheck;
@@ -232,6 +235,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test() {
+//        new Thread(new Runnable() {
+//            @RequiresApi(api = Build.VERSION_CODES.N)
+//            @Override
+//            public void run() {
+//                AccUtils.home();
+//                AccUtils.timeSleep(2000);
+//                AccUtils.openApp("抖音");
+//            }
+//        }).start();
         Variable.function_label_map.put("wechat_send_msg_V", true);
     }
 

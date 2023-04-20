@@ -4,16 +4,19 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.AccUtils;
 import com.linsheng.FATJS.bean.Variable;
@@ -120,32 +123,15 @@ public class FloatingButton extends Service {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void findColorTest() {
         // 移动悬浮窗
         try {
-            AccUtils.moveFloatWindow("打开");
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-//        List<String> allText = AccUtils.findAllText();
-//        if (allText != null) {
-//            try {
-//                AccUtils.printLogMsg("allText => " + allText);
-//            } catch (ExitException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-//        try {
-//            WechatSendMsgService.readAddressBooks();
-//        } catch (ExitException e) {
-//            e.printStackTrace();
-//        }
-
-//        int[] color = ScreenLib.findColor( 0xfe2b54, "23|0|0xfe2b54,23|9|0xfe2b54,7|9|0xfe2b54,7|21|0xfe2b54,25|21|0xfe2b54,17|29|0xfe2b54,17|38|0xfe2b54", 90, 668, 210, 1066, 2218);
-//        if (color != null) {
-//            Log.i(TAG, "onClick: colorPicker => " + Arrays.toString(color));
-//        }
     }
 }
