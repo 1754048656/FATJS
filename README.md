@@ -1,37 +1,16 @@
 # FATJS
 
 #### 介绍
-FATJS
+FATJS 基于安卓无障碍的自动化框架，集成找色
 
-#### 软件架构
-软件架构说明
+加自动化开发交流群
+➕v：vxid_7pd10zl5bzqs21
+不定期分享一些自动化开发的干货，群里很多大佬也是做这个的，有问题可以在群里提问
 
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+需要注意的点：
+1. 不要用市面上常见的自动化工具或者软件，都烂大街了，必定会被检测
+2. 养号很重要，先保证账号和手机环境没问题，再上脚本。比如某音先刷刷视频啥的
+3. 不能一直大量重复做非常单一的动作，操作尽量像个真人
+4. 每个点击与滑动的坐标尽量加上随机偏移值
+5. 不要打开开发者模式和adb调试，正常手机都不会开这个的。无障碍是Google官方功能，一般是没问题的
+6. 手机不root，不解bl锁
