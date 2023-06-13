@@ -7,7 +7,7 @@ FATJS 基于安卓无障碍的自动化框架，集成找色
 加自动化开发交流群
 ➕v：vxid_7pd10zl5bzqs21
 不定期分享一些自动化开发的干货，群里很多大佬也是做这个的，有问题可以在群里提问
-<img src="https://github.com/1754048656/FATJS/blob/main/img_2.png" width="300" height="450" alt="林笙"/><br/>
+<img src="https://github.com/1754048656/FATJS/blob/main/img_2.png" width="371" height="500" alt="林笙"/><br/>
 
 #### 项目搭建
 gradle:
