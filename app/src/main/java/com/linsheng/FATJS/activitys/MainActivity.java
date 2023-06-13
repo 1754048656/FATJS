@@ -34,6 +34,7 @@ import com.linsheng.FATJS.AccUtils;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.bean.Variable;
 import com.linsheng.FATJS.config.WindowPermissionCheck;
+import com.linsheng.FATJS.rpa.dyService.DyTaskService;
 import com.linsheng.FATJS.service.MyService;
 import com.linsheng.FATJS.utils.TxTManager;
 import com.cmcy.rxpermissions2.RxPermissions;
@@ -43,7 +44,6 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "FATJS";
-
     File patch_signed_7zip = null;
     private String readFromXML;
 
@@ -59,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
         storagePermissions();
 
         // 获取手机信息
-        getPhoneInfo();
+        // getPhoneInfo();
 
-        // 开启前台服务
-        openForwardService();
+        // 开启前台服务 未适配低版本安卓
+         openForwardService();
 
         // 从 sdcard 读取版本号和抖音id号
         readIDFromSdcard();
@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
             startService(new Intent(Variable.context, FloatingButton.class));
             // 打开悬浮窗
             startService(new Intent(Variable.context, FloatingWindow.class));
-        }else {
-            Log.i(TAG, "onCreate: permission false => " + permission);
         }
 
         buildAdapter();
@@ -86,31 +84,52 @@ public class MainActivity extends AppCompatActivity {
         initDisplay();
     }
 
+    // 任务开始入口
+    private void start_run() {
+        new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                try {
+
+                    DyTaskService dyTaskService = new DyTaskService();
+                    dyTaskService.main();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000) {
-            if (resultCode == RESULT_OK) {
-                // Permission granted
-            } else {
-                // Permission denied
+        if (requestCode == 0) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(MainActivity.this)) {
+                Toast.makeText(this.getApplicationContext(), "悬浮窗授权失败", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this.getApplicationContext(), "悬浮窗授权成功", Toast.LENGTH_SHORT).show();
+                // 打开悬浮窗
+                startService(new Intent(Variable.context, FloatingButton.class));
+                // 打开悬浮窗
+                startService(new Intent(Variable.context, FloatingWindow.class));
             }
         }
     }
-
 
     private void buildAdapter() {
         //2、绑定控件
         ListView listView = (ListView) findViewById(R.id.list_view);
         //3、准备数据
         String[] data={
-                "           版本号 => " + readFromXML,
+                "版本号 => " + readFromXML,
                 "开启无障碍",
-                "test",
-                "ANDROID_ID: " + Variable.ANDROID_ID,
-                "PHONE_NAME: " + Variable.PHONE_NAME,
-                "load fix patch",
-                "to acc",
+                "开始任务",
+                //"ANDROID_ID: " + Variable.ANDROID_ID,
+                //"PHONE_NAME: " + Variable.PHONE_NAME,
+                //"load fix patch",
+                "跳转到设置无障碍页面",
         };
         //4、创建适配器 连接数据源和控件的桥梁
         //参数 1：当前的上下文环境
@@ -162,10 +181,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            if (result.equals("test")) {
-                test();
+            if (result.equals("开始任务")) {
+                start_run();
             }
-
         }
     }
 
@@ -214,8 +232,10 @@ public class MainActivity extends AppCompatActivity {
             .subscribe(granted -> {
                 if (granted) {
                     //权限允许
+                    readIDFromSdcard();
                 } else {
                     //权限拒绝
+                    Toast.makeText(this.getApplicationContext(), "存储授权失败", Toast.LENGTH_SHORT).show();
                 }
             });
     }
@@ -223,8 +243,8 @@ public class MainActivity extends AppCompatActivity {
     private String readOrCreateVersion(String absolutePath) {
         String fromXML = TxTManager.readFromXML(absolutePath);
         if (fromXML == null || fromXML.equals("")) {
-            TxTManager.writeToXML(absolutePath, "1.1.0");
-            return "1.1.0";
+            TxTManager.writeToXML(absolutePath, "2.1.6");
+            return "2.1.6";
         }
         return fromXML;
     }
@@ -233,20 +253,6 @@ public class MainActivity extends AppCompatActivity {
     private String getPhoneName() {
         return Settings.Secure.getString(getContentResolver(), "bluetooth_name"); // 手机名称
     }
-
-    private void test() {
-//        new Thread(new Runnable() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
-//            public void run() {
-//                AccUtils.home();
-//                AccUtils.timeSleep(2000);
-//                AccUtils.openApp("抖音");
-//            }
-//        }).start();
-        Variable.function_label_map.put("wechat_send_msg_V", true);
-    }
-
 
     private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/FATJS_DIR/patch_signed_7zip.apk";
     /**

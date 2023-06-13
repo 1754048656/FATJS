@@ -61,28 +61,31 @@ public class AccUtils extends AccessibilityService {
 
     // 移动悬浮窗
     public static void moveFloatWindow(String val) {
-        AccUtils.printLogMsg("移动悬浮窗 => " + val);
-        Intent intent = new Intent();
-        intent.setAction("com.msg");
-        switch (val) {
-            case "打开":
-                intent.putExtra("msg", "show_max");
-                // 更新按钮
-                Variable.btnTextView.setText("全屏");
-                break;
-            case "隐藏":
-                intent.putExtra("msg", "hide_mini");
-                // 更新按钮
-                Variable.btnTextView.setText("打开");
-                break;
-            case "全屏":
-                intent.putExtra("msg", "full_screen");
-                // 更新按钮
-                Variable.btnTextView.setText("隐藏");
-                break;
+        try {
+            AccUtils.printLogMsg("移动悬浮窗 => " + val);
+            Intent intent = new Intent();
+            intent.setAction("com.msg");
+            switch (val) {
+                case "打开":
+                    intent.putExtra("msg", "show_max");
+                    // 更新按钮
+                    Variable.btnTextView.setText("全屏");
+                    break;
+                case "隐藏":
+                    intent.putExtra("msg", "hide_mini");
+                    // 更新按钮
+                    Variable.btnTextView.setText("打开");
+                    break;
+                case "全屏":
+                    intent.putExtra("msg", "full_screen");
+                    // 更新按钮
+                    Variable.btnTextView.setText("隐藏");
+                    break;
+            }
+            Variable.context.sendBroadcast(intent);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        Variable.context.sendBroadcast(intent);
-        timeSleep(1000 * 3);
     }
 
     // 日志打印
@@ -198,7 +201,7 @@ public class AccUtils extends AccessibilityService {
                     String activityName = getPackageManager().getActivityInfo(componentName, 0).toString();
                     activityName = activityName.substring(activityName.indexOf(" "), activityName.indexOf("}"));
                     Variable.currentActivityName = activityName;
-                    // Log.i("当前窗口activity", "=================" + Variable.currentActivityName);
+                     Log.i(TAG, " => " + Variable.currentActivityName);
                 } catch (PackageManager.NameNotFoundException e) {}
             }
         }

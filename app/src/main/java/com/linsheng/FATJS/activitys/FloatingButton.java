@@ -11,7 +11,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,19 +19,12 @@ import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.AccUtils;
 import com.linsheng.FATJS.bean.Variable;
-import com.linsheng.FATJS.rpa.wechatSendMsg.WechatSendMsgService;
-import com.linsheng.FATJS.utils.ExitException;
-
-import java.util.List;
 
 public class FloatingButton extends Service {
     private static final String TAG = "FATJS";
-
     private WindowManager wm;
     private LinearLayout ll;
-
     private int offset_y = -730;
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -44,6 +36,13 @@ public class FloatingButton extends Service {
     public IBinder onBind(Intent intent) {
         Log.i(TAG, "onBind: ");
         return null;
+    }
+
+    private void setTypePhone(WindowManager.LayoutParams parameters) {
+        Log.i(TAG, "onCreate: Build.VERSION.SDK_INT => " + Build.VERSION.SDK_INT);
+        if (Build.VERSION.SDK_INT < 28) {
+            parameters.type = WindowManager.LayoutParams.TYPE_PHONE;
+        }
     }
 
     @Override
@@ -70,9 +69,10 @@ public class FloatingButton extends Service {
 
         // 设置面板
         WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(90, 60, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+        setTypePhone(parameters); //悬浮窗适配低版本安卓
         parameters.x = 20;
         parameters.y = offset_y;
-        parameters.gravity = Gravity.LEFT | Gravity.CENTER;
+        parameters.gravity = Gravity.RIGHT | Gravity.CENTER;
         parameters.setTitle("FATJS");
 
         // 添加元素到面板
@@ -82,11 +82,10 @@ public class FloatingButton extends Service {
         ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 找色测试
-//                findColorTest();
+                // 测试方法
+                //testMethod(); // 这个和下面这个 btnClick() 不能同时开启，只能开一个，否则会冲突
 
-
-                // 点击处理
+                // 改变悬浮窗大小
                 btnClick();
             }
         });
@@ -123,12 +122,15 @@ public class FloatingButton extends Service {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void findColorTest() {
-        // 移动悬浮窗
+    /**
+     * 测试方法
+     */
+    private void testMethod() {
         try {
 
-
+            // 将测试的动作写到这里，点击悬浮船的 打开 按钮，就可以执行
+            AccUtils.printLogMsg("返回桌面"); // 悬浮窗打印日志
+            AccUtils.home();// 返回桌面
 
         } catch (Exception e) {
             e.printStackTrace();

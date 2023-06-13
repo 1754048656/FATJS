@@ -7,21 +7,13 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 public class Variable {
-
     public static String ANDROID_ID = "";
     public static String PHONE_NAME = "";
 
-    // function label map
-    public static HashMap<String, Boolean> function_label_map = new HashMap<String, Boolean>(){{
-        put("wechat_send_msg_V", false); // test wechat
-    }};
-
     // 悬浮窗展示的文字
     public static TextView btnTextView = null;
-
     // 上下文
     public static Context context = null;
-
     // ll
     public static LinearLayout ll = null;
 

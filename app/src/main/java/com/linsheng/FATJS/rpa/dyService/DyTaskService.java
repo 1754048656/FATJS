@@ -1,4 +1,4 @@
-package com.linsheng.FATJS.rpa.wechatSendMsg;
+package com.linsheng.FATJS.rpa.dyService;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -17,20 +17,19 @@ import java.util.Random;
 /**
  * 微信群发
  */
-public class WechatSendMsgService extends TaskBasic {
+public class DyTaskService extends TaskBasic {
 
     private static final String TAG = "FATJS";
-    public WechatSendMsgService() {
+    public DyTaskService() {
         super(TaskTypeEnum.WECHAT_SEND_MESSAGE.getName());
     }
 
     @RequiresApi(24)
     public void main() throws Exception {
-
         try {
             runTask();
         }catch (Exception e) {
-            AccUtils.printLogMsg(ExceptionUtil.toString(e));
+            AccUtils.printLogMsg(ExceptionUtil.toString(e)); //打印异常信息到悬浮窗日志上
             e.printStackTrace();
         }
     }
@@ -38,7 +37,7 @@ public class WechatSendMsgService extends TaskBasic {
     @RequiresApi(24)
     private void runTask() throws ExitException {
         AccUtils.moveFloatWindow("打开");
-        AccUtils.printLogMsg("open Wechat App");
+        AccUtils.printLogMsg("open dy App");
         AccUtils.openApp("抖音");
         AccUtils.timeSleep(waitSixSecond);
         AccessibilityNodeInfo elementByText = AccUtils.findElementByText("我知道了");

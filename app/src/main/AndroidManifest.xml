@@ -45,6 +45,7 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
+<!--        低版本安卓得做适配-->
         <service
             android:name="com.linsheng.FATJS.service.MyService"
             android:enabled="true"
