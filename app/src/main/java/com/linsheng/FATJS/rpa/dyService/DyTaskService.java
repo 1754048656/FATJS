@@ -5,6 +5,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.AccUtils;
+import com.linsheng.FATJS.bean.Variable;
 import com.linsheng.FATJS.enums.TaskTypeEnum;
 import com.linsheng.FATJS.rpa.TaskFactory.TaskBasic;
 import com.linsheng.FATJS.utils.ExceptionUtil;
@@ -39,15 +40,21 @@ public class DyTaskService extends TaskBasic {
         AccUtils.moveFloatWindow("打开");
         AccUtils.printLogMsg("open dy App");
         AccUtils.openApp("抖音");
-        AccUtils.timeSleep(waitSixSecond);
+        AccUtils.timeSleep(waitSixSecond + waitFourSecond);
         AccessibilityNodeInfo elementByText = AccUtils.findElementByText("我知道了");
         if (elementByText != null) {
             AccUtils.clickNodeByPoint(elementByText);
         }
         AccUtils.timeSleep(waitTwoSecond);
 
+        AccessibilityNodeInfo element = AccUtils.findElementByText("以后再说");
+        if (element != null) {
+            AccUtils.clickNodeByPoint(element);
+        }
+        AccUtils.timeSleep(waitTwoSecond);
+
         AccUtils.printLogMsg("点击搜索");
-        AccUtils.clickPoint(1010, 150, 100);
+        AccUtils.clickPoint(Variable.mWidth - 50, 150, 100);
         AccUtils.timeSleep(waitTwoSecond);
         String currentActivityName = AccUtils.getCurrentActivityName();
         Log.i(TAG, "runTask: currentActivityName => " + currentActivityName);
@@ -94,7 +101,12 @@ public class DyTaskService extends TaskBasic {
                 AccUtils.inputTextByNode(nodeInfo, "[赞][赞][赞]");
                 AccUtils.timeSleep(waitOneSecond);
             }
-            AccUtils.clickParentCanClick(AccUtils.findElementByContainDescription("发送"));
+
+            Boolean canClick = AccUtils.clickParentCanClick(AccUtils.findElementByContainDescription("发送"));
+            if (!canClick) {
+                AccUtils.clickParentCanClick(AccUtils.findElementByText("发送"));
+            }
+
             AccUtils.timeSleep(waitTwoSecond);
 
             AccUtils.printLogMsg("swipe to next video");
