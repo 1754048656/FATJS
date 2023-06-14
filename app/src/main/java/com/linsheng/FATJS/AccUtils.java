@@ -897,7 +897,7 @@ public class AccUtils extends AccessibilityService {
         x1 = x1 + new Random().nextInt(9) - 4;
         y1 = y1 + new Random().nextInt(9) - 4;
         printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
-        if (x1 > Variable.mWidth || y1 > 2222 || x1 < 0 || y1 < 0) {   // 2220是荣耀20i下面的导航栏按钮
+        if (x1 > Variable.mWidth || y1 > Variable.mHeight || x1 < 0 || y1 < 0) {   // 2220是荣耀20i下面的导航栏按钮
             printLogMsg("Variable.mWidth: " + Variable.mWidth);
             printLogMsg("Variable.mHeight: " + Variable.mHeight);
             printLogMsg("超出了点击范围");
