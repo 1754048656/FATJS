@@ -14,23 +14,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class TxTManager {
-    public static String rootXMLPath = Environment.getExternalStorageDirectory().getPath() + "/testTXT";
-
     private static final String TAG = "FATJS";
 
     /**
      * 保存内容到TXT文件中
      */
-    public static boolean writeToXML(String fileName, String content) {
-//        boolean hasSDCard = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-//        if (hasSDCard) {
-//            fileName = Environment.getExternalStorageDirectory().toString() + File.separator+"/test/" + fileName +".txt";
-//        } else{
-//            fileName = Environment.getDownloadCacheDirectory().toString() + File.separator +"/test/" +fileName + ".txt";
-//        }
+    public static boolean writeToTxt(String fileName, String content) {
         FileOutputStream fileOutputStream;
         BufferedWriter bufferedWriter;
-        createDirectory(rootXMLPath);
         File file = new File(fileName);
         try {
             file.createNewFile();
@@ -39,7 +30,7 @@ public class TxTManager {
             bufferedWriter.write(content);
             bufferedWriter.close();
         } catch (IOException e) {
-            Log.e(TAG, "writeToXML: java.io.FileNotFoundException: version.txt: open failed: EACCES (Permission denied)");
+            Log.e(TAG, "writeToTxt: java.io.FileNotFoundException: version.txt: open failed: EACCES (Permission denied)");
             return false;
         }
         return true;
@@ -50,7 +41,7 @@ public class TxTManager {
      * @param filePath
      * @return
      */
-    public static String readFromXML(String filePath) {
+    public static String readFromTxt(String filePath) {
         FileInputStream fileInputStream;
         BufferedReader bufferedReader;
         StringBuilder stringBuilder = new StringBuilder();
@@ -65,10 +56,10 @@ public class TxTManager {
                 }
                 bufferedReader.close();
             } catch (FileNotFoundException e) {
-                Log.e(TAG, "readFromXML: FileNotFoundException");
+                Log.e(TAG, "readFromTxt: FileNotFoundException");
                 return null;
             } catch (IOException e) {
-                Log.e(TAG, "readFromXML: IOException");
+                Log.e(TAG, "readFromTxt: IOException");
                 return null;
             }
         }

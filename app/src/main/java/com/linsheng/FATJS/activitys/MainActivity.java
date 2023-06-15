@@ -45,7 +45,7 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "FATJS";
     File patch_signed_7zip = null;
-    private String readFromXML;
+    private String readFromTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list_view);
         //3、准备数据
         String[] data={
-                "版本号 => " + readFromXML,
+                "版本号 => " + readFromTxt,
                 "开启无障碍",
                 "开始任务",
                 //"ANDROID_ID: " + Variable.ANDROID_ID,
@@ -205,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 读取version.txt的版本号
         File versionFile = new File(Environment.getExternalStorageDirectory() + "/FATJS_DIR/version.txt");
-        readFromXML = readOrCreateVersion(versionFile.getAbsolutePath());
-        readFromXML = readFromXML.trim();
+        readFromTxt = readOrCreateVersion(versionFile.getAbsolutePath());
+        readFromTxt = readFromTxt.trim();
     }
 
     private void openForwardService() {
@@ -241,9 +241,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String readOrCreateVersion(String absolutePath) {
-        String fromXML = TxTManager.readFromXML(absolutePath);
+        String fromXML = TxTManager.readFromTxt(absolutePath);
         if (fromXML == null || fromXML.equals("")) {
-            TxTManager.writeToXML(absolutePath, "2.1.6");
+            TxTManager.writeToTxt(absolutePath, "2.1.6");
             return "2.1.6";
         }
         return fromXML;
