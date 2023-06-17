@@ -56,7 +56,7 @@ public class FloatingWindow extends Service {
             if ("hide_mini".equals(intent.getStringExtra("msg"))) {
                 Log.i(TAG, "onReceive: hide_mini");
                 // 隐藏悬浮窗相关
-                WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(80, 40, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+                WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(30, 30, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
                 setTypePhone(parameters); //悬浮窗适配低版本安卓
                 parameters.x = 0;
                 parameters.y = 0;
@@ -178,7 +178,7 @@ public class FloatingWindow extends Service {
 //        parameters.y = offset_y;
 //        parameters.gravity = Gravity.LEFT | Gravity.TOP;
 
-        WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(80, 40, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+        WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(30, 30, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
         setTypePhone(parameters); //悬浮窗适配低版本安卓
         parameters.x = 0;
         parameters.y = 0;

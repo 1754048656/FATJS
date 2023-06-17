@@ -24,7 +24,7 @@ public class FloatingButton extends Service {
     private static final String TAG = "FATJS";
     private WindowManager wm;
     private LinearLayout ll;
-    private int offset_y = -730;
+    private int offset_y = 300;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -55,7 +55,7 @@ public class FloatingButton extends Service {
 
         ViewGroup.LayoutParams txtParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Variable.btnTextView.setText("打开");
-        Variable.btnTextView.setTextSize(13);
+        Variable.btnTextView.setTextSize(10);
         Variable.btnTextView.setTextColor(Color.argb(200,10,250,0));
         Variable.btnTextView.setPadding(5,2,5,5);
         Variable.btnTextView.setLayoutParams(txtParameters);
@@ -68,11 +68,11 @@ public class FloatingButton extends Service {
         ll.setLayoutParams(llParameters);
 
         // 设置面板
-        WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(90, 60, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+        WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(80, 45, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
         setTypePhone(parameters); //悬浮窗适配低版本安卓
         parameters.x = 20;
         parameters.y = offset_y;
-        parameters.gravity = Gravity.RIGHT | Gravity.CENTER;
+        parameters.gravity = Gravity.RIGHT | Gravity.TOP;
         parameters.setTitle("FATJS");
 
         // 添加元素到面板
