@@ -7,5 +7,3 @@
     android:notificationTimeout="20"
     android:canPerformGestures="true"
      />
-
-<!--  |typeWindowsChanged|typeWindowContentChanged|typeAllMask -->
