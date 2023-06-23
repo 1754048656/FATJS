@@ -34,6 +34,7 @@ import com.linsheng.FATJS.AccUtils;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.bean.Variable;
 import com.linsheng.FATJS.config.WindowPermissionCheck;
+import com.linsheng.FATJS.rpa.dingdingService.DingDingService;
 import com.linsheng.FATJS.rpa.dyService.DyTaskService;
 import com.linsheng.FATJS.service.MyService;
 import com.linsheng.FATJS.utils.TxTManager;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 任务开始入口
-    private void start_run() {
+    private void start_run_dy() {
         new Thread(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -94,6 +95,23 @@ public class MainActivity extends AppCompatActivity {
 
                     DyTaskService dyTaskService = new DyTaskService();
                     dyTaskService.main();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void start_run_dingding() {
+        new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                try {
+
+                    DingDingService dingDingService = new DingDingService();
+                    dingDingService.main();
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -125,11 +143,14 @@ public class MainActivity extends AppCompatActivity {
         String[] data={
                 "版本号 => " + readFromTxt,
                 "开启无障碍",
-                "开始任务",
+                "抖音浏览视频并打印标题",
+                "钉钉打卡",
                 //"ANDROID_ID: " + Variable.ANDROID_ID,
                 //"PHONE_NAME: " + Variable.PHONE_NAME,
                 //"load fix patch",
                 "跳转到设置无障碍页面",
+                "仅用于学习交流，切勿用于非法途径，否则与作者无关",
+                "代码开源 GitHub 搜索 FATJS",
         };
         //4、创建适配器 连接数据源和控件的桥梁
         //参数 1：当前的上下文环境
@@ -154,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchResult(String result, View view) {
         // 跳转无障碍页面
-        if (result.equals("to acc")) {
+        if (result.equals("跳转到设置无障碍页面")) {
             startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
             return;
         }
@@ -163,6 +184,16 @@ public class MainActivity extends AppCompatActivity {
         if (result.equals("load fix patch")) {
             // loadBtn = (TextView)view;
             loadPatch();
+            return;
+        }
+
+        // 仅用于学习交流，切勿用于非法途径
+        if (result.equals("仅用于学习交流，切勿用于非法途径，否则与作者无关")) {
+            return;
+        }
+
+        // 代码开源 GitHub 搜索 FATJS
+        if (result.equals("代码开源 GitHub 搜索 FATJS")) {
             return;
         }
 
@@ -181,8 +212,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            if (result.equals("开始任务")) {
-                start_run();
+            if (result.equals("抖音浏览视频并打印标题")) {
+                start_run_dy();
+            }
+
+            if (result.equals("钉钉打卡")) {
+                start_run_dingding();
             }
         }
     }

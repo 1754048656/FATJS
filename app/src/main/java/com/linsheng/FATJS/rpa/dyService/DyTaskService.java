@@ -1,4 +1,5 @@
 package com.linsheng.FATJS.rpa.dyService;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 微信群发
+ * 抖音浏览视频并打印标题
  */
 public class DyTaskService extends TaskBasic {
 
@@ -40,95 +41,147 @@ public class DyTaskService extends TaskBasic {
         AccUtils.moveFloatWindow("打开");
         AccUtils.printLogMsg("open dy App");
         AccUtils.openApp("抖音");
-        AccUtils.timeSleep(waitSixSecond + waitFourSecond);
-        AccessibilityNodeInfo elementByText = AccUtils.findElementByText("我知道了");
-        if (elementByText != null) {
-            AccUtils.clickNodeByPoint(elementByText);
-        }
-        AccUtils.timeSleep(waitTwoSecond);
+        AccUtils.timeSleep(waitSixSecond + waitTwoSecond);
 
-        AccessibilityNodeInfo element = AccUtils.findElementByText("以后再说");
-        if (element != null) {
-            AccUtils.clickNodeByPoint(element);
-        }
-        AccUtils.timeSleep(waitTwoSecond);
+        for (int i = 0; i < 100; i++) {
 
-        AccUtils.printLogMsg("点击搜索");
-        AccUtils.clickPoint(Variable.mWidth - 50, 150, 100);
-        AccUtils.timeSleep(waitTwoSecond);
-        String currentActivityName = AccUtils.getCurrentActivityName();
-        Log.i(TAG, "runTask: currentActivityName => " + currentActivityName);
-        if (currentActivityName.contains("SearchResultActivity")) {
-            AccUtils.printLogMsg("跳转到了搜索页面");
-        }
-
-        AccUtils.printLogMsg("input text");
-        List<AccessibilityNodeInfo> className = AccUtils.findElementListByContainClassName("android.widget.EditText");
-        if (className != null) {
-            AccessibilityNodeInfo nodeInfo = className.get(0);
-            AccUtils.inputTextByNode(nodeInfo, "Zy52016899");
-            AccUtils.timeSleep(waitOneSecond);
-        }
-
-        AccUtils.printLogMsg("点击搜索按钮");
-        AccUtils.clickNodeByPoint(AccUtils.findElementByText("搜索"));
-        AccUtils.timeSleep(waitFiveSecond);
-
-        AccUtils.printLogMsg("into index page");
-        AccessibilityNodeInfo elementByContainText = AccUtils.findElementByContainText("抖音号：Zy52016899");
-        Log.i(TAG, "findColorTest: elementByContainText => " + elementByContainText);
-        AccUtils.clickNodeByPoint(elementByContainText);
-        AccUtils.timeSleep(waitThreeSecond);
-
-        AccUtils.printLogMsg("into video");
-        List<AccessibilityNodeInfo> recyclerView = AccUtils.findElementListByContainClassName("androidx.recyclerview.widget.RecyclerView");
-        if (recyclerView != null) {
-            AccessibilityNodeInfo info = recyclerView.get(0);
-            AccessibilityNodeInfo child = info.getChild(0);
-            AccUtils.clickNodeByPoint(child);
-        }
-
-        for (int i = 0; i < 3; i++) {
-            AccUtils.timeSleep(waitThreeSecond + new Random().nextInt(waitFourSecond));
-            AccUtils.printLogMsg("double click");
-            AccUtils.doubleClickPoint(540, 1200, 89);
+            // 点掉弹窗
+            AccessibilityNodeInfo elementByText = AccUtils.findElementByText("我知道了");
+            if (elementByText != null) {
+                AccUtils.clickNodeByPoint(elementByText);
+            }
+            AccUtils.timeSleep(waitTwoSecond);
+            AccessibilityNodeInfo element = AccUtils.findElementByText("以后再说");
+            if (element != null) {
+                AccUtils.clickNodeByPoint(element);
+            }
+            AccUtils.timeSleep(waitTwoSecond);
+            AccessibilityNodeInfo closeNode = AccUtils.findElementByText("关闭");
+            if (closeNode != null) {
+                AccUtils.clickNodeByPoint(closeNode);
+            }
             AccUtils.timeSleep(waitTwoSecond);
 
-            AccUtils.printLogMsg("comment");
-            List<AccessibilityNodeInfo> edit = AccUtils.findElementListByContainClassName("android.widget.EditText");
-            if (edit != null) {
-                AccessibilityNodeInfo nodeInfo = edit.get(0);
-                AccUtils.inputTextByNode(nodeInfo, "[赞][赞][赞]");
-                AccUtils.timeSleep(waitOneSecond);
-            }
+            String videoDesc = currentVideoDesc();
+            AccUtils.printLogMsg("标题 => " + videoDesc);
+            AccUtils.timeSleep(new Random().nextInt(waitSixSecond));
 
-            Boolean canClick = AccUtils.clickParentCanClick(AccUtils.findElementByContainDescription("发送"));
-            if (!canClick) {
-                AccUtils.clickParentCanClick(AccUtils.findElementByText("发送"));
-            }
-
+            AccUtils.printLogMsg("向下滑动");
+            AccUtils.swipe(610, Variable.mHeight - 230, 620, 120, 420);
             AccUtils.timeSleep(waitTwoSecond);
 
-            AccUtils.printLogMsg("swipe to next video");
-            AccUtils.swipe(540,1920, 530, 250, 500);
-            AccUtils.timeSleep(waitThreeSecond);
         }
+    }
 
-        AccUtils.back();
-        AccUtils.timeSleep(waitTwoSecond);
 
-        List<AccessibilityNodeInfo> byContainText = AccUtils.findElementListByContainText("关注");
-        if (byContainText != null) {
-            AccUtils.clickNodeByPoint(byContainText.get(1));
-            AccUtils.timeSleep(waitThreeSecond);
+    /**
+     * 获取当前视频的标题
+     * @return
+     * @throws ExitException
+     */
+    private String currentVideoDesc() throws ExitException {
+        try {
+            List<AccessibilityNodeInfo> listByContainId = AccUtils.findElementListByContainId("com.ss.android.ugc.aweme:id/desc");
+            if (listByContainId != null) {
+                for (AccessibilityNodeInfo nodeInfo : listByContainId) {
+                    Rect rect = new Rect();
+                    nodeInfo.getBoundsInScreen(rect);
+                    if (rect.left >= Variable.mWidth || rect.left < 10 || rect.top >= Variable.mHeight || rect.top < 900) {
+                        continue;
+                    }
+                    String tmp = String.valueOf(nodeInfo.getText());
+                    Log.i(TAG, "test_2: nodeInfo => " + tmp + " point => " + rect.left + ", " + rect.top);
+                    return tmp;
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            AccUtils.printLogMsg(ExceptionUtil.toString(e));
         }
-
-        AccUtils.home();
-
-
+        return null;
+    }
 
 
-//        AccUtils
+
+
+
+
+
+
+
+
+
+//        AccUtils.printLogMsg("点击搜索");
+//        AccUtils.clickPoint(Variable.mWidth - 50, 150, 100);
+//        AccUtils.timeSleep(waitTwoSecond);
+//        String currentActivityName = AccUtils.getCurrentActivityName();
+//        Log.i(TAG, "runTask: currentActivityName => " + currentActivityName);
+//        if (currentActivityName.contains("SearchResultActivity")) {
+//            AccUtils.printLogMsg("跳转到了搜索页面");
+//        }
+//
+//        AccUtils.printLogMsg("input text");
+//        List<AccessibilityNodeInfo> className = AccUtils.findElementListByContainClassName("android.widget.EditText");
+//        if (className != null) {
+//            AccessibilityNodeInfo nodeInfo = className.get(0);
+//            AccUtils.inputTextByNode(nodeInfo, "Zy52016899");
+//            AccUtils.timeSleep(waitOneSecond);
+//        }
+//
+//        AccUtils.printLogMsg("点击搜索按钮");
+//        AccUtils.clickNodeByPoint(AccUtils.findElementByText("搜索"));
+//        AccUtils.timeSleep(waitFiveSecond);
+//
+//        AccUtils.printLogMsg("into index page");
+//        AccessibilityNodeInfo elementByContainText = AccUtils.findElementByContainText("抖音号：Zy52016899");
+//        Log.i(TAG, "findColorTest: elementByContainText => " + elementByContainText);
+//        AccUtils.clickNodeByPoint(elementByContainText);
+//        AccUtils.timeSleep(waitThreeSecond);
+//
+//        AccUtils.printLogMsg("into video");
+//        List<AccessibilityNodeInfo> recyclerView = AccUtils.findElementListByContainClassName("androidx.recyclerview.widget.RecyclerView");
+//        if (recyclerView != null) {
+//            AccessibilityNodeInfo info = recyclerView.get(0);
+//            AccessibilityNodeInfo child = info.getChild(0);
+//            AccUtils.clickNodeByPoint(child);
+//        }
+//
+//        for (int i = 0; i < 3; i++) {
+//            AccUtils.timeSleep(waitThreeSecond + new Random().nextInt(waitFourSecond));
+//            AccUtils.printLogMsg("double click");
+//            AccUtils.doubleClickPoint(540, 1200, 89);
+//            AccUtils.timeSleep(waitTwoSecond);
+//
+//            AccUtils.printLogMsg("comment");
+//            List<AccessibilityNodeInfo> edit = AccUtils.findElementListByContainClassName("android.widget.EditText");
+//            if (edit != null) {
+//                AccessibilityNodeInfo nodeInfo = edit.get(0);
+//                AccUtils.inputTextByNode(nodeInfo, "[赞][赞][赞]");
+//                AccUtils.timeSleep(waitOneSecond);
+//            }
+//
+//            Boolean canClick = AccUtils.clickParentCanClick(AccUtils.findElementByContainDescription("发送"));
+//            if (!canClick) {
+//                AccUtils.clickParentCanClick(AccUtils.findElementByText("发送"));
+//            }
+//
+//            AccUtils.timeSleep(waitTwoSecond);
+//
+//            AccUtils.printLogMsg("swipe to next video");
+//            AccUtils.swipe(540,1920, 530, 250, 500);
+//            AccUtils.timeSleep(waitThreeSecond);
+//        }
+//
+//        AccUtils.back();
+//        AccUtils.timeSleep(waitTwoSecond);
+//
+//        List<AccessibilityNodeInfo> byContainText = AccUtils.findElementListByContainText("关注");
+//        if (byContainText != null) {
+//            AccUtils.clickNodeByPoint(byContainText.get(1));
+//            AccUtils.timeSleep(waitThreeSecond);
+//        }
+//
+//        AccUtils.home();
 //        AccUtils.inputTextByNode()
 
 
@@ -156,47 +209,44 @@ public class DyTaskService extends TaskBasic {
 //        for (int i = 0; i < 20; i++) {
 //            readAddressBooks();
 //        }
-
-    }
-
-    private static List<String> nameItemList = new ArrayList<>();
-
-    private void readAddressBooks() throws ExitException {
-        AccessibilityNodeInfo targetClassNameNode = findTargetClassNameNode();
-        if (targetClassNameNode != null) {
-            int childCount = targetClassNameNode.getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                AccessibilityNodeInfo nodeChild = targetClassNameNode.getChild(i);
-                List<AccessibilityNodeInfo> listByClassName = AccUtils.findElementListByContainClassName(nodeChild, "android.widget.TextView");
-                if (listByClassName != null && listByClassName.size() > 0) {
-                    AccessibilityNodeInfo nodeInfo = listByClassName.get(0);
-                    String nameItem = String.valueOf(nodeInfo.getText());
-                    if (nameItem.length() > 1) {
-                        AccUtils.printLogMsg("=> " + nameItem);
-                        nameItemList.add(nameItem);
-                    }
-                }
-            }
-            targetClassNameNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
-            AccUtils.timeSleep(waitThreeSecond);
-        }
-
-    }
-
-    public static AccessibilityNodeInfo findTargetClassNameNode() throws ExitException {
-        List<AccessibilityNodeInfo> listByClassName = AccUtils.findElementListByContainClassName("androidx.recyclerview.widget.RecyclerView");
-        AccessibilityNodeInfo targetClassNameNode = null;
-        if (listByClassName != null && listByClassName.size() > 0) {
-            for (AccessibilityNodeInfo classNameNode : listByClassName) {
-                if (classNameNode.isScrollable()) {
-                    AccUtils.printLogMsg("found classNameNode => " + classNameNode.getClassName() + " isScrollable => " + classNameNode.isScrollable());
-                    targetClassNameNode = classNameNode;
-                    return targetClassNameNode;
-                }
-            }
-        }else {
-            AccUtils.printLogMsg("not found tableRow");
-        }
-        return null;
-    }
+//    private static List<String> nameItemList = new ArrayList<>();
+//
+//    private void readAddressBooks() throws ExitException {
+//        AccessibilityNodeInfo targetClassNameNode = findTargetClassNameNode();
+//        if (targetClassNameNode != null) {
+//            int childCount = targetClassNameNode.getChildCount();
+//            for (int i = 0; i < childCount; i++) {
+//                AccessibilityNodeInfo nodeChild = targetClassNameNode.getChild(i);
+//                List<AccessibilityNodeInfo> listByClassName = AccUtils.findElementListByContainClassName(nodeChild, "android.widget.TextView");
+//                if (listByClassName != null && listByClassName.size() > 0) {
+//                    AccessibilityNodeInfo nodeInfo = listByClassName.get(0);
+//                    String nameItem = String.valueOf(nodeInfo.getText());
+//                    if (nameItem.length() > 1) {
+//                        AccUtils.printLogMsg("=> " + nameItem);
+//                        nameItemList.add(nameItem);
+//                    }
+//                }
+//            }
+//            targetClassNameNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+//            AccUtils.timeSleep(waitThreeSecond);
+//        }
+//
+//    }
+//
+//    public static AccessibilityNodeInfo findTargetClassNameNode() throws ExitException {
+//        List<AccessibilityNodeInfo> listByClassName = AccUtils.findElementListByContainClassName("androidx.recyclerview.widget.RecyclerView");
+//        AccessibilityNodeInfo targetClassNameNode = null;
+//        if (listByClassName != null && listByClassName.size() > 0) {
+//            for (AccessibilityNodeInfo classNameNode : listByClassName) {
+//                if (classNameNode.isScrollable()) {
+//                    AccUtils.printLogMsg("found classNameNode => " + classNameNode.getClassName() + " isScrollable => " + classNameNode.isScrollable());
+//                    targetClassNameNode = classNameNode;
+//                    return targetClassNameNode;
+//                }
+//            }
+//        }else {
+//            AccUtils.printLogMsg("not found tableRow");
+//        }
+//        return null;
+//    }
 }

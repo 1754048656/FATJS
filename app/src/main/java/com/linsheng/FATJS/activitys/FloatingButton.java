@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +21,8 @@ import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.AccUtils;
 import com.linsheng.FATJS.bean.Variable;
+
+import java.util.List;
 
 public class FloatingButton extends Service {
     private static final String TAG = "FATJS";
@@ -80,15 +84,33 @@ public class FloatingButton extends Service {
         wm.addView(ll, parameters);
 
         ll.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
+
                 // 测试方法
-                //testMethod(); // 这个和下面这个 btnClick() 不能同时开启，只能开一个，否则会冲突
+                testMethodPre(); // 这个和下面这个 btnClick() 不能同时开启，只能开一个，否则会冲突
 
                 // 改变悬浮窗大小
-                btnClick();
+//                btnClick();
+
             }
         });
+    }
+
+    private void testMethodPre() {
+        new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                try {
+                    // 测试方法
+                    testMethod();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void btnClick() {
@@ -125,15 +147,12 @@ public class FloatingButton extends Service {
     /**
      * 测试方法
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void testMethod() {
-        try {
 
-            // 将测试的动作写到这里，点击悬浮船的 打开 按钮，就可以执行
-            AccUtils.printLogMsg("返回桌面"); // 悬浮窗打印日志
-            AccUtils.home();// 返回桌面
+        // 将测试的动作写到这里，点击悬浮船的 打开 按钮，就可以执行
+        AccUtils.moveFloatWindow("打开");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 }
