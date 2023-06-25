@@ -105,7 +105,7 @@ public class FloatingWindow extends Service {
     }
     private void setTypePhone(WindowManager.LayoutParams parameters) {
         Log.i(TAG, "onCreate: Build.VERSION.SDK_INT => " + Build.VERSION.SDK_INT);
-        if (Build.VERSION.SDK_INT < 28) {
+        if (Build.VERSION.SDK_INT < 27) {
             parameters.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
     }

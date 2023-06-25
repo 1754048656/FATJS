@@ -21,6 +21,8 @@ import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.AccUtils;
 import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.utils.ExceptionUtil;
+import com.linsheng.FATJS.utils.ExitException;
 
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class FloatingButton extends Service {
 
     private void setTypePhone(WindowManager.LayoutParams parameters) {
         Log.i(TAG, "onCreate: Build.VERSION.SDK_INT => " + Build.VERSION.SDK_INT);
-        if (Build.VERSION.SDK_INT < 28) {
+        if (Build.VERSION.SDK_INT < 27) {
             parameters.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
     }
@@ -89,10 +91,10 @@ public class FloatingButton extends Service {
             public void onClick(View v) {
 
                 // 测试方法
-                testMethodPre(); // 这个和下面这个 btnClick() 不能同时开启，只能开一个，否则会冲突
+//                testMethodPre(); // 这个和下面这个 btnClick() 不能同时开启，只能开一个，否则会冲突
 
                 // 改变悬浮窗大小
-//                btnClick();
+                btnClick();
 
             }
         });
@@ -148,11 +150,59 @@ public class FloatingButton extends Service {
      * 测试方法
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void testMethod() {
+    private void testMethod() throws ExitException {
 
         // 将测试的动作写到这里，点击悬浮船的 打开 按钮，就可以执行
         AccUtils.moveFloatWindow("打开");
+        String videoDesc = currentVideoDesc();
+        AccUtils.printLogMsg("videoDesc => " + videoDesc);
 
+        List<AccessibilityNodeInfo> listByContainId = AccUtils.findElementListByContainText("进入直播间");
+        if (listByContainId != null) {
+            for (AccessibilityNodeInfo nodeInfo : listByContainId) {
+                Log.i(TAG, "currentVideoDesc: node => " + nodeInfo);
+            }
+
+//                for (AccessibilityNodeInfo nodeInfo : listByContainId) {
+//                    Rect rect = new Rect();
+//                    nodeInfo.getBoundsInScreen(rect);
+//                    if (rect.left >= Variable.mWidth || rect.left < 10 || rect.top >= Variable.mHeight || rect.top < 900) {
+//                        continue;
+//                    }
+//                    String tmp = String.valueOf(nodeInfo.getText());
+//                    Log.i(TAG, "test_2: nodeInfo => " + tmp + " point => " + rect.left + ", " + rect.top);
+//                    return tmp;
+//                }
+        }
 
     }
+
+
+    /**
+     * 获取当前视频的标题
+     * @return
+     * @throws ExitException
+     */
+    private String currentVideoDesc() throws ExitException {
+        try {
+            List<AccessibilityNodeInfo> listByContainId = AccUtils.findElementListByContainId("com.ss.android.ugc.aweme:id/desc");
+            if (listByContainId != null) {
+                for (AccessibilityNodeInfo nodeInfo : listByContainId) {
+                    Rect rect = new Rect();
+                    nodeInfo.getBoundsInScreen(rect);
+                    if (rect.left >= Variable.mWidth || rect.left < 10 || rect.top >= Variable.mHeight || rect.top < 900) {
+                        continue;
+                    }
+                    String tmp = String.valueOf(nodeInfo.getText());
+                    Log.i(TAG, "test_2: nodeInfo => " + tmp + " point => " + rect.left + ", " + rect.top);
+                    return tmp;
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            AccUtils.printLogMsg(ExceptionUtil.toString(e));
+        }
+        return null;
+    }
+
 }
