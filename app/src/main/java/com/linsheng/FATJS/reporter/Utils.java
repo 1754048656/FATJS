@@ -23,6 +23,7 @@ import android.content.IntentFilter;
 import android.os.Environment;
 import android.os.StatFs;
 
+import com.linsheng.FATJS.bean.Variable;
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
@@ -32,7 +33,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 public class Utils {
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
 
     /**
      * the error code define by myself

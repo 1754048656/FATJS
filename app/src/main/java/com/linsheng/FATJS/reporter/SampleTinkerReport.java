@@ -16,13 +16,14 @@
 
 package com.linsheng.FATJS.reporter;
 
+import com.linsheng.FATJS.bean.Variable;
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 
 
 public class SampleTinkerReport {
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
 
     // KEY - PV
     public static final int KEY_REQUEST                   = 0;

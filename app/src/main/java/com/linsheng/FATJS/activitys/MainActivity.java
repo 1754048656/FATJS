@@ -1,25 +1,23 @@
 package com.linsheng.FATJS.activitys;
 
+import static com.linsheng.FATJS.bean.Variable.*;
+import static com.linsheng.FATJS.node.AccUtils.*;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.graphics.Point;
-import android.hardware.display.VirtualDisplay;
-import android.media.ImageReader;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,12 +28,10 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.linsheng.FATJS.AccUtils;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.bean.Variable;
 import com.linsheng.FATJS.config.WindowPermissionCheck;
-import com.linsheng.FATJS.rpa.dingdingService.DingDingService;
-import com.linsheng.FATJS.rpa.dyService.DyTaskService;
+import com.linsheng.FATJS.script.dyService.DyTaskService;
 import com.linsheng.FATJS.service.MyService;
 import com.linsheng.FATJS.utils.TxTManager;
 import com.cmcy.rxpermissions2.RxPermissions;
@@ -44,7 +40,6 @@ import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "FATJS";
     File patch_signed_7zip = null;
     private String readFromTxt;
 
@@ -52,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate()被调用了");
+        printLogMsg("onCreate() is run");
 
         Variable.context = this.getApplicationContext();
 
@@ -73,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         // 在其他应用上层显示
         boolean permission = WindowPermissionCheck.checkPermission(this);
         if (permission) {
-            Log.i(TAG, "onCreate: permission true => " + permission);
+            printLogMsg("onCreate: permission true => " + permission);
             // 打开悬浮窗
             startService(new Intent(Variable.context, FloatingButton.class));
             // 打开悬浮窗
@@ -103,22 +98,6 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void start_run_dingding() {
-        new Thread(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void run() {
-                try {
-
-                    DingDingService dingDingService = new DingDingService();
-                    dingDingService.main();
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -141,16 +120,15 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list_view);
         //3、准备数据
         String[] data={
-                "版本号 => " + readFromTxt,
+                //"版本号 => 2.1.6",
+                "测试",
                 "开启无障碍",
-                "抖音浏览视频并打印标题",
-                "钉钉打卡",
                 //"ANDROID_ID: " + Variable.ANDROID_ID,
                 //"PHONE_NAME: " + Variable.PHONE_NAME,
                 //"load fix patch",
                 "跳转到设置无障碍页面",
-                "仅用于学习交流，切勿用于非法途径，否则与作者无关",
                 "代码开源 GitHub 搜索 FATJS",
+                "仅用于学习交流，切勿用于非法途径，否则与作者无关",
         };
         //4、创建适配器 连接数据源和控件的桥梁
         //参数 1：当前的上下文环境
@@ -204,29 +182,29 @@ public class MainActivity extends AppCompatActivity {
             // 初始化
             if (result.equals("init webSocket")) {
                 // 移动悬浮窗
-                Variable.btnTextView.setText("全屏");
+                btnTextView.setText("全屏");
                 Intent intent = new Intent();
                 intent.setAction("com.msg");
                 intent.putExtra("msg", "show_max");
-                Variable.context.sendBroadcast(intent);
-
+                context.sendBroadcast(intent);
             }
 
-            if (result.equals("抖音浏览视频并打印标题")) {
+            if (result.equals("测试")) {
                 start_run_dy();
             }
 
-            if (result.equals("钉钉打卡")) {
-                start_run_dingding();
-            }
         }
     }
 
     public void initDisplay() {
         DisplayMetrics dm = new DisplayMetrics();//屏幕度量
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Display defaultDisplay = getWindowManager().getDefaultDisplay();
+        defaultDisplay.getRealMetrics(dm);
         Variable.mWidth = dm.widthPixels;//宽度
-        Variable.mHeight = dm.heightPixels ;//高度
+        Variable.mHeight = dm.heightPixels;//高度
+        DisplayMetrics __dm = new DisplayMetrics();//屏幕度量
+        getWindowManager().getDefaultDisplay().getMetrics(__dm);
+        Variable.__mHeight = __dm.heightPixels;//去掉导航栏和状态栏的高度
     }
 
     private void readIDFromSdcard() {
@@ -234,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
         File dirFile = new File(Environment.getExternalStorageDirectory() + "/FATJS_DIR");
         if (!dirFile.exists()) {
             if (dirFile.mkdir()) {
-                Log.i(TAG, "onCreate: FATJS_DIR 目录创建成功");
+                printLogMsg( "onCreate: FATJS_DIR 目录创建成功");
             }
         }
 
@@ -252,12 +230,12 @@ public class MainActivity extends AppCompatActivity {
     private void getPhoneInfo() {
         // 获取 ANDROID_ID
         Variable.ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
-        Log.i(TAG, "attachBaseContext: ANDROID_ID--->" + Variable.ANDROID_ID);
+        printLogMsg( "attachBaseContext: ANDROID_ID--->" + Variable.ANDROID_ID);
 
         // 获取手机名称
         String phoneName = getPhoneName();
         Variable.PHONE_NAME = phoneName;
-        Log.i(TAG, "onCreate: phoneName => " + phoneName);
+        printLogMsg( "onCreate: phoneName => " + phoneName);
     }
 
     // 获取 sdcard 读写权限
@@ -307,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
             }).start();
 
         }else {
-            Log.i(TAG, "loadPatch: no patch_signed_7zip");
+            printLogMsg( "loadPatch: no patch_signed_7zip");
             Toast.makeText(Variable.context, "no patch_signed_7zip", Toast.LENGTH_LONG).show();
         }
     }
@@ -318,8 +296,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {//重写onStart方法
         super.onStart();
-
-        Log.i(TAG, "onStart()");
 
         if (dataReceiver == null) {
             dataReceiver = new DataReceiver();
@@ -334,8 +310,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Variable.broadcast_map.put("jumpUid", false);
-            Log.i(TAG, "onReceive广播: " + intent.getAction());
-            Log.i(TAG, "onReceive: param -> " + intent.getStringExtra("tem"));
+            printLogMsg( "onReceive广播: " + intent.getAction());
+            printLogMsg( "onReceive: param -> " + intent.getStringExtra("tem"));
 
             // UID跳转
             Intent intentToUri = new Intent();
@@ -348,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
     public Boolean isAccessibilityServiceOn() {
         try{
             String packageName = this.getPackageName();
-            Log.i(TAG, "isAccessibilityServiceOn: packageName => " + packageName);
+            //printLogMsg( "isAccessibilityServiceOn: packageName => " + packageName);
             String service = packageName + "/" + packageName + ".MyAccessibilityService";
             int enabled = Settings.Secure.getInt(Variable.context.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
             TextUtils.SimpleStringSplitter splitter = new TextUtils.SimpleStringSplitter(':');
@@ -373,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Log.i(TAG, "onDestroy: 销毁了");
+        printLogMsg( "onDestroy: 销毁了");
         super.onDestroy();
     }
 }

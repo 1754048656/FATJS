@@ -32,7 +32,7 @@ import com.tencent.tinker.lib.tinker.Tinker;
 @SuppressWarnings("unused")
 //@DefaultLifeCycle(application = "com.example.tinkertest.reporter.SampleApplication", flags = ShareConstants.TINKER_ENABLE_ALL, loadVerifyFlag = false)
 public class SampleApplicationLike extends DefaultApplicationLike {
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
 
     public SampleApplicationLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag,
                                  long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {

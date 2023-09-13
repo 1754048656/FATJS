@@ -16,6 +16,7 @@
 
 package com.linsheng.FATJS.reporter;
 
+import com.linsheng.FATJS.bean.Variable;
 import com.tencent.tinker.entry.ApplicationLike;
 import com.tencent.tinker.lib.listener.PatchListener;
 import com.tencent.tinker.lib.patch.AbstractPatch;
@@ -27,7 +28,7 @@ import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.lib.util.UpgradePatchRetry;
 
 public class TinkerManager {
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
 
     private static ApplicationLike applicationLike;
     private static boolean isInstalled = false;

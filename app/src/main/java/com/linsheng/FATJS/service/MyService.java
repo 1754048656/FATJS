@@ -11,8 +11,10 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.linsheng.FATJS.bean.Variable;
+
 public class MyService extends Service {
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
     public MyService() {
     }
 

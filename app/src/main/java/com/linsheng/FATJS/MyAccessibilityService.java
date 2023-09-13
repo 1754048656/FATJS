@@ -1,18 +1,13 @@
 package com.linsheng.FATJS;
 
-import android.os.Environment;
 import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.RequiresApi;
 
-import com.linsheng.FATJS.rpa.dyService.DyTaskService;
-import com.linsheng.FATJS.utils.TimeUtil;
-
-import java.io.File;
+import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.node.AccUtils;
 
 public class MyAccessibilityService extends AccUtils {
-
-    private static final String TAG = "FATJS";
 
     public MyAccessibilityService() {
     }

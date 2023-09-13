@@ -20,6 +20,7 @@ import android.content.Context;
 import android.os.Looper;
 import android.os.MessageQueue;
 
+import com.linsheng.FATJS.bean.Variable;
 import com.tencent.tinker.lib.reporter.DefaultLoadReporter;
 import com.tencent.tinker.lib.util.UpgradePatchRetry;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
@@ -28,7 +29,7 @@ import java.io.File;
 
 
 public class SampleLoadReporter extends DefaultLoadReporter {
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
 
     public SampleLoadReporter(Context context) {
         super(context);

@@ -20,6 +20,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.linsheng.FATJS.bean.Variable;
 import com.tencent.tinker.lib.listener.DefaultPatchListener;
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
@@ -30,7 +31,7 @@ import java.io.File;
 import java.util.Properties;
 
 public class SamplePatchListener extends DefaultPatchListener {
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
 
     protected static final long NEW_PATCH_RESTRICTION_SPACE_SIZE_MIN = 60 * 1024 * 1024;
 

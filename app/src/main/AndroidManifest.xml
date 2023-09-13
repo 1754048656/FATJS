@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.linsheng.FATJS">
 
-    <!--    sdcard 读写权限  -->
+    <!-- sdcard 读写权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE"/>
@@ -45,7 +45,7 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
-<!--        低版本安卓得做适配-->
+        <!-- 低版本安卓得做适配 -->
         <service
             android:name="com.linsheng.FATJS.service.MyService"
             android:enabled="true"

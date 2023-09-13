@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
+import com.linsheng.FATJS.bean.Variable;
 import com.tencent.tinker.lib.service.DefaultTinkerResultService;
 import com.tencent.tinker.lib.service.PatchResult;
 import com.tencent.tinker.lib.util.TinkerLog;
@@ -28,7 +29,7 @@ import com.tencent.tinker.lib.util.TinkerServiceInternals;
 import java.io.File;
 
 public class SampleResultService extends DefaultTinkerResultService {
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
 
     @Override
     public void onPatchResult(final PatchResult result) {

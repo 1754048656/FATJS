@@ -1,4 +1,4 @@
-package com.linsheng.FATJS;
+package com.linsheng.FATJS.node;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
@@ -18,17 +18,16 @@ import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.bean.Variable;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AccUtils extends AccessibilityService {
     @SuppressLint("StaticFieldLeak")
     public static AccessibilityService AccessibilityHelper;
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
 
     public AccUtils() {
         AccessibilityHelper = this;
@@ -36,13 +35,6 @@ public class AccUtils extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent accessibilityEvent) {}
-
-    // 暂时没有用到
-    public static final String ACTION = "action";
-    public static final String CLICK = "click";
-    public static final String SLIDE = "slide";
-
-    public static File runTimeFile;
 
     // 返回的节点
     private volatile static AccessibilityNodeInfo nodeInfoOut;
@@ -56,6 +48,22 @@ public class AccUtils extends AccessibilityService {
 
     /**
      ************************************************工具方法*********************************************
+     */
+    // 从字符串中提取第一个整数
+    public static int extractFirstIntFromString(String str){
+        Pattern p = Pattern.compile("\\d+");
+        Matcher m = p.matcher(str);
+
+        int i = -1;
+        if (m.find()){
+            i = Integer.parseInt(m.group());
+            AccUtils.printLogMsg("提取到的第一个整数是：" + i);
+        } else {
+            AccUtils.printLogMsg("在字符串中没有找到整数！");
+        }
+        return i;
+    }
+    /**
      ************************************************工具方法*********************************************
      */
 
@@ -161,7 +169,7 @@ public class AccUtils extends AccessibilityService {
             }
             timeSleep(500);
         }
-        Log.w(TAG, "getRootInActiveMy: do not find window");
+        printLogMsg( "getRootInActiveMy: do not find window");
         throw new StopRunException();
     }
 
@@ -200,8 +208,8 @@ public class AccUtils extends AccessibilityService {
                 try {
                     String activityName = getPackageManager().getActivityInfo(componentName, 0).toString();
                     activityName = activityName.substring(activityName.indexOf(" "), activityName.indexOf("}"));
-                    Variable.currentActivityName = activityName;
-                     Log.i(TAG, " => " + Variable.currentActivityName);
+                    Variable.currentActivityName = activityName.trim();
+                    //Log.i(TAG, " => " + Variable.currentActivityName);
                 } catch (PackageManager.NameNotFoundException e) {}
             }
         }
@@ -380,6 +388,23 @@ public class AccUtils extends AccessibilityService {
      * @param str_param
      * @return
      */
+    public static AccessibilityNodeInfo id(AccessibilityNodeInfo root, String str_param) {
+        try {
+            recursionFindElementById(root, str_param);
+        }catch (StopMsgException e) {
+            return nodeInfoOut;
+        }
+        return null;
+    }
+    public static AccessibilityNodeInfo id(String str_param) {
+        try {
+            AccessibilityNodeInfo root = getRootInActiveMy();
+            recursionFindElementById(root, str_param);
+        }catch (StopMsgException e) {
+            return nodeInfoOut;
+        }
+        return null;
+    }
     public static AccessibilityNodeInfo findElementById(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementById(root, str_param);
@@ -453,6 +478,23 @@ public class AccUtils extends AccessibilityService {
      * @param str_param
      * @return
      */
+    public static AccessibilityNodeInfo text(AccessibilityNodeInfo root, String str_param) {
+        try {
+            recursionFindElementByText(root, str_param);
+        }catch (StopMsgException e) {
+            return nodeInfoOut;
+        }
+        return null;
+    }
+    public static AccessibilityNodeInfo text(String str_param) {
+        try {
+            AccessibilityNodeInfo root = getRootInActiveMy();
+            recursionFindElementByText(root, str_param);
+        }catch (StopMsgException e) {
+            return nodeInfoOut;
+        }
+        return null;
+    }
     public static AccessibilityNodeInfo findElementByText(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementByText(root, str_param);
@@ -570,6 +612,23 @@ public class AccUtils extends AccessibilityService {
      * @param str_param
      * @return
      */
+    public static AccessibilityNodeInfo desc(AccessibilityNodeInfo root, String str_param) {
+        try {
+            recursionFindElementByDescription(root, str_param);
+        }catch (StopMsgException e) {
+            return nodeInfoOut;
+        }
+        return null;
+    }
+    public static AccessibilityNodeInfo desc(String str_param) {
+        try {
+            AccessibilityNodeInfo root = getRootInActiveMy();
+            recursionFindElementByDescription(root, str_param);
+        }catch (StopMsgException e) {
+            return nodeInfoOut;
+        }
+        return null;
+    }
     public static AccessibilityNodeInfo findElementByDescription(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementByDescription(root, str_param);
@@ -757,7 +816,6 @@ public class AccUtils extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
-        Log.e(TAG, "被打断");
     }
 
 
@@ -1000,8 +1058,7 @@ public class AccUtils extends AccessibilityService {
         // 打开应用
         home();
         timeSleep(2 * 1000);
-        clickParentCanClick(findElementByText(appName));
-        return true;
+        return new UiSelector().text(appName).findOne().click();
     }
 
     /**

@@ -15,7 +15,7 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 public class SampleApplication extends TinkerApplication {
 
 
-    private static final String TAG = "FATJS";
+    private static final String TAG = Variable.tag;
 
     public SampleApplication() {
         super(ShareConstants.TINKER_ENABLE_ALL, SampleApplicationLike.class.getName());

@@ -58,12 +58,6 @@ android {
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.4.2'
     implementation 'com.alibaba:fastjson:1.1.54.android'
-    // socket.io-client
-    implementation ('io.socket:socket.io-client:1.0.0') {
-        // excluding org.json which is provided by Android
-        exclude group: 'org.json', module: 'json'
-    }
-
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
