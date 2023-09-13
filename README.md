@@ -11,16 +11,16 @@ https://www.bilibili.com/video/BV1JM4y187Tt/
 ➕v：vxid_7pd10zl5bzqs21
 不定期分享一些自动化开发的干货，群里很多大佬也是做这个的，
 有问题可以在群里提问，群里气氛也是非常活跃
-<br/><img src="https://github.com/1754048656/FATJS/blob/main/img_2.png" width="371" height="500" alt="林笙"/><br/>
+<br/><img src="https://github.com/1754048656/FATJS/blob/main/img_3.png" width="371" height="500" alt="林笙"/><br/>
 
 ### 项目搭建
 #### gradle:
 
-![img.png](img.png)
+![img.png](img_1.png)
 
 #### jdk选11或者8
 
-![img_1.png](img_1.png)
+![img_1.png](img_2.png)
 
 #### 需要注意的点
 1. 不要用市面上常见的自动化工具或者软件，都烂大街了，必定会被检测
