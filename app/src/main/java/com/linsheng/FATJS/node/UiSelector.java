@@ -1,13 +1,12 @@
 package com.linsheng.FATJS.node;
 
-import static com.linsheng.FATJS.bean.Variable.waitOneSecond;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.waitOneSecond;
 
 import android.os.Build;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.RequiresApi;
 
-import com.linsheng.FATJS.bean.Variable;
 import com.linsheng.FATJS.utils.StringUtils;
 
 import java.util.HashMap;

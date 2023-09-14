@@ -1,9 +1,8 @@
 package com.linsheng.FATJS.utils;
 
-import android.os.Environment;
 import android.util.Log;
 
-import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.config.GlobalVariableHolder;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,7 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class TxTManager {
-    private static final String TAG = Variable.tag;
+    private static final String TAG = GlobalVariableHolder.tag;
 
     /**
      * 保存内容到TXT文件中

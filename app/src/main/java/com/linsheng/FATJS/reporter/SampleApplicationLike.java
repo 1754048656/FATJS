@@ -25,14 +25,14 @@ import android.util.Log;
 
 import androidx.multidex.MultiDex;
 
-import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.tencent.tinker.entry.DefaultApplicationLike;
 import com.tencent.tinker.lib.tinker.Tinker;
 
 @SuppressWarnings("unused")
 //@DefaultLifeCycle(application = "com.example.tinkertest.reporter.SampleApplication", flags = ShareConstants.TINKER_ENABLE_ALL, loadVerifyFlag = false)
 public class SampleApplicationLike extends DefaultApplicationLike {
-    private static final String TAG = Variable.tag;
+    private static final String TAG = GlobalVariableHolder.tag;
 
     public SampleApplicationLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag,
                                  long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
@@ -44,7 +44,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         super.onCreate();
         // 这里实现SDK初始化，
         Log.i(TAG, "onCreate: 这里实现SDK初始化");
-        Variable.context = getApplication().getBaseContext();
+        GlobalVariableHolder.context = getApplication().getBaseContext();
     }
 
 

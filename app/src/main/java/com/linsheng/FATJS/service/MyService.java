@@ -11,10 +11,10 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.config.GlobalVariableHolder;
 
 public class MyService extends Service {
-    private static final String TAG = Variable.tag;
+    private static final String TAG = GlobalVariableHolder.tag;
     public MyService() {
     }
 

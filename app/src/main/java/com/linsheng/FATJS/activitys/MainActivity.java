@@ -1,6 +1,6 @@
 package com.linsheng.FATJS.activitys;
 
-import static com.linsheng.FATJS.bean.Variable.*;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.*;
 
 import android.Manifest;
@@ -16,7 +16,6 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +28,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.linsheng.FATJS.R;
-import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.config.WindowPermissionCheck;
 import com.linsheng.FATJS.script.dyService.DyTaskService;
 import com.linsheng.FATJS.service.MyService;
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         printLogMsg("onCreate() is run");
 
-        Variable.context = this.getApplicationContext();
+        GlobalVariableHolder.context = this.getApplicationContext();
 
         // 存储权限
         storagePermissions();
@@ -70,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
         if (permission) {
             printLogMsg("onCreate: permission true => " + permission);
             // 打开悬浮窗
-            startService(new Intent(Variable.context, FloatingButton.class));
+            startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
             // 打开悬浮窗
-            startService(new Intent(Variable.context, FloatingWindow.class));
+            startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
         }
 
         buildAdapter();
@@ -108,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 Toast.makeText(this.getApplicationContext(), "悬浮窗授权成功", Toast.LENGTH_SHORT).show();
                 // 打开悬浮窗
-                startService(new Intent(Variable.context, FloatingButton.class));
+                startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
                 // 打开悬浮窗
-                startService(new Intent(Variable.context, FloatingWindow.class));
+                startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
             }
         }
     }
@@ -200,11 +199,11 @@ public class MainActivity extends AppCompatActivity {
         DisplayMetrics dm = new DisplayMetrics();//屏幕度量
         Display defaultDisplay = getWindowManager().getDefaultDisplay();
         defaultDisplay.getRealMetrics(dm);
-        Variable.mWidth = dm.widthPixels;//宽度
-        Variable.mHeight = dm.heightPixels;//高度
+        mWidth = dm.widthPixels;//宽度
+        mHeight = dm.heightPixels;//高度
         DisplayMetrics __dm = new DisplayMetrics();//屏幕度量
         getWindowManager().getDefaultDisplay().getMetrics(__dm);
-        Variable.__mHeight = __dm.heightPixels;//去掉导航栏和状态栏的高度
+        __mHeight = __dm.heightPixels;//去掉导航栏和状态栏的高度
     }
 
     private void readIDFromSdcard() {
@@ -229,12 +228,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void getPhoneInfo() {
         // 获取 ANDROID_ID
-        Variable.ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
-        printLogMsg( "attachBaseContext: ANDROID_ID--->" + Variable.ANDROID_ID);
+        GlobalVariableHolder.ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
+        printLogMsg( "attachBaseContext: ANDROID_ID--->" + GlobalVariableHolder.ANDROID_ID);
 
         // 获取手机名称
         String phoneName = getPhoneName();
-        Variable.PHONE_NAME = phoneName;
+        GlobalVariableHolder.PHONE_NAME = phoneName;
         printLogMsg( "onCreate: phoneName => " + phoneName);
     }
 
@@ -286,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else {
             printLogMsg( "loadPatch: no patch_signed_7zip");
-            Toast.makeText(Variable.context, "no patch_signed_7zip", Toast.LENGTH_LONG).show();
+            Toast.makeText(GlobalVariableHolder.context, "no patch_signed_7zip", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -309,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
     public class DataReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Variable.broadcast_map.put("jumpUid", false);
+            GlobalVariableHolder.broadcast_map.put("jumpUid", false);
             printLogMsg( "onReceive广播: " + intent.getAction());
             printLogMsg( "onReceive: param -> " + intent.getStringExtra("tem"));
 
@@ -324,12 +323,11 @@ public class MainActivity extends AppCompatActivity {
     public Boolean isAccessibilityServiceOn() {
         try{
             String packageName = this.getPackageName();
-            //printLogMsg( "isAccessibilityServiceOn: packageName => " + packageName);
             String service = packageName + "/" + packageName + ".MyAccessibilityService";
-            int enabled = Settings.Secure.getInt(Variable.context.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
+            int enabled = Settings.Secure.getInt(GlobalVariableHolder.context.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
             TextUtils.SimpleStringSplitter splitter = new TextUtils.SimpleStringSplitter(':');
             if (enabled == 1) {
-                String settingValue = Settings.Secure.getString(Variable.context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+                String settingValue = Settings.Secure.getString(GlobalVariableHolder.context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
                 if (settingValue != null) {
                     splitter.setString(settingValue);
                     while (splitter.hasNext()) {
@@ -349,7 +347,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        printLogMsg( "onDestroy: 销毁了");
         super.onDestroy();
     }
 }

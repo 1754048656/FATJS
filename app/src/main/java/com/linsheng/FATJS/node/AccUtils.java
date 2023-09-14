@@ -1,5 +1,7 @@
 package com.linsheng.FATJS.node;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
+
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.annotation.SuppressLint;
@@ -16,8 +18,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.RequiresApi;
 
-import com.linsheng.FATJS.bean.Variable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class AccUtils extends AccessibilityService {
     @SuppressLint("StaticFieldLeak")
     public static AccessibilityService AccessibilityHelper;
-    private static final String TAG = Variable.tag;
+    private static final String TAG = tag;
 
     public AccUtils() {
         AccessibilityHelper = this;
@@ -77,20 +77,20 @@ public class AccUtils extends AccessibilityService {
                 case "打开":
                     intent.putExtra("msg", "show_max");
                     // 更新按钮
-                    Variable.btnTextView.setText("全屏");
+                    btnTextView.setText("全屏");
                     break;
                 case "隐藏":
                     intent.putExtra("msg", "hide_mini");
                     // 更新按钮
-                    Variable.btnTextView.setText("打开");
+                    btnTextView.setText("打开");
                     break;
                 case "全屏":
                     intent.putExtra("msg", "full_screen");
                     // 更新按钮
-                    Variable.btnTextView.setText("隐藏");
+                    btnTextView.setText("隐藏");
                     break;
             }
-            Variable.context.sendBroadcast(intent);
+            context.sendBroadcast(intent);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -101,7 +101,7 @@ public class AccUtils extends AccessibilityService {
         Intent intent = new Intent();
         intent.setAction("com.msg");
         intent.putExtra("msg", msg);
-        Variable.context.sendBroadcast(intent);
+        context.sendBroadcast(intent);
     }
 
     /**
@@ -141,9 +141,9 @@ public class AccUtils extends AccessibilityService {
     }
 
 
-    public static void waitToAlermClose() {
+    public static void waitToAlarmClose() {
         printLogMsg("\n---------\n---------\n---------\n---------\n---------\n---------\n---------\n---------\n");
-        printLogMsg("W: " + Variable.mWidth + " H: " + Variable.mHeight);
+        printLogMsg("W: " + mWidth + " H: " + mHeight);
         timeSleep(6000);
     }
 
@@ -184,8 +184,8 @@ public class AccUtils extends AccessibilityService {
     /**
      * 获取当前Activity
      */
-    public static String getCurrentActivityName() {
-        return Variable.currentActivityName;
+    public static String currentActivityName() {
+        return currentActivityName;
     }
 
     /**
@@ -208,8 +208,8 @@ public class AccUtils extends AccessibilityService {
                 try {
                     String activityName = getPackageManager().getActivityInfo(componentName, 0).toString();
                     activityName = activityName.substring(activityName.indexOf(" "), activityName.indexOf("}"));
-                    Variable.currentActivityName = activityName.trim();
-                    //Log.i(TAG, " => " + Variable.currentActivityName);
+                    currentActivityName = activityName.trim();
+                    //Log.i(TAG, " => " + currentActivityName);
                 } catch (PackageManager.NameNotFoundException e) {}
             }
         }
@@ -955,9 +955,9 @@ public class AccUtils extends AccessibilityService {
         x1 = x1 + new Random().nextInt(9) - 4;
         y1 = y1 + new Random().nextInt(9) - 4;
         printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
-        if (x1 > Variable.mWidth || y1 > Variable.mHeight || x1 < 0 || y1 < 0) {   // 2220是荣耀20i下面的导航栏按钮
-            printLogMsg("Variable.mWidth: " + Variable.mWidth);
-            printLogMsg("Variable.mHeight: " + Variable.mHeight);
+        if (x1 > mWidth || y1 > mHeight || x1 < 0 || y1 < 0) {   // 2220是荣耀20i下面的导航栏按钮
+            printLogMsg("mWidth: " + mWidth);
+            printLogMsg("mHeight: " + mHeight);
             printLogMsg("超出了点击范围");
             return false;
         }

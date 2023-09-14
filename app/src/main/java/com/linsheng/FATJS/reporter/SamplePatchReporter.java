@@ -19,7 +19,7 @@ package com.linsheng.FATJS.reporter;
 import android.content.Context;
 import android.content.Intent;
 
-import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.tencent.tinker.lib.reporter.DefaultPatchReporter;
 import com.tencent.tinker.loader.shareutil.SharePatchInfo;
 
@@ -27,7 +27,7 @@ import java.io.File;
 import java.util.List;
 
 public class SamplePatchReporter extends DefaultPatchReporter {
-    private static final String TAG = Variable.tag;
+    private static final String TAG = GlobalVariableHolder.tag;
     public SamplePatchReporter(Context context) {
         super(context);
     }

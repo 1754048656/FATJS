@@ -1,4 +1,4 @@
-package com.linsheng.FATJS.bean;
+package com.linsheng.FATJS.config;
 
 import android.content.Context;
 import android.widget.LinearLayout;
@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
-public class Variable {
+public class GlobalVariableHolder {
     public static String ANDROID_ID = "";
     public static String PHONE_NAME = "";
 

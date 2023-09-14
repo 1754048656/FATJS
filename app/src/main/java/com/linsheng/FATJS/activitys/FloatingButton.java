@@ -1,13 +1,12 @@
 package com.linsheng.FATJS.activitys;
 
 import static com.linsheng.FATJS.node.AccUtils.*;
-import static com.linsheng.FATJS.bean.Variable.*;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -15,7 +14,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,15 +21,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.node.AccUtils;
-import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.node.UiSelector;
 import com.linsheng.FATJS.utils.ExceptionUtil;
-import com.linsheng.FATJS.utils.ExitException;
-
-import java.util.List;
 
 public class FloatingButton extends Service {
-    private static final String TAG = Variable.tag;
+    private static final String TAG = GlobalVariableHolder.tag;
     private WindowManager wm;
     private LinearLayout ll;
     private int offset_y = (mHeight / 7);
@@ -63,15 +58,15 @@ public class FloatingButton extends Service {
         btn_h = (int)(btn_w * 0.5638461538); // 按照比例调整
         // 定义面板
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        Variable.btnTextView = new TextView(Variable.context);
-        ll = new LinearLayout(Variable.context);
+        GlobalVariableHolder.btnTextView = new TextView(GlobalVariableHolder.context);
+        ll = new LinearLayout(GlobalVariableHolder.context);
 
         ViewGroup.LayoutParams txtParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Variable.btnTextView.setText("打开");
-        Variable.btnTextView.setTextSize((float) (text_size + 2));
-        Variable.btnTextView.setGravity(Gravity.CENTER); //文字居中
-        Variable.btnTextView.setTextColor(Color.argb(200,10,250,0));
-        Variable.btnTextView.setLayoutParams(txtParameters);
+        GlobalVariableHolder.btnTextView.setText("打开");
+        GlobalVariableHolder.btnTextView.setTextSize((float) (text_size + 2));
+        GlobalVariableHolder.btnTextView.setGravity(Gravity.CENTER); //文字居中
+        GlobalVariableHolder.btnTextView.setTextColor(Color.argb(200,10,250,0));
+        GlobalVariableHolder.btnTextView.setLayoutParams(txtParameters);
 
         // LinearLayout 容器
         LinearLayout.LayoutParams llParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -89,7 +84,7 @@ public class FloatingButton extends Service {
         parameters.setTitle("FATJS");
 
         // 添加元素到面板
-        ll.addView(Variable.btnTextView);
+        ll.addView(GlobalVariableHolder.btnTextView);
         wm.addView(ll, parameters);
 
         ll.setOnClickListener(new View.OnClickListener() {
@@ -123,33 +118,33 @@ public class FloatingButton extends Service {
     }
 
     private void btnClick() {
-        if ("打开".contentEquals(Variable.btnTextView.getText())) {
+        if ("打开".contentEquals(GlobalVariableHolder.btnTextView.getText())) {
             Log.i(TAG, "onClick: 打开 --> 全屏");
-            Variable.btnTextView.setText("全屏");
+            GlobalVariableHolder.btnTextView.setText("全屏");
 
             // 展开悬浮窗
             Intent intent = new Intent();
             intent.setAction("com.msg");
             intent.putExtra("msg", "show_max");
-            Variable.context.sendBroadcast(intent);
-        }else if("隐藏".contentEquals(Variable.btnTextView.getText())){
+            GlobalVariableHolder.context.sendBroadcast(intent);
+        }else if("隐藏".contentEquals(GlobalVariableHolder.btnTextView.getText())){
             Log.i(TAG, "onClick: 隐藏 --> 打开");
-            Variable.btnTextView.setText("打开");
+            GlobalVariableHolder.btnTextView.setText("打开");
 
             // 隐藏悬浮窗
             Intent intent = new Intent();
             intent.setAction("com.msg");
             intent.putExtra("msg", "hide_mini");
-            Variable.context.sendBroadcast(intent);
-        }else if("全屏".contentEquals(Variable.btnTextView.getText())) {
+            GlobalVariableHolder.context.sendBroadcast(intent);
+        }else if("全屏".contentEquals(GlobalVariableHolder.btnTextView.getText())) {
             Log.i(TAG, "onClick: 全屏 --> 隐藏");
-            Variable.btnTextView.setText("隐藏");
+            GlobalVariableHolder.btnTextView.setText("隐藏");
 
             // 隐藏悬浮窗
             Intent intent = new Intent();
             intent.setAction("com.msg");
             intent.putExtra("msg", "full_screen");
-            Variable.context.sendBroadcast(intent);
+            GlobalVariableHolder.context.sendBroadcast(intent);
         }
     }
 

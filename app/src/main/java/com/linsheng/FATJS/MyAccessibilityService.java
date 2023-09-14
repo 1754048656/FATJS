@@ -4,7 +4,6 @@ import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.RequiresApi;
 
-import com.linsheng.FATJS.bean.Variable;
 import com.linsheng.FATJS.node.AccUtils;
 
 public class MyAccessibilityService extends AccUtils {

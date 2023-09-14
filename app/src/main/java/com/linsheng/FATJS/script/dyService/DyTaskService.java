@@ -1,28 +1,13 @@
 package com.linsheng.FATJS.script.dyService;
-import static com.linsheng.FATJS.bean.Variable.*;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.*;
 
-import android.graphics.Rect;
 import android.os.Build;
-import android.os.Environment;
-import android.util.Log;
-import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.RequiresApi;
 import com.linsheng.FATJS.node.AccUtils;
-import com.linsheng.FATJS.node.UiCollection;
-import com.linsheng.FATJS.node.UiObject;
 import com.linsheng.FATJS.node.UiSelector;
 import com.linsheng.FATJS.utils.ExceptionUtil;
-import com.linsheng.FATJS.utils.ExitException;
-import com.linsheng.FATJS.utils.TxTManager;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 
 public class DyTaskService extends UiSelector {
 

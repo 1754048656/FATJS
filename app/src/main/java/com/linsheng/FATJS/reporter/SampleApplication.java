@@ -3,7 +3,7 @@ package com.linsheng.FATJS.reporter;
 import android.content.Context;
 import android.util.Log;
 
-import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
@@ -15,7 +15,7 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 public class SampleApplication extends TinkerApplication {
 
 
-    private static final String TAG = Variable.tag;
+    private static final String TAG = GlobalVariableHolder.tag;
 
     public SampleApplication() {
         super(ShareConstants.TINKER_ENABLE_ALL, SampleApplicationLike.class.getName());

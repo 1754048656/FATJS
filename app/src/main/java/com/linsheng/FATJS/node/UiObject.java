@@ -13,7 +13,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.RequiresApi;
 
-import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.config.GlobalVariableHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,9 +90,9 @@ public class UiObject {
         x1 = x1 + new Random().nextInt(9) - 4;
         y1 = y1 + new Random().nextInt(9) - 4;
         printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
-        if (x1 > Variable.mWidth || y1 > Variable.mHeight || x1 < 0 || y1 < 0) {   // 2220是荣耀20i下面的导航栏按钮
-            printLogMsg("Variable.mWidth: " + Variable.mWidth);
-            printLogMsg("Variable.mHeight: " + Variable.mHeight);
+        if (x1 > GlobalVariableHolder.mWidth || y1 > GlobalVariableHolder.mHeight || x1 < 0 || y1 < 0) {   // 2220是荣耀20i下面的导航栏按钮
+            printLogMsg("Variable.mWidth: " + GlobalVariableHolder.mWidth);
+            printLogMsg("Variable.mHeight: " + GlobalVariableHolder.mHeight);
             printLogMsg("超出了点击范围");
             return false;
         }

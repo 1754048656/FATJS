@@ -1,6 +1,6 @@
 package com.linsheng.FATJS.activitys;
 
-import static com.linsheng.FATJS.bean.Variable.*;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -21,13 +21,13 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.linsheng.FATJS.bean.Variable;
+import com.linsheng.FATJS.config.GlobalVariableHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FloatingWindow extends Service {
-    private static final String TAG = Variable.tag;
+    private static final String TAG = tag;
     private WindowManager wm;
     private  ScrollView sv;
     private int float_window_width = (int)(mWidth / 2.5);
@@ -80,7 +80,7 @@ public class FloatingWindow extends Service {
             }else if("full_screen".equals(intent.getStringExtra("msg"))) {
                 Log.i(TAG, "onReceive: full_screen");
                 // 全屏悬浮窗
-                WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(Variable.mWidth, __mHeight - offset_y - 250, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+                WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(mWidth, __mHeight - offset_y - 250, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
                 setTypePhone(parameters); //悬浮窗适配低版本安卓
                 parameters.x = 0;
                 parameters.y = offset_y;
@@ -90,7 +90,7 @@ public class FloatingWindow extends Service {
                 windowAutoScroll();
             } else {
                 // 日志相关
-                Variable.broadcast_map.put("msg", false);
+                GlobalVariableHolder.broadcast_map.put("msg", false);
 
                 // 日志打印
                 printLog(intent.getStringExtra("msg"));
@@ -137,7 +137,7 @@ public class FloatingWindow extends Service {
         // 日志模板
         String curTime = getStringDate();
         String logTmp = curTime + " | " + msg;
-        Variable.ll.addView(createText(logTmp));
+        GlobalVariableHolder.ll.addView(createText(logTmp));
         Log.i(TAG, "printLog: " + logTmp);
 
         windowAutoScroll();
@@ -166,18 +166,18 @@ public class FloatingWindow extends Service {
         // 定义面板
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
         sv = new ScrollView(context);
-        Variable.ll = new LinearLayout(context);
+        GlobalVariableHolder.ll = new LinearLayout(context);
 
         // LinearLayout 容器
         LinearLayout.LayoutParams llParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        Variable.ll.setPadding(5, 5, 5, 5);
-        Variable.ll.setOrientation(LinearLayout.VERTICAL);
-        Variable.ll.setLayoutParams(llParameters);
+        GlobalVariableHolder.ll.setPadding(5, 5, 5, 5);
+        GlobalVariableHolder.ll.setOrientation(LinearLayout.VERTICAL);
+        GlobalVariableHolder.ll.setLayoutParams(llParameters);
 
         // ScrollView容器
         ViewGroup.LayoutParams svParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         sv.setBackgroundColor(Color.argb(188,0,0,0));
-        Variable.ll.setPadding(5, 5, 5, 5);
+        GlobalVariableHolder.ll.setPadding(5, 5, 5, 5);
         sv.setVerticalScrollBarEnabled(true);
         sv.setLayoutParams(svParams);
 
@@ -196,8 +196,8 @@ public class FloatingWindow extends Service {
         parameters.setTitle("FATJS");
 
         // 添加元素到面板
-        Variable.ll.addView(createText("日志面板log"));
-        sv.addView(Variable.ll);
+        GlobalVariableHolder.ll.addView(createText("日志面板log"));
+        sv.addView(GlobalVariableHolder.ll);
         wm.addView(sv, parameters);
 
         // 监听触摸，移动
