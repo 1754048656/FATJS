@@ -664,16 +664,18 @@ public class UiSelector implements IUiSelector{
         AccUtils.printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
         this.containsAttributes = new HashMap<>();
-        for (int i = 0; i < 10; i++) {
-            AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
+        AccessibilityNodeInfo accNodeInfo;
+        while (true) {
+            accNodeInfo = AccUtils.getRootInActiveMy();
             UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
             if (uiObject != null) {
+                AccUtils.printLogMsg("untilFindOne: found");
+                accNodeInfo.recycle(); // 释放
                 return depthFirstSearch(accNodeInfo, attributes);
             }
+            AccUtils.printLogMsg("untilFindOne: wait 1s");
             AccUtils.timeSleep(waitOneSecond);
         }
-
-        return null;
     }
 
     /**
@@ -698,8 +700,29 @@ public class UiSelector implements IUiSelector{
      * @return
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private UiObject untilFindOne(int timeout) {
-        return null;
+    public UiObject untilFindOne(int timeout) {
+        AccUtils.printLogMsg("Attributes " + this.containsAttributes);
+        Map<String, Object> attributes = this.containsAttributes;
+        this.containsAttributes = new HashMap<>();
+        long startTime = System.currentTimeMillis();
+        AccessibilityNodeInfo accNodeInfo;
+        while (true) {
+            accNodeInfo = AccUtils.getRootInActiveMy();
+            UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
+            if (uiObject != null) {
+                AccUtils.printLogMsg("untilFindOne timeout: found");
+                accNodeInfo.recycle(); // 释放
+                return depthFirstSearch(accNodeInfo, attributes);
+            }
+            AccUtils.printLogMsg("untilFindOne timeout: wait 1s");
+            AccUtils.timeSleep(waitOneSecond);
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - startTime >= timeout) {
+                AccUtils.printLogMsg("untilFindOne timeout: not found");
+                accNodeInfo.recycle(); // 释放
+                return null;
+            }
+        }
     }
 
     /**
@@ -715,8 +738,10 @@ public class UiSelector implements IUiSelector{
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
         if (uiObject == null) {
+            accNodeInfo.recycle(); // 释放
             return new UiObject();
         }
+        accNodeInfo.recycle(); // 释放
         return uiObject;
     }
 
@@ -740,8 +765,21 @@ public class UiSelector implements IUiSelector{
      * @param i
      * @return
      */
-    private UiObject findOne(int i) {
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public UiObject findOne(int i) {
+        AccUtils.printLogMsg("Attributes " + this.containsAttributes);
+        Map<String, Object> attributes = this.containsAttributes;
+        this.containsAttributes = new HashMap<>();
+        AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
+        UiCollection uiCollection = new UiCollection();
+        depthFirstSearchAll(accNodeInfo, attributes, uiCollection);
+        if (uiCollection.accNodeInfoList.size() - 1 >= i) {
+            UiObject uiObject = new UiObject();
+            uiObject.accNodeInfo = uiCollection.accNodeInfoList.get(i);
+            accNodeInfo.recycle(); // 释放
+            return uiObject;
+        }
+        accNodeInfo.recycle(); // 释放
         return null;
     }
 
@@ -767,6 +805,7 @@ public class UiSelector implements IUiSelector{
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiCollection uiCollection = new UiCollection();
         depthFirstSearchAll(accNodeInfo, attributes, uiCollection);
+        accNodeInfo.recycle(); // 释放
         return uiCollection;
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -819,8 +858,10 @@ public class UiSelector implements IUiSelector{
         UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
         if (uiObject != null) {
             uiObject.accNodeInfo.recycle();
+            accNodeInfo.recycle(); // 释放
             return true;
         }
+        accNodeInfo.recycle(); // 释放
         return false;
     }
 
@@ -829,8 +870,25 @@ public class UiSelector implements IUiSelector{
      * 例如要等待包含"哈哈哈"的文本控件出现的代码为：
      * textContains("哈哈哈").waitFor();
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void waitFor() {
-
+        AccUtils.printLogMsg("Attributes " + this.containsAttributes);
+        Map<String, Object> attributes = this.containsAttributes;
+        this.containsAttributes = new HashMap<>();
+        UiObject uiObject;
+        AccessibilityNodeInfo accNodeInfo;
+        while (true) {
+            accNodeInfo = AccUtils.getRootInActiveMy();
+            uiObject = depthFirstSearch(accNodeInfo, attributes);
+            if (uiObject != null) {
+                AccUtils.printLogMsg("waitFor: found");
+                uiObject.accNodeInfo.recycle();
+                accNodeInfo.recycle(); // 释放
+                return;
+            }
+            AccUtils.printLogMsg("waitFor: wait 1s");
+            AccUtils.timeSleep(waitOneSecond);
+        }
     }
 
     /**
