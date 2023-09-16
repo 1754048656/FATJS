@@ -202,6 +202,92 @@ public class AccUtils extends AccessibilityService {
         timeSleep(6000);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static void scrollUp() {
+        swipe((int)(mWidth / 2) + new Random().nextInt(100), mHeight - 420 + new Random().nextInt(100),
+            (int)(mWidth / 2) + new Random().nextInt(200), 310 - new Random().nextInt(100),
+                350 + new Random().nextInt(100));
+    }
+
+    /**
+     * 手势滑动
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @param duration
+     */
+    @RequiresApi(24)
+    public static Boolean swipe(float x1,float y1,float x2,float y2,long duration) {
+        try {
+            Path path=new Path();
+            path.moveTo(x1 + new Random().nextInt(10) - 5,y1 + new Random().nextInt(10) - 5);
+            path.lineTo(x2 + new Random().nextInt(10) - 5,y2 + new Random().nextInt(10) - 5);
+            GestureDescription.Builder builder=new GestureDescription.Builder();
+            GestureDescription gestureDescription=builder
+                    .addStroke(new GestureDescription.StrokeDescription(path,0,duration))
+                    .build();
+            return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
+                @Override
+                public void onCompleted(GestureDescription gestureDescription1) {
+                    super.onCompleted(gestureDescription1);
+                    Log.e(TAG,"滑动结束..."+ gestureDescription1.getStrokeCount());
+                }
+                @Override
+                public void onCancelled(GestureDescription gestureDescription1) {
+                    super.onCancelled(gestureDescription1);
+                    Log.e(TAG,"滑动取消");
+                }
+            },null);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static boolean click(int x, int y) {
+        return clickPoint(x, y, 75 + new Random().nextInt(50));
+    }
+
+    /**
+     * 点击坐标
+     * @param x1
+     * @param y1
+     * @param duration
+     */
+    @RequiresApi(24)
+    public static boolean clickPoint(float x1, float y1, long duration) {
+        Path path=new Path();
+        x1 = x1 + new Random().nextInt(9) - 4;
+        y1 = y1 + new Random().nextInt(9) - 4;
+        printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
+        if (x1 > mWidth || y1 > mHeight || x1 < 0 || y1 < 0) {   // 2220是荣耀20i下面的导航栏按钮
+            printLogMsg("mWidth: " + mWidth);
+            printLogMsg("mHeight: " + mHeight);
+            printLogMsg("超出了点击范围");
+            return false;
+        }
+        path.moveTo(x1, y1);
+        GestureDescription.Builder builder=new GestureDescription.Builder();
+        GestureDescription gestureDescription=builder
+                .addStroke(new GestureDescription.StrokeDescription(path,0,duration))
+                .build();
+
+        return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
+            @Override
+            public void onCompleted(GestureDescription gestureDescription1) {
+                super.onCompleted(gestureDescription1);
+                Log.e(TAG,"点击结束..."+ gestureDescription1.getStrokeCount());
+            }
+            @Override
+            public void onCancelled(GestureDescription gestureDescription1) {
+                super.onCancelled(gestureDescription1);
+                Log.e(TAG,"点击取消");
+            }
+        },null);
+    }
+
     /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
     /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
     /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
@@ -984,44 +1070,6 @@ public class AccUtils extends AccessibilityService {
     }
 
     /**
-     * 点击坐标
-     * @param x1
-     * @param y1
-     * @param duration
-     */
-    @RequiresApi(24)
-    public static Boolean clickPoint(float x1, float y1, long duration) {
-        Path path=new Path();
-        x1 = x1 + new Random().nextInt(9) - 4;
-        y1 = y1 + new Random().nextInt(9) - 4;
-        printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
-        if (x1 > mWidth || y1 > mHeight || x1 < 0 || y1 < 0) {   // 2220是荣耀20i下面的导航栏按钮
-            printLogMsg("mWidth: " + mWidth);
-            printLogMsg("mHeight: " + mHeight);
-            printLogMsg("超出了点击范围");
-            return false;
-        }
-        path.moveTo(x1, y1);
-        GestureDescription.Builder builder=new GestureDescription.Builder();
-        GestureDescription gestureDescription=builder
-                .addStroke(new GestureDescription.StrokeDescription(path,0,duration))
-                .build();
-
-        return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
-            @Override
-            public void onCompleted(GestureDescription gestureDescription1) {
-                super.onCompleted(gestureDescription1);
-                Log.e(TAG,"点击结束..."+ gestureDescription1.getStrokeCount());
-            }
-            @Override
-            public void onCancelled(GestureDescription gestureDescription1) {
-                super.onCancelled(gestureDescription1);
-                Log.e(TAG,"点击取消");
-            }
-        },null);
-    }
-
-    /**
      * 双击坐标
      * @param x1
      * @param y1
@@ -1099,42 +1147,6 @@ public class AccUtils extends AccessibilityService {
         home();
         timeSleep(2 * 1000);
         return new UiSelector().text(appName).findOne().click();
-    }
-
-    /**
-     * 手势滑动
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @param duration
-     */
-    @RequiresApi(24)
-    public static Boolean swipe(float x1,float y1,float x2,float y2,long duration) {
-        try {
-            Path path=new Path();
-            path.moveTo(x1 + new Random().nextInt(10) - 5,y1 + new Random().nextInt(10) - 5);
-            path.lineTo(x2 + new Random().nextInt(10) - 5,y2 + new Random().nextInt(10) - 5);
-            GestureDescription.Builder builder=new GestureDescription.Builder();
-            GestureDescription gestureDescription=builder
-                    .addStroke(new GestureDescription.StrokeDescription(path,0,duration))
-                    .build();
-            return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
-                @Override
-                public void onCompleted(GestureDescription gestureDescription1) {
-                    super.onCompleted(gestureDescription1);
-                    Log.e(TAG,"滑动结束..."+ gestureDescription1.getStrokeCount());
-                }
-                @Override
-                public void onCancelled(GestureDescription gestureDescription1) {
-                    super.onCancelled(gestureDescription1);
-                    Log.e(TAG,"滑动取消");
-                }
-            },null);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     @RequiresApi(24)

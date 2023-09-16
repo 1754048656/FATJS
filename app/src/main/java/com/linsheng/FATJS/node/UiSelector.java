@@ -1,7 +1,10 @@
 package com.linsheng.FATJS.node;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.waitOneSecond;
 
+import android.graphics.Rect;
 import android.os.Build;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -487,10 +490,10 @@ public class UiSelector implements IUiSelector{
      * @param left
      * @param top
      * @param right
-     * @param buttom
+     * @param bottom
      * @return
      */
-    public UiSelector bounds(int left, int top, int right, int buttom) {
+    public UiSelector bounds(int left, int top, int right, int bottom) {
 
         //containsAttributes.put("packageNameMatches", reg);
         return this;
@@ -501,19 +504,25 @@ public class UiSelector implements IUiSelector{
      * top {number} 范围上边缘与屏幕上边的距离
      * right {number} 范围右边缘与屏幕左边的距离
      * bottom {number} 范围下边缘与屏幕上边的距离
-     * 为当前选择器附加控件"bounds 需要在 left, top, right, buttom 构成的范围里面"的条件。
+     * 为当前选择器附加控件"bounds 需要在 left, top, right, bottom 构成的范围里面"的条件。
      * 这个条件用于限制选择器在某一个区域选择控件。例如要在屏幕上半部分寻找文本控件 TextView，代码为:
      * var w = className("TextView").boundsInside(0, 0, device.width, device.height / 2).findOne();
      * log(w.text());
      * @param left
      * @param top
      * @param right
-     * @param buttom
+     * @param bottom
      * @return
      */
-    public UiSelector boundsInside(int left, int top, int right, int buttom) {
+    public UiSelector boundsInside(int left, int top, int right, int bottom) {
+        int[] screen = {left, top, right, bottom};
+        containsAttributes.put("packageNameMatches", screen);
+        return this;
+    }
 
-        //containsAttributes.put("packageNameMatches", reg);
+    public UiSelector boundsInScreen() {
+        int[] screen = {0, 0, mWidth, mHeight};
+        containsAttributes.put("boundsInScreen", screen);
         return this;
     }
 
@@ -522,18 +531,18 @@ public class UiSelector implements IUiSelector{
      * top {number} 范围上边缘与屏幕上边的距离
      * right {number} 范围右边缘与屏幕左边的距离
      * bottom {number} 范围下边缘与屏幕上边的距离
-     * 为当前选择器附加控件"bounds 需要包含 left, top, right, buttom 构成的范围"的条件。
+     * 为当前选择器附加控件"bounds 需要包含 left, top, right, bottom 构成的范围"的条件。
      * 这个条件用于限制控件的范围必须包含所给定的范围。例如给定一个点(500, 300), 寻找在这个点上的可点击控件的代码为:
      * var w = boundsContains(500, 300, device.width - 500, device.height - 300).clickable().findOne();
      * w.click();
      * @param left
      * @param top
      * @param right
-     * @param buttom
+     * @param bottom
      * @return
      */
-    public UiSelector boundsContains(int left, int top, int right, int buttom) {
-
+    public UiSelector boundsContains(int left, int top, int right, int bottom) {
+        //未实现
         //containsAttributes.put("packageNameMatches", reg);
         return this;
     }
@@ -544,11 +553,10 @@ public class UiSelector implements IUiSelector{
      * 为当前选择器附加控件"drawingOrder 等于 order"的条件。
      * drawingOrder 为一个控件在父控件中的绘制顺序，通常可以用于区分同一层次的控件。
      * 但该属性在 Android 7.0 以上才能使用。
-     * @param order 从1开始的
+     * @param order 从 1 开始的
      * @return
      */
     public UiSelector drawingOrder(int order) {
-
         containsAttributes.put("drawingOrder", order);
         return this;
     }
@@ -991,6 +999,8 @@ public class UiSelector implements IUiSelector{
                 return String.valueOf(node.getText()).startsWith(String.valueOf(value));
             case "textEndsWith":
                 return String.valueOf(node.getText()).endsWith(String.valueOf(value));
+            case "textMatches":
+                return String.valueOf(node.getText()).matches(String.valueOf(value));
             case "desc":
                 return String.valueOf(value).equals(String.valueOf(node.getContentDescription()));
             case "descContains":
@@ -999,6 +1009,8 @@ public class UiSelector implements IUiSelector{
                 return String.valueOf(node.getContentDescription()).startsWith(String.valueOf(value));
             case "descEndsWith":
                 return String.valueOf(node.getContentDescription()).endsWith(String.valueOf(value));
+            case "descMatches":
+                return String.valueOf(node.getContentDescription()).matches(String.valueOf(value));
             case "id":
                 return String.valueOf(value).equals(String.valueOf(node.getViewIdResourceName()));
             case "idContains":
@@ -1007,6 +1019,8 @@ public class UiSelector implements IUiSelector{
                 return String.valueOf(node.getViewIdResourceName()).startsWith(String.valueOf(value));
             case "idEndsWith":
                 return String.valueOf(node.getViewIdResourceName()).endsWith(String.valueOf(value));
+            case "idMatches":
+                return String.valueOf(node.getViewIdResourceName()).matches(String.valueOf(value));
             case "className":
             case "classNameContains":
                 return String.valueOf(node.getClassName()).contains(String.valueOf(value));
@@ -1014,6 +1028,8 @@ public class UiSelector implements IUiSelector{
                 return String.valueOf(node.getClassName()).startsWith(String.valueOf(value));
             case "classNameEndsWith":
                 return String.valueOf(node.getClassName()).endsWith(String.valueOf(value));
+            case "classNameMatches":
+                return String.valueOf(node.getClassName()).matches(String.valueOf(value));
             case "packageName":
                 return String.valueOf(value).equals(String.valueOf(node.getPackageName()));
             case "packageNameContains":
@@ -1022,6 +1038,13 @@ public class UiSelector implements IUiSelector{
                 return String.valueOf(node.getPackageName()).startsWith(String.valueOf(value));
             case "packageNameEndsWith":
                 return String.valueOf(node.getPackageName()).endsWith(String.valueOf(value));
+            case "boundsInScreen":
+            case "boundsInSide":
+                int[] _value = (int[]) value;
+                Rect rect = new Rect();
+                node.getBoundsInScreen(rect);
+                return (rect.top <= rect.bottom && rect.left <= rect.right) &&
+                (_value[0] <= rect.left && _value[1] <= rect.top && _value[2] >= rect.right && _value[3] >= rect.bottom);
             case "drawingOrder":
                 return (int) value == node.getDrawingOrder();
             case "clickable":
