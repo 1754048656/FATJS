@@ -325,7 +325,7 @@ public class UiSelector implements IUiSelector{
      * 返回 {UiSelector} 返回选择器自身以便链式调用
      * 为当前选择器附加控件"className 等于字符串 str"的筛选条件。
      * 控件的 className(类名)表示一个控件的类别，例如文本控件的类名为 android.widget.TextView。
-     * 如果一个控件的类名以"android.widget."开头，则可以省略这部分，例如文本控件可以直接用className("TextView")的选择器。
+     * 因为这个比较常用，所以改成了和classNameContains一样的效果，例如文本控件可以直接用className("TextView")的选择器。
      * @param str
      * @return
      */
@@ -899,21 +899,18 @@ public class UiSelector implements IUiSelector{
      *     return w.text().length == 10;
      * });
      */
-    public void filter(Greeting greeting) {
+    /*public void filter(Greeting greeting) {
         greet("John", UiSelector::sayHello);
     }
-
-    public static void sayHello(String name) {
+    private static void sayHello(String name) {
         System.out.println("Hello, " + name + "!");
     }
-
     interface Greeting {
         void greet(String name);
     }
-
-    public void greet(String name, Greeting greeting) {
+    private void greet(String name, Greeting greeting) {
         greeting.greet(name);
-    }
+    }*/
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private UiObject findOneBFS() {
@@ -1011,7 +1008,6 @@ public class UiSelector implements IUiSelector{
             case "idEndsWith":
                 return String.valueOf(node.getViewIdResourceName()).endsWith(String.valueOf(value));
             case "className":
-                return String.valueOf(value).equals(String.valueOf(node.getClassName()));
             case "classNameContains":
                 return String.valueOf(node.getClassName()).contains(String.valueOf(value));
             case "classNameStartsWith":

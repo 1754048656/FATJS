@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -63,6 +64,31 @@ public class AccUtils extends AccessibilityService {
         }
         return i;
     }
+
+    // 返回到桌面
+    public static void backToDesktop() {
+        for (int i = 0; i < 5; i++) {
+            back();
+            timeSleep(waitOneSecond);
+        }
+    }
+
+    // 刷视频
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static void viewVideo(int num) {
+        UiSelector uiSelector = new UiSelector();
+        printLogMsg("刷" + num + "个视频，点掉弹窗");
+        for (int i = 0; i < num; i++) {
+            uiSelector.text("我知道了").findOne().click();
+            timeSleep(waitOneSecond);
+            uiSelector.text("关闭").findOne().click();
+            timeSleep(waitOneSecond);
+            uiSelector.text("以后再说").findOne().click();
+            timeSleep(waitOneSecond);
+            swipe((int)(mWidth / 2) , mHeight - 480, (int)(mWidth / 2) + 80, 200, 450);
+            timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
+        }
+    }
     /**
      ************************************************工具方法*********************************************
      */
@@ -108,6 +134,21 @@ public class AccUtils extends AccessibilityService {
      * *******************************************自带方法封装**************************************************
      */
 
+    /**
+     * getRootInActiveWindow
+     * @return
+     */
+    public static AccessibilityNodeInfo getRootInActiveMy() {
+        for (int i = 0; i < 5; i++) {
+            AccessibilityNodeInfo root = AccessibilityHelper.getRootInActiveWindow();
+            if (root != null) {
+                return root;
+            }
+            timeSleep(500);
+        }
+        printLogMsg( "getRootInActiveMy: do not find window");
+        throw new StopRunException();
+    }
 
     @SuppressLint({"InvalidWakeLockTag", "NewApi"})
     public static Boolean lockScreenNow() {
@@ -140,6 +181,20 @@ public class AccUtils extends AccessibilityService {
         return false;
     }
 
+    /**
+     * 获取坐标
+     * @param nodeInfo
+     * @return
+     */
+    public static Rect bounds(AccessibilityNodeInfo nodeInfo) {
+        Rect rect = new Rect();
+        nodeInfo.getBoundsInScreen(rect);
+        // 回收
+        return rect;
+    }
+
+    static class StopRunException extends RuntimeException {
+    }
 
     public static void waitToAlarmClose() {
         printLogMsg("\n---------\n---------\n---------\n---------\n---------\n---------\n---------\n---------\n");
@@ -147,39 +202,24 @@ public class AccUtils extends AccessibilityService {
         timeSleep(6000);
     }
 
-    /**
-     * *******************************************自带方法封装**************************************************
-     */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
+    /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
 
-    /**
-     * *******************************************获取屏幕元素**************************************************
-     */
 
     static class StopMsgException extends RuntimeException {
     }
-
-    static class StopRunException extends RuntimeException {
-    }
-
-    public static AccessibilityNodeInfo getRootInActiveMy() {
-        for (int i = 0; i < 5; i++) {
-            AccessibilityNodeInfo root = AccessibilityHelper.getRootInActiveWindow();
-            if (root != null) {
-                return root;
-            }
-            timeSleep(500);
-        }
-        printLogMsg( "getRootInActiveMy: do not find window");
-        throw new StopRunException();
-    }
-
-    /**
-     * *******************************************获取屏幕元素**************************************************
-     */
-
-    /**
-     * *******************************************查找元素**************************************************
-     */
 
     /**
      * 获取当前Activity
@@ -1015,7 +1055,7 @@ public class AccUtils extends AccessibilityService {
      */
     public static void timeSleep(int time) {
         try {
-            Thread.sleep(time);
+            Thread.sleep(time + new Random().nextInt(waitOneSecond));
         } catch (InterruptedException e) {
             e.printStackTrace();
             int i = 1/0;

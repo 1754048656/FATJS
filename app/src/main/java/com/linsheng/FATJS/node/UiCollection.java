@@ -1,6 +1,11 @@
 package com.linsheng.FATJS.node;
 
+import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
+
+import android.os.Build;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,5 +45,59 @@ public class UiCollection {
 
     public List<AccessibilityNodeInfo> accNodeInfoList = new ArrayList<>();
 
+    /**
+     * 遍历打印accNodeInfoList
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void foreachPrint() {
+        this.accNodeInfoList.forEach(node -> {
+            printLogMsg("foreachPrint: " + node);
+        });
+    }
 
+    public interface FilterCondition<AccessibilityNodeInfo> {
+        boolean shouldKeep(AccessibilityNodeInfo item);
+    }
+
+    /**
+     * 按条件过滤，需要实现FilterCondition的shouldKeep，可以是匿名，例如：
+     * acc.className("RecyclerView").find().filterOne(item -> {
+     *     return item.getText().length > 0
+     * });
+     * @param condition
+     * @return UiObject
+     */
+    public UiObject filterOne(FilterCondition<AccessibilityNodeInfo> condition) {
+        List<AccessibilityNodeInfo> filteredList = new ArrayList<>();
+        for (AccessibilityNodeInfo item : this.accNodeInfoList) {
+            if (condition.shouldKeep(item)) {
+                printLogMsg("shouldKeep: " + item);
+                filteredList.add(item);
+            }
+        }
+        UiObject uiObject = new UiObject();
+        if (filteredList.size() > 0) {
+            uiObject.accNodeInfo = filteredList.get(0);
+        }
+        return uiObject;
+    }
+
+    /**
+     * 按条件过滤，需要实现FilterCondition的shouldKeep，可以是匿名，例如：
+     * acc.className("RecyclerView").find().filterOne(item -> {
+     *     return item.getText().length > 0
+     * });
+     * @param condition
+     * @return List<AccessibilityNodeInfo>
+     */
+    public List<AccessibilityNodeInfo> filter(FilterCondition<AccessibilityNodeInfo> condition) {
+        List<AccessibilityNodeInfo> filteredList = new ArrayList<>();
+        for (AccessibilityNodeInfo item : this.accNodeInfoList) {
+            if (condition.shouldKeep(item)) {
+                printLogMsg("shouldKeep: " + item);
+                filteredList.add(item);
+            }
+        }
+        return filteredList;
+    }
 }

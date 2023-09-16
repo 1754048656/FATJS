@@ -42,6 +42,4 @@ public interface IUiSelector {
     public UiCollection find();
     public boolean exists();
     public void waitFor();
-    public void filter(UiSelector.Greeting greeting);
-    public void greet(String name, UiSelector.Greeting greeting);
 }
