@@ -26,9 +26,10 @@ public interface IUiSelector {
     public UiSelector packageNameStartsWith(String prefix);
     public UiSelector packageNameEndsWith(String suffix);
     public UiSelector packageNameMatches(String reg);
-    public UiSelector bounds(int left, int top, int right, int buttom);
-    public UiSelector boundsInside(int left, int top, int right, int buttom);
-    public UiSelector boundsContains(int left, int top, int right, int buttom);
+    public UiSelector bounds(int left, int top, int right, int bottom);
+    public UiSelector boundsInScreen();
+    public UiSelector boundsInside(int left, int top, int right, int bottom);
+    public UiSelector boundsContains(int left, int top, int right, int bottom);
     public UiSelector drawingOrder(int order);
     public UiSelector clickable(boolean b);
     public UiSelector longClickable(boolean b);

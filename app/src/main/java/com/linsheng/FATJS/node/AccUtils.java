@@ -514,23 +514,6 @@ public class AccUtils extends AccessibilityService {
      * @param str_param
      * @return
      */
-    public static AccessibilityNodeInfo id(AccessibilityNodeInfo root, String str_param) {
-        try {
-            recursionFindElementById(root, str_param);
-        }catch (StopMsgException e) {
-            return nodeInfoOut;
-        }
-        return null;
-    }
-    public static AccessibilityNodeInfo id(String str_param) {
-        try {
-            AccessibilityNodeInfo root = getRootInActiveMy();
-            recursionFindElementById(root, str_param);
-        }catch (StopMsgException e) {
-            return nodeInfoOut;
-        }
-        return null;
-    }
     public static AccessibilityNodeInfo findElementById(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementById(root, str_param);
@@ -604,23 +587,6 @@ public class AccUtils extends AccessibilityService {
      * @param str_param
      * @return
      */
-    public static AccessibilityNodeInfo text(AccessibilityNodeInfo root, String str_param) {
-        try {
-            recursionFindElementByText(root, str_param);
-        }catch (StopMsgException e) {
-            return nodeInfoOut;
-        }
-        return null;
-    }
-    public static AccessibilityNodeInfo text(String str_param) {
-        try {
-            AccessibilityNodeInfo root = getRootInActiveMy();
-            recursionFindElementByText(root, str_param);
-        }catch (StopMsgException e) {
-            return nodeInfoOut;
-        }
-        return null;
-    }
     public static AccessibilityNodeInfo findElementByText(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementByText(root, str_param);
@@ -738,23 +704,6 @@ public class AccUtils extends AccessibilityService {
      * @param str_param
      * @return
      */
-    public static AccessibilityNodeInfo desc(AccessibilityNodeInfo root, String str_param) {
-        try {
-            recursionFindElementByDescription(root, str_param);
-        }catch (StopMsgException e) {
-            return nodeInfoOut;
-        }
-        return null;
-    }
-    public static AccessibilityNodeInfo desc(String str_param) {
-        try {
-            AccessibilityNodeInfo root = getRootInActiveMy();
-            recursionFindElementByDescription(root, str_param);
-        }catch (StopMsgException e) {
-            return nodeInfoOut;
-        }
-        return null;
-    }
     public static AccessibilityNodeInfo findElementByDescription(AccessibilityNodeInfo root, String str_param) {
         try {
             recursionFindElementByDescription(root, str_param);

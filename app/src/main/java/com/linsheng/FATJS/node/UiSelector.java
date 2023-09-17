@@ -728,7 +728,7 @@ public class UiSelector implements IUiSelector{
             if (currentTime - startTime >= timeout) {
                 AccUtils.printLogMsg("untilFindOne timeout: not found");
                 accNodeInfo.recycle(); // 释放
-                return null;
+                return new UiObject();
             }
         }
     }
@@ -1012,7 +1012,6 @@ public class UiSelector implements IUiSelector{
             case "descMatches":
                 return String.valueOf(node.getContentDescription()).matches(String.valueOf(value));
             case "id":
-                return String.valueOf(value).equals(String.valueOf(node.getViewIdResourceName()));
             case "idContains":
                 return String.valueOf(node.getViewIdResourceName()).contains(String.valueOf(value));
             case "idStartsWith":
