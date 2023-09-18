@@ -73,7 +73,8 @@ public class UiCollection {
             if (condition.shouldKeep(item)) {
                 printLogMsg("shouldKeep: " + item);
                 filteredList.add(item);
-            }
+            }else
+                item.recycle(); // 释放过滤掉的
         }
         UiObject uiObject = new UiObject();
         if (filteredList.size() > 0) {
@@ -96,7 +97,8 @@ public class UiCollection {
             if (condition.shouldKeep(item)) {
                 printLogMsg("shouldKeep: " + item);
                 filteredList.add(item);
-            }
+            }else
+                item.recycle(); // 释放过滤掉的
         }
         return filteredList;
     }

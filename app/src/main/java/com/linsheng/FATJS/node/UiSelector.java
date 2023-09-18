@@ -494,8 +494,8 @@ public class UiSelector implements IUiSelector{
      * @return
      */
     public UiSelector bounds(int left, int top, int right, int bottom) {
-
-        //containsAttributes.put("packageNameMatches", reg);
+        int[] screen = {left, top, right, bottom};
+        containsAttributes.put("bounds", screen);
         return this;
     }
 
@@ -516,7 +516,7 @@ public class UiSelector implements IUiSelector{
      */
     public UiSelector boundsInside(int left, int top, int right, int bottom) {
         int[] screen = {left, top, right, bottom};
-        containsAttributes.put("packageNameMatches", screen);
+        containsAttributes.put("boundsInside", screen);
         return this;
     }
 
@@ -1037,6 +1037,11 @@ public class UiSelector implements IUiSelector{
                 return String.valueOf(node.getPackageName()).startsWith(String.valueOf(value));
             case "packageNameEndsWith":
                 return String.valueOf(node.getPackageName()).endsWith(String.valueOf(value));
+            case "bounds":
+                int[] __value = (int[]) value;
+                Rect _rect = new Rect();
+                node.getBoundsInScreen(_rect);
+                return (__value[0] == _rect.left && __value[1] == _rect.top && __value[2] == _rect.right && __value[3] == _rect.bottom);
             case "boundsInScreen":
             case "boundsInSide":
                 int[] _value = (int[]) value;
