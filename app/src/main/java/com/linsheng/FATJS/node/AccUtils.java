@@ -138,16 +138,17 @@ public class AccUtils extends AccessibilityService {
      * getRootInActiveWindow
      * @return
      */
+    static AccessibilityNodeInfo root;
     public static AccessibilityNodeInfo getRootInActiveMy() {
         for (int i = 0; i < 5; i++) {
-            AccessibilityNodeInfo root = AccessibilityHelper.getRootInActiveWindow();
+            root = AccessibilityHelper.getRootInActiveWindow();
             if (root != null) {
                 return root;
             }
             timeSleep(500);
         }
-        printLogMsg( "getRootInActiveMy: do not find window");
-        throw new StopRunException();
+        printLogMsg( "Exception: do not find window");
+        return root;
     }
 
     @SuppressLint({"InvalidWakeLockTag", "NewApi"})
@@ -186,7 +187,7 @@ public class AccUtils extends AccessibilityService {
      * @param nodeInfo
      * @return
      */
-    public static Rect bounds(AccessibilityNodeInfo nodeInfo) {
+    public static Rect getBounds(AccessibilityNodeInfo nodeInfo) {
         Rect rect = new Rect();
         nodeInfo.getBoundsInScreen(rect);
         // 回收

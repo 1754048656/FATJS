@@ -727,7 +727,8 @@ public class UiSelector implements IUiSelector{
             long currentTime = System.currentTimeMillis();
             if (currentTime - startTime >= timeout) {
                 AccUtils.printLogMsg("untilFindOne timeout: not found");
-                accNodeInfo.recycle(); // 释放
+                if (accNodeInfo != null)
+                    accNodeInfo.recycle(); // 释放
                 return new UiObject();
             }
         }
@@ -746,7 +747,8 @@ public class UiSelector implements IUiSelector{
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
         if (uiObject == null) {
-            accNodeInfo.recycle(); // 释放
+            if (accNodeInfo != null)
+                accNodeInfo.recycle(); // 释放
             return new UiObject();
         }
         accNodeInfo.recycle(); // 释放
@@ -760,8 +762,11 @@ public class UiSelector implements IUiSelector{
         this.containsAttributes = new HashMap<>();
         UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
         if (uiObject == null) {
+            if (accNodeInfo != null)
+                accNodeInfo.recycle(); // 释放
             return new UiObject();
         }
+        accNodeInfo.recycle(); // 释放
         return uiObject;
     }
 
@@ -784,10 +789,11 @@ public class UiSelector implements IUiSelector{
         if (uiCollection.accNodeInfoList.size() - 1 >= i) {
             UiObject uiObject = new UiObject();
             uiObject.accNodeInfo = uiCollection.accNodeInfoList.get(i);
-            accNodeInfo.recycle(); // 释放
+            accNodeInfo.recycle(); // 释放 TODO 还应该释放列表中其他的
             return uiObject;
         }
-        accNodeInfo.recycle(); // 释放
+        if (accNodeInfo != null)
+            accNodeInfo.recycle(); // 释放
         return null;
     }
 
@@ -813,7 +819,8 @@ public class UiSelector implements IUiSelector{
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiCollection uiCollection = new UiCollection();
         depthFirstSearchAll(accNodeInfo, attributes, uiCollection);
-        accNodeInfo.recycle(); // 释放
+        if (accNodeInfo != null)
+            accNodeInfo.recycle(); // 释放
         return uiCollection;
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -869,7 +876,8 @@ public class UiSelector implements IUiSelector{
             accNodeInfo.recycle(); // 释放
             return true;
         }
-        accNodeInfo.recycle(); // 释放
+        if (accNodeInfo != null)
+            accNodeInfo.recycle(); // 释放
         return false;
     }
 
