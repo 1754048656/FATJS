@@ -1051,7 +1051,7 @@ public class UiSelector implements IUiSelector{
                 node.getBoundsInScreen(_rect);
                 return (__value[0] == _rect.left && __value[1] == _rect.top && __value[2] == _rect.right && __value[3] == _rect.bottom);
             case "boundsInScreen":
-            case "boundsInSide":
+            case "boundsInside":
                 int[] _value = (int[]) value;
                 Rect rect = new Rect();
                 node.getBoundsInScreen(rect);
