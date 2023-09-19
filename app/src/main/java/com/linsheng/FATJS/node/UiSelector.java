@@ -679,7 +679,7 @@ public class UiSelector implements IUiSelector{
             if (uiObject != null) {
                 AccUtils.printLogMsg("untilFindOne: found");
                 accNodeInfo.recycle(); // 释放
-                return depthFirstSearch(accNodeInfo, attributes);
+                return uiObject;
             }
             AccUtils.printLogMsg("untilFindOne: wait 1s");
             AccUtils.timeSleep(waitOneSecond);
@@ -720,7 +720,7 @@ public class UiSelector implements IUiSelector{
             if (uiObject != null) {
                 AccUtils.printLogMsg("untilFindOne timeout: found");
                 accNodeInfo.recycle(); // 释放
-                return depthFirstSearch(accNodeInfo, attributes);
+                return uiObject;
             }
             AccUtils.printLogMsg("untilFindOne timeout: wait 1s");
             AccUtils.timeSleep(waitOneSecond);
