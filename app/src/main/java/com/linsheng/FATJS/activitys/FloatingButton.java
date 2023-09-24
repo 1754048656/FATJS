@@ -22,7 +22,7 @@ import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.node.AccUtils;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
-import com.linsheng.FATJS.node.UiSelector;
+import com.linsheng.FATJS.script.TaskDemo;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 
 public class FloatingButton extends Service {
@@ -93,7 +93,7 @@ public class FloatingButton extends Service {
             public void onClick(View v) {
 
                 // 测试方法
-//                testMethodPre(); // 这个和下面这个 btnClick() 不能同时开启，只能开一个，否则会冲突
+                //testMethodPre(); // 这个和下面这个 btnClick() 不能同时开启，只能开一个，否则会冲突
 
                 // 改变悬浮窗大小
                 btnClick();
@@ -108,6 +108,8 @@ public class FloatingButton extends Service {
             @Override
             public void run() {
                 try {
+                    moveFloatWindow("打开");
+                    printLogMsg("w => " + mWidth + ", h => " + mHeight);
                     // 测试方法
                     testMethod();
                 } catch (Exception e) {
@@ -151,13 +153,10 @@ public class FloatingButton extends Service {
     /**
      * 测试方法
      */
-    UiSelector acc = new UiSelector();
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void testMethod() {
-
         // 将测试的动作写到这里，点击悬浮窗的 打开 按钮，就可以执行
-        moveFloatWindow("打开");
-        printLogMsg("mWidth => " + mWidth + ", mHeight => " + mHeight);
-
+        TaskDemo taskDemo = new TaskDemo();
+        taskDemo.start_run();
     }
 }

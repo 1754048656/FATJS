@@ -1000,7 +1000,6 @@ public class UiSelector implements IUiSelector{
     private static boolean checkAttribute(AccessibilityNodeInfo node, String key, Object value) {
         switch (key) {
             case "text":
-                return String.valueOf(value).equals(String.valueOf(node.getText()));
             case "textContains":
                 return String.valueOf(node.getText()).contains(String.valueOf(value));
             case "textStartsWith":
@@ -1010,7 +1009,6 @@ public class UiSelector implements IUiSelector{
             case "textMatches":
                 return String.valueOf(node.getText()).matches(String.valueOf(value));
             case "desc":
-                return String.valueOf(value).equals(String.valueOf(node.getContentDescription()));
             case "descContains":
                 return String.valueOf(node.getContentDescription()).contains(String.valueOf(value));
             case "descStartsWith":
@@ -1038,7 +1036,6 @@ public class UiSelector implements IUiSelector{
             case "classNameMatches":
                 return String.valueOf(node.getClassName()).matches(String.valueOf(value));
             case "packageName":
-                return String.valueOf(value).equals(String.valueOf(node.getPackageName()));
             case "packageNameContains":
                 return String.valueOf(node.getPackageName()).contains(String.valueOf(value));
             case "packageNameStartsWith":
