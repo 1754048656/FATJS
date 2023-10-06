@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:weightSum="8">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/edShare"-->
+<!--        android:layout_width="@dimen/ed_btn_width"-->
+<!--        android:layout_height="@dimen/ed_btn_height"-->
+<!--        android:layout_margin="@dimen/ed_btn_margin"-->
+<!--        android:layout_weight="1"-->
+<!--        android:clickable="true"-->
+<!--        android:onClick="edButtons"-->
+<!--        android:src="@drawable/ic_share_black_24dp" />-->
+
+
+    <ImageView
+        android:id="@+id/edNew"
+        android:layout_width="@dimen/ed_btn_width"
+        android:layout_height="@dimen/ed_btn_height"
+        android:layout_margin="@dimen/ed_btn_margin"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="edButtons"
+        android:src="@drawable/new_script" />
+
+    <ImageView
+        android:id="@+id/edSave"
+        android:layout_width="@dimen/ed_btn_width"
+        android:layout_height="@dimen/ed_btn_height"
+        android:layout_margin="@dimen/ed_btn_margin"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="edButtons"
+        android:src="@drawable/save" />
+
+    <ImageView
+        android:id="@+id/edClear"
+        android:layout_width="@dimen/ed_btn_width"
+        android:layout_height="@dimen/ed_btn_height"
+        android:layout_margin="@dimen/ed_btn_margin"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="edButtons"
+        android:src="@drawable/clear" />
+
+    <ImageView
+        android:id="@+id/edZoomIn"
+        android:layout_width="@dimen/ed_btn_width"
+        android:layout_height="@dimen/ed_btn_height"
+        android:layout_margin="@dimen/ed_btn_margin"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="edButtons"
+        android:src="@drawable/ic_baseline_zoom_in_24" />
+
+    <ImageView
+        android:id="@+id/edZoomOut"
+        android:layout_width="@dimen/ed_btn_width"
+        android:layout_height="@dimen/ed_btn_height"
+        android:layout_margin="@dimen/ed_btn_margin"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="edButtons"
+        android:src="@drawable/ic_baseline_zoom_out_24" />
+
+    <ImageView
+        android:id="@+id/edDarkMode"
+        android:layout_width="@dimen/ed_btn_width"
+        android:layout_height="@dimen/ed_btn_height"
+        android:layout_margin="@dimen/ed_btn_margin"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="edButtons"
+        android:src="@drawable/ic_baseline_wb_sunny_24" />
+
+    <ImageView
+        android:id="@+id/edLines"
+        android:layout_width="@dimen/ed_btn_width"
+        android:layout_height="@dimen/ed_btn_height"
+        android:layout_margin="@dimen/ed_btn_margin"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="edButtons"
+        android:src="@drawable/ic_baseline_format_list_numbered_24" />
+
+</LinearLayout>

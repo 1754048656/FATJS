@@ -1,0 +1,255 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.linsheng.FATJS.activitys.OneActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:stretchColumns="0.5">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_span="1"
+                android:gravity="center"
+                android:text=""
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="10dp"
+                android:layout_span="1"
+                android:gravity="center"
+                android:text=""
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="10dp"
+                android:layout_span="1"
+                android:gravity="center"
+                android:text=""
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_span="1"
+                android:gravity="center"
+                android:text=""
+                android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="运行时间(分钟)：" />
+
+            <EditText
+                android:id="@+id/live_time_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:text="80"
+                android:inputType="number" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点赞概率(%)：" />
+
+            <EditText
+                android:id="@+id/dianzan_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:text="45"
+                android:inputType="number"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关注概率(%)：" />
+
+            <EditText
+                android:id="@+id/guanzhu_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:text="10"
+                android:inputType="number"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="评论概率(%)：" />
+
+            <EditText
+                android:id="@+id/pinlun_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:text="5"
+                android:inputType="number"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看主页(%)：" />
+
+            <EditText
+                android:id="@+id/chakan_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:text="30"
+                android:inputType="number"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="操作间隔(秒)：" />
+
+            <EditText
+                android:id="@+id/sleep_0_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:inputType="number"
+                android:text="2"
+                android:layout_span="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="至" />
+
+            <EditText
+                android:id="@+id/sleep_1_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:inputType="number"
+                android:text="6"
+                android:layout_span="1"/>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="视频观看(秒)：" />
+
+            <EditText
+                android:id="@+id/guankan_0_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:inputType="number"
+                android:text="6"
+                android:layout_span="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="至" />
+
+            <EditText
+                android:id="@+id/guankan_1_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:inputType="number"
+                android:text="15"
+                android:layout_span="1"/>
+        </TableRow>
+
+<!--        <TableRow>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:text="选择性别：" />-->
+
+<!--            &lt;!&ndash;            <RadioButton&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:id="@+id/gender_m_in"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:layout_height="40dp"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:text="男" />&ndash;&gt;-->
+
+<!--            <CheckBox android:id="@+id/gender_m_in"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+
+<!--                android:text="男"/>-->
+
+<!--            &lt;!&ndash;            <RadioButton&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:id="@+id/gender_w_in"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:layout_height="40dp"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:layout_span="2"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:text="女" />&ndash;&gt;-->
+
+<!--            <CheckBox-->
+<!--                android:id="@+id/gender_w_in"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_span="2"-->
+<!--                android:text="女"/>-->
+<!--        </TableRow>-->
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="" />
+
+        </TableRow>
+
+        <TableRow
+            android:gravity="center">
+            <Button
+                android:id="@+id/start_run_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:text="开始执行" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

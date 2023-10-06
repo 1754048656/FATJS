@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#00FFFFFF"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:theme="@style/InsertBtnStyle">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="."
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="-"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="/"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="./"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="_"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text=";"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="$"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="$()"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="="
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="&amp;"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="&quot;"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="`"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="#"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="\\"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="|"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text=":"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="+"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="*"
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="'"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text=","
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="("
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text=")"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="{"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="}"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="["
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="]"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="&lt;"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/insert_btn_margin"
+
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="@dimen/insert_btn_min_width"
+            android:onClick="insert"
+            android:padding="@dimen/insert_btn_padding"
+            android:text="&gt;"
+
+            android:textSize="@dimen/insert_btn_font"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+</HorizontalScrollView>

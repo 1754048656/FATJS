@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    android:layout_weight="0"
+    android:background="#fefefe"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/file_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:layout_weight="7"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="hello world"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/run_script"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:background="#FFF"
+        android:clickable="true"
+        android:src="@drawable/ic_run_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/rename_script"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:background="#FFF"
+        android:clickable="true"
+        android:src="@drawable/ic_edit_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/delete_script"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:background="#FFF"
+        android:clickable="true"
+        android:src="@drawable/ic_delete_black_24dp" />
+
+</LinearLayout>
+
+

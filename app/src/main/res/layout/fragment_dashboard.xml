@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4E670"
+    tools:context=".ui.dashboard.DashboardFragment">
+
+    <TextView
+        android:id="@+id/text_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:stretchColumns="0.5">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="10dp"
+                android:layout_span="1"
+                android:gravity="center"
+                android:text=""
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="135dp"
+                android:layout_height="10dp"
+                android:layout_span="1"
+                android:gravity="center"
+                android:text=""
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="10dp"
+                android:layout_span="1"
+                android:gravity="center"
+                android:text=""
+                android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/live_time_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:textSize="21dp"
+                android:text="sdcard存储权限"
+                />
+
+            <Switch
+                android:id="@+id/switch_storage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/dianzan_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:textSize="21dp"
+                android:text="悬浮窗权限"
+                />
+            <Switch
+                android:id="@+id/switch_float"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </TableRow>
+
+<!--        <TableRow-->
+<!--            android:layout_marginTop="20dp">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/guanzhu_in"-->
+<!--                android:layout_width="141dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint=""-->
+<!--                android:layout_span="2"-->
+<!--                android:textSize="21dp"-->
+<!--                android:text="屏幕录制权限"-->
+<!--                />-->
+<!--            <Switch-->
+<!--                android:id="@+id/switch_screen"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="" />-->
+<!--        </TableRow>-->
+
+        <TableRow
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/pinlun_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:textSize="21dp"
+                android:text="无障碍权限"
+                />
+            <Switch
+                android:id="@+id/switch_accessibility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </TableRow>
+        <TableRow
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <Button
+                android:id="@+id/pinlun_in_0"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:onClick="to_acc"
+                android:padding="2dp"
+                android:layout_span="2"
+                android:textSize="16dp"
+                android:text="跳转到无障碍页面"
+                />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

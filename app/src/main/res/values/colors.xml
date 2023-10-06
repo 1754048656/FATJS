@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <item name="set_item_bg" type="color">#75CDDC39</item>
+    <item name="set_item_bg2" type="color">#8BC34A</item>
+    <item name="set_item_color" type="color">#000000</item>
+    <item name="lines_bg" type="color">#54FFEB3B</item>
+    <item name="cursor_color" type="color">#15ab0d</item>
+    <item name="insert_btn_bg" type="color">#2A15AB0D</item>
+    <item name="vr_color" type="color">#2196F3</item>
+    <item name="darkblue" type="color">#2196F3</item>
+    <!--    <item name="white" type="color">#FFF</item>-->
+    <item name="title_color" type="color">#16FFEB3B</item>
+    <item name="about_color2" type="color">#FFC107</item>
+    <item name="about_color1" type="color">#512196F3</item>
+    <color name="about_bg1">#F44336</color>
+    <color name="about_bg2">#00BCD4</color>
+    <color name="about_bg3">#9C27B0</color>
+    <color name="about_bg4">#FFFFFF</color>
+    <color name="about_bg5">#8BC34A</color>
+    <color name="about_bg6">#FFC107</color>
+</resources>

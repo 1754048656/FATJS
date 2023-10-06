@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeContextClicked|typeViewClicked|typeViewTextChanged|typeViewScrolled|typeAllMask"
+    android:accessibilityFlags="flagDefault|flagIncludeNotImportantViews|flagReportViewIds|flagRetrieveInteractiveWindows"
+    android:accessibilityFeedbackType="feedbackSpoken"
+    android:canRetrieveWindowContent="true"
+    android:notificationTimeout="100"
+    android:canPerformGestures="true"
+/>
+
+<!--FLAG_DEFAULT    默认标志位，表示使用默认的配置-->
+<!--FLAG_INCLUDE_NOT_IMPORTANT_VIEWS    包括不重要的视图。通常情况下，可访问性服务只会关注重要的视图，但设置了该标志位后，可访问性服务将会关注所有的视图-->
+<!--FLAG_REPORT_VIEW_IDS    报告视图ID。设置了该标志位后，可访问性服务将会报告每个视图的唯一ID-->
+<!--FLAG_REQUEST_TOUCH_EXPLORATION_MODE     请求触摸探索模式。设置了该标志位后，可访问性服务将会请求触摸探索模式，以便用户可以通过触摸来探索屏幕上的内容-->
+<!--FLAG_REQUEST_ENHANCED_WEB_ACCESSIBILITY 请求增强的Web可访问性。设置了该标志位后，可访问性服务将会请求增强的Web可访问性功能-->
+<!--FLAG_RETRIEVE_INTERACTIVE_WINDOWS   检索交互式窗口。设置了该标志位后，可访问性服务将会检索交互式窗口的信息-->

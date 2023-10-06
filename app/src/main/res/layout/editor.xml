@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/editor_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/darkblue"
+        android:orientation="horizontal"
+        android:weightSum="100" />
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title_color"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/script_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:maxLength="20"
+            android:onClick="edButtons"
+            android:padding="10dp"
+            android:text="untitled"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/darkblue"
+        android:orientation="horizontal"
+        android:weightSum="100" />
+
+    <include layout="@layout/edit_btns" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/darkblue"
+        android:orientation="horizontal"
+        android:weightSum="100" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/lines"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/title_color"
+            android:gravity="center|top"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:scrollbars="none"
+            android:paddingTop="10dp"
+            android:scrollHorizontally="false"
+            android:text=""
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/editor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:breakStrategy="high_quality"
+                android:clickable="true"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:gravity="top"
+                android:inputType="textNoSuggestions|textMultiLine"
+                android:paddingEnd="10dp"
+                android:paddingStart="5dp"
+                android:paddingTop="10dp"
+                android:scrollbars="horizontal|vertical"
+                android:scrollHorizontally="true"
+                android:text=""
+                android:textCursorDrawable="@null"
+                android:textDirection="inherit"
+                android:textSize="14sp" />
+
+            <include layout="@layout/about_btn" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/insert_btns"
+        layout="@layout/insert_btns" />
+</LinearLayout>

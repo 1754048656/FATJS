@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.floatingactionbutton.FloatingActionButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/about_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    android:layout_margin="20dp"
+    app:backgroundTint="#00FFFFFF"
+    app:elevation="0dp"
+    app:fabCustomSize="60dp"
+    app:maxImageSize="60dp"
+    app:srcCompat="@drawable/logo5"
+    app:tint="#000000">
+
+</com.google.android.material.floatingactionbutton.FloatingActionButton>
