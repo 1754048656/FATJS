@@ -1,7 +1,5 @@
 //-------------------- pre set -------------------//
 let task = new Task()
-const width = task._mWidth;
-const height = task._mHeight;
 const screenSize = () => task._screenSize();
 const sleep = (time) => task._sleep(time);
 const open = (name) => task._open(name);
@@ -73,6 +71,3 @@ const find = () => task._find();
 const exists = () => task._exists();
 const waitFor = () => task._waitFor();
 //-------------------- pre set -------------------//
-//const untilFindOne = () => task._untilFindOne();
-//const findOne = () => task._findOne();
-//const findOne = (node) => task._findOne(node);

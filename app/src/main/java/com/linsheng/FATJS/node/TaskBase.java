@@ -38,11 +38,11 @@ import com.linsheng.FATJS.utils.FileUtils;
 import java.util.Random;
 
 public class TaskBase extends UiSelector {
+    public TaskBase() {
+    }
     private static String base;
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void initJavet(String script_path) {
-        _width = mWidth;
-        _height = mHeight;
         try {
             v8Runtime = V8Host.getV8Instance().createV8Runtime();
             isRunning = true;
@@ -68,8 +68,6 @@ public class TaskBase extends UiSelector {
     }
 
     /**********************************************************************************************/
-    public int _width;
-    public int _height;
     public int[] _screenSize() {
         return new int[]{mWidth, mHeight};
     }
