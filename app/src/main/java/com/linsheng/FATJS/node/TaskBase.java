@@ -39,6 +39,8 @@ import java.util.Random;
 
 public class TaskBase extends UiSelector {
     public TaskBase() {
+        _width = mWidth;
+        _height = mHeight;
     }
     private static String base;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -68,6 +70,8 @@ public class TaskBase extends UiSelector {
     }
 
     /**********************************************************************************************/
+    public int _width;
+    public int _height;
     public int[] _screenSize() {
         return new int[]{mWidth, mHeight};
     }
