@@ -124,12 +124,21 @@ public class FloatingWindow extends Service {
         ViewGroup.LayoutParams txtParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         content_text.setText(textContent);
 
+        // 退出程序处理
+        if (textContent.contains("_sleep failed with error message divide by zero")) {
+            content_text.setText("上个任务已强制结束");
+            content_text.setTextSize(text_size);
+            content_text.setLayoutParams(txtParameters);
+            content_text.setTextColor(Color.argb(255, 233, 196, 112));
+            return content_text;
+        }
+
         if (textContent.contains("Exception")) {
             content_text.setTextSize(text_size);
-            content_text.setTextColor(Color.argb(210,255,0,0));
+            content_text.setTextColor(Color.argb(255, 233, 196, 112));
         }else {
             content_text.setTextSize(text_size);
-            content_text.setTextColor(Color.argb(210,0,255,0));
+            content_text.setTextColor(Color.argb(255,255,255,255));
         }
 
         //content_text.setPadding(5,5,5,5);

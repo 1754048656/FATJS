@@ -1,15 +1,16 @@
 package com.linsheng.FATJS.activitys;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.text_size;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.waitHrefOfSecond;
-import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
-import static com.linsheng.FATJS.node.AccUtils.timeSleep;
 
+
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,12 +24,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.node.AccUtils;
+import com.linsheng.FATJS.node.TaskBase;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 
 public class FloatingButton extends Service {
@@ -72,7 +75,7 @@ public class FloatingButton extends Service {
         GlobalVariableHolder.btnTextView.setText("打开");
         GlobalVariableHolder.btnTextView.setTextSize((float) (text_size + 2));
         GlobalVariableHolder.btnTextView.setGravity(Gravity.CENTER); //文字居中
-        GlobalVariableHolder.btnTextView.setTextColor(Color.argb(200,10,250,0));
+        GlobalVariableHolder.btnTextView.setTextColor(Color.argb(255,255,255,255));
         GlobalVariableHolder.btnTextView.setLayoutParams(txtParameters);
 
         // LinearLayout 容器
@@ -110,12 +113,18 @@ public class FloatingButton extends Service {
     }
 
     private void testMethodPre() {
+        // 判断是否有任务正在执行
+        if (isRunning) {
+            printLogMsg("有任务正在执行");
+            Toast.makeText(context, "有任务正在执行", Toast.LENGTH_SHORT).show();
+            killThread = true;
+            return;
+        }
         new Thread(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
                 try {
-                    moveFloatWindow("打开");
                     printLogMsg("w => " + mWidth + ", h => " + mHeight);
                     // 测试方法
                     testMethod();
@@ -175,7 +184,9 @@ public class FloatingButton extends Service {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void testMethod() {
         // 将测试的动作写到这里，点击悬浮窗的 打开 按钮，就可以执行
-//        TaskDemo taskDemo = new TaskDemo();
-//        taskDemo.initJavet(script_path);
+        TaskBase taskDemo = new TaskBase();
+        @SuppressLint("SdCardPath") String script_path = "/sdcard/FATJS_DIR/test.js";
+        printLogMsg("script_path => " + script_path);
+        taskDemo.initJavet(script_path);
     }
 }

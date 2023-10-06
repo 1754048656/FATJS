@@ -1074,6 +1074,9 @@ public class AccUtils extends AccessibilityService {
      */
     public static void timeSleep(int time) {
         try {
+            if (killThread) {
+                int i = 1/0;
+            }
             while (isStop) {
                 Thread.sleep(waitThreeSecond);
             }

@@ -2,6 +2,7 @@ package com.linsheng.FATJS.node;
 
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.v8Runtime;
 import static com.linsheng.FATJS.node.AccUtils.back;
 import static com.linsheng.FATJS.node.AccUtils.backToDesktop;
@@ -42,6 +43,7 @@ public class TaskBase extends UiSelector {
             v8Runtime = V8Host.getV8Instance().createV8Runtime();
             isRunning = true;
             isStop = false;
+            killThread = false;
             String script = FileUtils.readFile(script_path);
             if (base == null) {
                 base = loadScriptFromAssets("base.js");
@@ -55,6 +57,7 @@ public class TaskBase extends UiSelector {
         }finally {
             isRunning = false;
             isStop = false;
+            killThread = false;
         }
     }
 
