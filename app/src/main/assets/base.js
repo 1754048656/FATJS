@@ -1,5 +1,8 @@
 //-------------------- pre set -------------------//
 let task = new Task()
+const width = task._mWidth;
+const height = task._mHeight;
+const screenSize = () => task._screenSize();
 const sleep = (time) => task._sleep(time);
 const open = (name) => task._open(name);
 const print = (msg) => task._print(msg);

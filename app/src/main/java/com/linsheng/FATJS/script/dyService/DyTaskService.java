@@ -9,12 +9,14 @@ import static com.linsheng.FATJS.config.GlobalVariableHolder.waitSixSecond;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.waitThreeSecond;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.waitTwoSecond;
 import static com.linsheng.FATJS.node.AccUtils.back;
+import static com.linsheng.FATJS.node.AccUtils.getBounds;
 import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
 import static com.linsheng.FATJS.node.AccUtils.openApp;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 import static com.linsheng.FATJS.node.AccUtils.swipe;
 import static com.linsheng.FATJS.node.AccUtils.timeSleep;
 
+import android.graphics.Rect;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -76,5 +78,9 @@ public class DyTaskService extends UiSelector {
             timeSleep(waitOneSecond);
         }
         printLogMsg("完成");
+        text("xx").find().filter(item -> {
+            Rect bounds = getBounds(item);
+            return true;
+        });
     }
 }

@@ -185,7 +185,7 @@ public class FloatingButton extends Service {
     private void testMethod() {
         // 将测试的动作写到这里，点击悬浮窗的 打开 按钮，就可以执行
         TaskBase taskDemo = new TaskBase();
-        @SuppressLint("SdCardPath") String script_path = "/sdcard/FATJS_DIR/test.js";
+        @SuppressLint("SdCardPath") String script_path = "/sdcard/FATJS_DIR/dev_script.js";
         printLogMsg("script_path => " + script_path);
         taskDemo.initJavet(script_path);
     }
