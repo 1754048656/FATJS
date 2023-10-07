@@ -1,7 +1,7 @@
 # FATJS
 
 ### 介绍
-FATJS 基于安卓无障碍的自动化框架，集成找色
+FATJS 基于安卓无障碍的自动化框架，集成找色，引入V8引擎
 
 ### B站FATJS教程合集
 https://www.bilibili.com/video/BV1JM4y187Tt/
