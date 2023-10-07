@@ -215,12 +215,6 @@ public class DashboardFragment extends Fragment {
     // 开启捕获屏幕
     public void getMediaProjectionManger() {
         ScreenCaptureManager.getInstance().init(getActivity());
-        ScreenCaptureManager.getInstance().setScreenCaptureCallback(new ScreenCaptureManager.ScreenCaptureCallback() {
-            @Override
-            public void onBitmap(Bitmap bitmap) {
-                Log.e(tag, "bitmap = "+bitmap);
-            }
-        });
     }
     private boolean accessibilityPermission() {
         try{
