@@ -38,6 +38,8 @@ import com.linsheng.FATJS.aione_editor.EditorActivity;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.config.WindowPermissionCheck;
 import com.linsheng.FATJS.databinding.ActivityMainBinding;
+import com.linsheng.FATJS.findColor.config.CaptureScreenService;
+import com.linsheng.FATJS.findColor.config.ScreenCaptureManager;
 import com.linsheng.FATJS.service.MyService;
 import com.linsheng.FATJS.ui.dashboard.DashboardFragment;
 import com.linsheng.FATJS.ui.home.HomeFragment;
@@ -111,6 +113,38 @@ public class MainActivity extends AppCompatActivity {
     private void openForwardService() {
         Intent intent = new Intent(this, MyService.class);
         startService(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 开启捕获屏幕
+        if(requestCode == 1000) {
+            if (resultCode == RESULT_OK) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Intent service = new Intent(this, CaptureScreenService.class);
+                    service.putExtra("code", resultCode);
+                    service.putExtra("data", data);
+                    context.startForegroundService(service);
+                } else {
+                    ScreenCaptureManager.getInstance().start(resultCode, data);
+                }
+                ScreenCaptureManager.getInstance().state = ScreenCaptureManager.State.RUNNING;
+                DashboardFragment._screen = true;
+                DashboardFragment.switch_screen.setChecked(true);
+
+                // 打开悬浮窗
+                context.startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
+                // 打开悬浮窗
+                context.startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
+
+                Toast.makeText(context, "屏幕录制权限，也可开启临时悬浮窗", Toast.LENGTH_SHORT).show();
+            }else {
+                ScreenCaptureManager.getInstance().state = ScreenCaptureManager.State.IDLE;
+                DashboardFragment._screen = false;
+                DashboardFragment.switch_screen.setChecked(false);
+            }
+        }
     }
 
     private void getPhoneInfo() {

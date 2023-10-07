@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         myRecyclerAdapter = new MyRecyclerAdapter(list);
         recyclerView.setAdapter(myRecyclerAdapter);
-        getFileList();
+        getFileList(1);
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         printLogMsg("HomeFragment onStart");
-        getFileList();
+        getFileList(0);
     }
 
     public View aboutBtn;
@@ -175,17 +175,18 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void getFileList() {
+    private void getFileList(int show) {
         list.clear();
         File f = new File(EditorActivity.scripts_path);
         if (!f.exists()) {
-            Toast.makeText(context, "there are no files created", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "there are no files created", Toast.LENGTH_SHORT).show();
             //finish();
         }
 
         final String files[] = f.list();
         if (files == null || files.length == 0) {
-            Toast.makeText(context, "there are no files", Toast.LENGTH_LONG).show();
+            if (show == 1)
+                Toast.makeText(context, "there are no files", Toast.LENGTH_SHORT).show();
             //finish();
         } else {
             for (int i = 0; i < files.length; i++) {
@@ -237,7 +238,7 @@ public class HomeFragment extends Fragment {
     private void deleteScript(String name) {
         Scripts.delete(EditorActivity.scripts_path + "/" + name);
         Toast.makeText(context, name + " deleted", Toast.LENGTH_SHORT).show();
-        getFileList();
+        getFileList(1);
     }
 
     private List<Thread> threadList = new ArrayList<>();

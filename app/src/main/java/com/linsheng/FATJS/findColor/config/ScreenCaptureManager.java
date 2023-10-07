@@ -60,9 +60,12 @@ public class ScreenCaptureManager {
         this.projectionManager = (MediaProjectionManager)activity.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
         if (this.projectionManager != null && this.state == State.IDLE) {
             activity.startActivityForResult(this.projectionManager.createScreenCaptureIntent(), 1000);
-            this.state = State.RUNNING;
+            //this.state = State.RUNNING;
         }
+    }
 
+    public boolean isOpen() {
+        return this.state == State.RUNNING;
     }
 
     public void init() {
@@ -86,7 +89,6 @@ public class ScreenCaptureManager {
         if (this.mediaProjection != null) {
             this.mediaProjection.stop();
         }
-
     }
 
     public void start(int resultCode, Intent intent) {

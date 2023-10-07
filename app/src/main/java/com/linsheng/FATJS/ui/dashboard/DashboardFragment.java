@@ -7,9 +7,11 @@ import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -85,6 +87,7 @@ public class DashboardFragment extends Fragment {
         storagePermission();
         floatPermission();
         accessibilityPermission();
+        screenPermission();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -200,8 +203,14 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
-    private void getScreenPermission() {
-
+    private void screenPermission() {
+        if (ScreenCaptureManager.getInstance().isOpen()) {
+            _screen = true;
+            switch_screen.setChecked(true);
+            return;
+        }
+        _screen = false;
+        switch_screen.setChecked(false);
     }
     // 开启捕获屏幕
     public void getMediaProjectionManger() {
@@ -213,21 +222,6 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        // 开启捕获屏幕
-//        if(resultCode == RESULT_OK && requestCode == 1000) {
-//            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                Intent service = new Intent(getActivity(), CaptureScreenService.class);
-//                service.putExtra("code", resultCode);
-//                service.putExtra("data", data);
-//                context.startForegroundService(service);
-//            }else {
-//                ScreenCaptureManager.getInstance().start(resultCode, data);
-//            }
-//        }
-//    }
     private boolean accessibilityPermission() {
         try{
             String packageName = context.getPackageName();
@@ -266,14 +260,14 @@ public class DashboardFragment extends Fragment {
     Switch switch_storage;
     boolean _storage = false;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    Switch switch_float;
-    boolean _float = false;
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
-    Switch switch_screen;
-    boolean _screen = false;
+    public static Switch switch_float;
+    public static boolean _float = false;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch switch_accessibility;
     boolean _accessibility = false;
+    @SuppressLint({"UseSwitchCompatOrMaterialCode", "StaticFieldLeak"})
+    public static Switch switch_screen;
+    public static boolean _screen = false;
     private void permissions(View root) {
         switch_storage = root.findViewById(R.id.switch_storage);
         switch_float = root.findViewById(R.id.switch_float);
@@ -305,20 +299,6 @@ public class DashboardFragment extends Fragment {
                 getFloatPermission();
             }
         });
-        switch_screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (_screen) {
-                    printLogMsg("switch_screen already True");
-                    switch_screen.setChecked(_screen);
-                    Toast.makeText(context, "switch_screen already True", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                printLogMsg("switch_screen => " + switch_screen.isChecked());
-                getScreenPermission();
-                getMediaProjectionManger();
-            }
-        });
         switch_accessibility.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -330,6 +310,21 @@ public class DashboardFragment extends Fragment {
                 }
                 printLogMsg("switch_accessibility => " + switch_accessibility.isChecked());
                 startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+            }
+        });
+        switch_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (_screen) {
+                    printLogMsg("switch_screen already True");
+//                    switch_screen.setChecked(_screen);
+//                    Toast.makeText(context, "switch_screen already True", Toast.LENGTH_SHORT).show();
+                    _screen = false;
+                    ScreenCaptureManager.getInstance().stop();
+                    return;
+                }
+                printLogMsg("switch_screen => " + switch_screen.isChecked());
+                getMediaProjectionManger();
             }
         });
     }
