@@ -513,6 +513,19 @@ public class UiObject {
         return String.valueOf(accNodeInfo.getText());
     }
 
+    /**
+     * 返回 {string}
+     * 获取控件的desc，如果控件没有desc，返回""。
+     * @return
+     */
+    public String desc() {
+        if (accNodeInfo == null) {
+            return null;
+        }
+
+        return String.valueOf(accNodeInfo.getContentDescription());
+    }
+
 
     /**
      * str {string} 文本

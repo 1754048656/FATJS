@@ -72,6 +72,12 @@ public class TaskBase extends UiSelector {
     /**********************************************************************************************/
     public int _width;
     public int _height;
+    public String _getText(AccessibilityNodeInfo node) {
+        return String.valueOf(node.getText());
+    }
+    public String _getDesc(AccessibilityNodeInfo node) {
+        return String.valueOf(node.getContentDescription());
+    }
     public int[] _screenSize() {
         return new int[]{mWidth, mHeight};
     }

@@ -78,7 +78,7 @@ public class DyTaskService extends UiSelector {
             timeSleep(waitOneSecond);
         }
         printLogMsg("完成");
-        text("xx").find().filter(item -> {
+        text("xx").find().filterOne(item -> {
             Rect bounds = getBounds(item);
             return true;
         });

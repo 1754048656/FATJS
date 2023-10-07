@@ -1,5 +1,7 @@
 //-------------------- pre set -------------------//
 let task = new Task()
+const getText = (node) => task._getText(node);
+const getDesc = (node) => task._getDesc(node);
 const width = task._width;
 const height = task._height;
 const screenSize = () => task._screenSize();
