@@ -24,6 +24,7 @@ import static com.linsheng.FATJS.node.AccUtils.swipe;
 import static com.linsheng.FATJS.node.AccUtils.timeSleep;
 import static com.linsheng.FATJS.node.AccUtils.viewVideo;
 
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Build;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -35,6 +36,7 @@ import com.caoccao.javet.interop.converters.JavetProxyConverter;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.FileUtils;
 
+import java.util.List;
 import java.util.Random;
 
 public class TaskBase extends UiSelector {
@@ -72,6 +74,28 @@ public class TaskBase extends UiSelector {
     /**********************************************************************************************/
     public int _width;
     public int _height;
+    public void _mkdir(String dir) {
+        FileUtils.createDirectory(dir);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String _readFile(String filePath) {
+        return FileUtils.readFile(filePath);
+    }
+    public boolean _mvFile(String from, String to) {
+        return FileUtils.moveFile(from, to);
+    }
+    public List<String> _lsFolder(String folderPath) {
+        return FileUtils.pathFileList(folderPath);
+    }
+    public boolean _renameFile(String sourceFilePath, String targetFilePath) {
+        return FileUtils.renameFile(sourceFilePath, targetFilePath);
+    }
+    public boolean _deleteFile(String filePath) {
+        return FileUtils.deleteFile(filePath);
+    }
+    public List<String> _readLines(String filePath) {
+        return FileUtils.readLines(filePath);
+    }
     public String _getText(AccessibilityNodeInfo node) {
         return String.valueOf(node.getText());
     }

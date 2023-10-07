@@ -106,29 +106,29 @@
 
         </TableRow>
 
-<!--        <TableRow-->
-<!--            android:layout_marginTop="20dp">-->
+        <TableRow
+            android:layout_marginTop="20dp">
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/guanzhu_in"-->
-<!--                android:layout_width="141dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint=""-->
-<!--                android:layout_span="2"-->
-<!--                android:textSize="21dp"-->
-<!--                android:text="屏幕录制权限"-->
-<!--                />-->
-<!--            <Switch-->
-<!--                android:id="@+id/switch_screen"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="" />-->
-<!--        </TableRow>-->
+            <TextView
+                android:id="@+id/guanzhu_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:textSize="21dp"
+                android:text="屏幕录制权限"
+                />
+            <Switch
+                android:id="@+id/switch_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </TableRow>
 
         <TableRow
             android:layout_marginTop="20dp">

@@ -9,6 +9,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,9 +36,12 @@ import com.hjq.permissions.XXPermissions;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.activitys.FloatingButton;
 import com.linsheng.FATJS.activitys.FloatingWindow;
+import com.linsheng.FATJS.activitys.MainActivity;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.config.WindowPermissionCheck;
 import com.linsheng.FATJS.databinding.FragmentDashboardBinding;
+import com.linsheng.FATJS.findColor.config.CaptureScreenService;
+import com.linsheng.FATJS.findColor.config.ScreenCaptureManager;
 import com.linsheng.FATJS.utils.FileUtils;
 import com.linsheng.FATJS.utils.StringUtils;
 
@@ -196,6 +200,34 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
+    private void getScreenPermission() {
+
+    }
+    // 开启捕获屏幕
+    public void getMediaProjectionManger() {
+        ScreenCaptureManager.getInstance().init(getActivity());
+        ScreenCaptureManager.getInstance().setScreenCaptureCallback(new ScreenCaptureManager.ScreenCaptureCallback() {
+            @Override
+            public void onBitmap(Bitmap bitmap) {
+                Log.e(tag, "bitmap = "+bitmap);
+            }
+        });
+    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        // 开启捕获屏幕
+//        if(resultCode == RESULT_OK && requestCode == 1000) {
+//            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                Intent service = new Intent(getActivity(), CaptureScreenService.class);
+//                service.putExtra("code", resultCode);
+//                service.putExtra("data", data);
+//                context.startForegroundService(service);
+//            }else {
+//                ScreenCaptureManager.getInstance().start(resultCode, data);
+//            }
+//        }
+//    }
     private boolean accessibilityPermission() {
         try{
             String packageName = context.getPackageName();
@@ -245,7 +277,7 @@ public class DashboardFragment extends Fragment {
     private void permissions(View root) {
         switch_storage = root.findViewById(R.id.switch_storage);
         switch_float = root.findViewById(R.id.switch_float);
-//        switch_screen = root.findViewById(R.id.switch_screen);
+        switch_screen = root.findViewById(R.id.switch_screen);
         switch_accessibility = root.findViewById(R.id.switch_accessibility);
         switch_storage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,18 +305,20 @@ public class DashboardFragment extends Fragment {
                 getFloatPermission();
             }
         });
-//        switch_screen.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (_screen) {
-//                    printLogMsg("switch_screen already True");
-//                    switch_screen.setChecked(_screen);
-//                    Toast.makeText(context, "switch_screen already True", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                printLogMsg("switch_screen => " + switch_screen.isChecked());
-//            }
-//        });
+        switch_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (_screen) {
+                    printLogMsg("switch_screen already True");
+                    switch_screen.setChecked(_screen);
+                    Toast.makeText(context, "switch_screen already True", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                printLogMsg("switch_screen => " + switch_screen.isChecked());
+                getScreenPermission();
+                getMediaProjectionManger();
+            }
+        });
         switch_accessibility.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -305,5 +339,4 @@ public class DashboardFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }

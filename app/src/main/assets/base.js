@@ -1,5 +1,12 @@
 //-------------------- pre set -------------------//
 let task = new Task()
+const mkdir = (dir) => task._mkdir(dir);
+const readFile = (filePath) => task._readFile(filePath);
+const mvFile = (from, to) => task._mvFile(from, to);
+const lsFolder = (folderPath) => task._lsFolder(folderPath);
+const renameFile = (sourcePath, targetPath) => task._renameFile(sourcePath, targetPath);
+const deleteFile = (filePath) => task._deleteFile(filePath);
+const readLines = (filePath) => task._readLines(filePath);
 const getText = (node) => task._getText(node);
 const getDesc = (node) => task._getDesc(node);
 const width = task._width;
