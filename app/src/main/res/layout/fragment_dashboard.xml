@@ -171,7 +171,30 @@
                 android:textSize="16dp"
                 android:text="跳转到无障碍页面"
                 />
+        </TableRow>
 
+        <TableRow
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/guanzhu_i"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="2"
+                android:textSize="21dp"
+                android:text="DEV_MODE"
+                />
+            <Switch
+                android:id="@+id/switch_dev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
         </TableRow>
 
     </TableLayout>
