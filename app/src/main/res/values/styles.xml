@@ -42,8 +42,8 @@
     </style>
 
     <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="itemTextColor">@color/bottom_nav_item_color</item>
-        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+<!--        <item name="itemTextColor">@color/bottom_nav_item_color</item>-->
+<!--        <item name="itemIconTint">@color/bottom_nav_item_color</item>-->
 <!--        <item name="itemRippleColor">@null</item> &lt;!&ndash; 去除点击时的涟漪效果 &ndash;&gt;-->
 <!--        <item name="itemBackground">@android:color/transparent</item> &lt;!&ndash; 去除背景 &ndash;&gt;-->
 <!--        <item name="android:background">@android:color/transparent</item> &lt;!&ndash; 去除背景 &ndash;&gt;-->
