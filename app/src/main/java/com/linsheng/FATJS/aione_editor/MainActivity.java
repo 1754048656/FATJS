@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
         Window window = getWindow();
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.title_color));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_color));
         if (actionBar != null) {
             actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(165,0,0,0)));
         }

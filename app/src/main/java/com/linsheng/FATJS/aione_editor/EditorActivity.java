@@ -18,6 +18,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.linsheng.FATJS.R;
 
@@ -41,6 +43,8 @@ public class EditorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         isDark();
         super.onCreate(savedInstanceState);
+        Window window = getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_color));
         setContentView(R.layout.editor);
 
         init_editor();
@@ -244,22 +248,6 @@ public class EditorActivity extends AppCompatActivity {
     public void onBackPressed() {
         ed.AFTER_SAVE = Editor.END;
         ed.check_save();
-    }
-
-    private boolean isStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                return true;
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.
-                        WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-                return false;
-            }
-        } else {
-            return true;
-        }
     }
 
     @Override

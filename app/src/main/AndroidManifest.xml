@@ -26,7 +26,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logo_black"
+        android:icon="@drawable/logo_sh"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.FATJS"
@@ -88,7 +88,7 @@
             </intent-filter>
         </activity>
 
-        <!-- 低版本安卓得做适配 -->
+        <!-- 前台服务 -->
         <service
             android:name="com.linsheng.FATJS.service.MyService"
             android:enabled="true"

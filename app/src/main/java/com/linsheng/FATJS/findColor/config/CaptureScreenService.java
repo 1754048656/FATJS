@@ -52,9 +52,9 @@ public class CaptureScreenService extends Service {
         Intent nfIntent = new Intent(this, MainActivity.class); //点击后跳转的界面，可以设置跳转数据
 
         builder.setContentIntent(PendingIntent.getActivity(this, 0, nfIntent, PendingIntent.FLAG_IMMUTABLE)) // 设置PendingIntent
-                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.drawable.logo_black)) // 设置下拉列表中的图标(大图标)
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.drawable.logo)) // 设置下拉列表中的图标(大图标)
                 .setContentTitle("屏幕捕捉正在运行") // 设置下拉列表里的标题
-                .setSmallIcon(R.drawable.logo_black) // 设置状态栏内的小图标@mipmap/ic_launcher
+                .setSmallIcon(R.drawable.logo) // 设置状态栏内的小图标@mipmap/ic_launcher
                 .setContentText("CaptureScreenService is running......") // 设置上下文内容
                 .setWhen(System.currentTimeMillis()); // 设置该通知发生的时间
 
