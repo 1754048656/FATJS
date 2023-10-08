@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View view) {
-                    if (name.endsWith(".txt")) {
+                    if (!name.endsWith(".js")) {
                         Toast.makeText(context, name + " is not a js file", Toast.LENGTH_SHORT).show();
                         return;
                     }
