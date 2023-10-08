@@ -15,7 +15,7 @@ const height = task._height;
 const screenSize = () => task._screenSize();
 const sleep = (time) => task._sleep(time);
 const open = (name) => task._open(name);
-const print = (msg) => task._print(msg);
+const print = (msg) => task._print(msg + '');
 const clickNode = (node) => task._clickNode(node);
 const clickNodePoint = (node) => task._clickNodePoint(node);
 const click = (x, y) => task._click(x, y);
@@ -67,13 +67,13 @@ const enabled = (b) => task._enabled(b);
 const scrollable = (b) => task._scrollable(b);
 const editable = (b) => task._editable(b);
 const multiLine = (b) => task._multiLine(b);
-const untilFindOne = (...params) => { // ÅäÖÃÖØÔØ·½·¨
+const untilFindOne = (...params) => { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½
     if(params.length === 0) {
         task._untilFindOne();
     }
     task._untilFindOne(params);
 }
-const findOne = (...params) => { // ÅäÖÃÖØÔØ·½·¨
+const findOne = (...params) => { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½
     if(params.length === 0) {
         task._findOne();
     }
