@@ -207,10 +207,12 @@ public class DashboardFragment extends Fragment {
         if (ScreenCaptureManager.getInstance().isOpen()) {
             _screen = true;
             switch_screen.setChecked(true);
+            printLogMsg("屏幕录制权限已授予");
             return;
         }
         _screen = false;
         switch_screen.setChecked(false);
+        printLogMsg("屏幕录制权限未授予");
     }
     // 开启捕获屏幕
     public void getMediaProjectionManger() {

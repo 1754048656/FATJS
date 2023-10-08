@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 // 打开悬浮窗
                 context.startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
 
-                Toast.makeText(context, "屏幕录制权限，也可开启临时悬浮窗", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "屏幕录制权限，部分可开启临时悬浮窗", Toast.LENGTH_SHORT).show();
             }else {
                 ScreenCaptureManager.getInstance().state = ScreenCaptureManager.State.IDLE;
                 DashboardFragment._screen = false;
