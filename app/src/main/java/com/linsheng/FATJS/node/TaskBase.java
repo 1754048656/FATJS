@@ -35,6 +35,7 @@ import com.caoccao.javet.interop.V8Host;
 import com.caoccao.javet.interop.converters.JavetProxyConverter;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.FileUtils;
+import com.linsheng.FATJS.utils.ScreenshotUtils;
 
 import java.util.List;
 import java.util.Random;
@@ -74,6 +75,9 @@ public class TaskBase extends UiSelector {
     /**********************************************************************************************/
     public int _width;
     public int _height;
+    public boolean _capture(String filePath) {
+        return ScreenshotUtils.capture(filePath);
+    }
     public void _mkdir(String dir) {
         FileUtils.createDirectory(dir);
     }

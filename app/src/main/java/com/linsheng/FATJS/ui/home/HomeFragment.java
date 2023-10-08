@@ -179,8 +179,9 @@ public class HomeFragment extends Fragment {
         list.clear();
         File f = new File(EditorActivity.scripts_path);
         if (!f.exists()) {
-            Toast.makeText(context, "there are no files created", Toast.LENGTH_SHORT).show();
-            //finish();
+//            if (show == 1)
+//                Toast.makeText(context, "there are no files created", Toast.LENGTH_SHORT).show();
+//            finish();
         }
 
         final String files[] = f.list();

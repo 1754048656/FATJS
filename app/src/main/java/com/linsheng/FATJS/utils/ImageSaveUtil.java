@@ -1,5 +1,7 @@
 package com.linsheng.FATJS.utils;
 
+import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
@@ -11,8 +13,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class ImageSaveUtil {
-
-//    private static final String SD_PATH = Environment.getExternalStorageDirectory().getPath() + "/MediaProjection/";
     private static final String SD_PATH = Environment.getExternalStorageDirectory().getPath() + "/FATJS_DIR/";
 
     public static void saveBitmap2file(Bitmap bmp, Context context, String name) {
@@ -21,7 +21,7 @@ public class ImageSaveUtil {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             savePath = SD_PATH;
         } else {
-            AccUtils.printLogMsg("保存失败!");
+            printLogMsg("保存失败!");
             //Toast.makeText(context, "保存失败！", Toast.LENGTH_SHORT).show();
             return ;
         }
@@ -35,8 +35,7 @@ public class ImageSaveUtil {
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
-            AccUtils.printLogMsg("保存成功,位置:" + filePic.getAbsolutePath());
-            //Toast.makeText(context, "保存成功,位置:" + filePic.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            printLogMsg("保存成功,位置:" + filePic.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }

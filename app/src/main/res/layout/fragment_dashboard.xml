@@ -162,6 +162,7 @@
             <Button
                 android:id="@+id/pinlun_in_0"
                 android:layout_width="141dp"
+                android:backgroundTint="#000000"
                 android:layout_height="wrap_content"
                 android:hint=""
                 android:onClick="to_acc"

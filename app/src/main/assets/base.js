@@ -1,5 +1,6 @@
 //-------------------- pre set -------------------//
 let task = new Task()
+const capture = (filePath) => task._capture(filePath);
 const mkdir = (dir) => task._mkdir(dir);
 const readFile = (filePath) => task._readFile(filePath);
 const mvFile = (from, to) => task._mvFile(from, to);

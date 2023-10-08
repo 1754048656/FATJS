@@ -135,6 +135,10 @@ public class DashboardFragment extends Fragment {
                 }
                 _storage = true;
                 switch_storage.setChecked(true);
+                FileUtils.createDirectory(Environment.getExternalStorageDirectory() + PATH);
+                FileUtils.writeToTxt(
+                        Environment.getExternalStorageDirectory() + PATH + "version.txt",
+                        "test");
             }
             @Override
             public void onDenied(@NonNull List<String> permissions, boolean doNotAskAgain) {
