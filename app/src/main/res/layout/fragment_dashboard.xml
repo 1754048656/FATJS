@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4E670"
+    android:background="@color/background_color"
     tools:context=".ui.dashboard.DashboardFragment">
 
     <TextView
@@ -33,7 +33,7 @@
         <TableRow>
 
             <TextView
-                android:layout_width="130dp"
+                android:layout_width="120dp"
                 android:layout_height="10dp"
                 android:layout_span="1"
                 android:gravity="center"

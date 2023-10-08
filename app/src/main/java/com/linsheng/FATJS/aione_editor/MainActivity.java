@@ -4,6 +4,8 @@ import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -12,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -20,7 +23,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -55,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        Window window = getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.title_color));
+        if (actionBar != null) {
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(165,0,0,0)));
+        }
+
         context = getApplicationContext();
         // 开启前台服务 未适配低版本安卓
         openForwardService();

@@ -20,8 +20,8 @@
     <item name="insert_btn_bg" type="color">#2A15AB0D</item>
     <item name="vr_color" type="color">#2196F3</item>
     <item name="darkblue" type="color">#2196F3</item>
-    <!--    <item name="white" type="color">#FFF</item>-->
-    <item name="title_color" type="color">#16FFEB3B</item>
+    <item name="background_color" type="color">#A9CACA</item>
+    <item name="title_color" type="color">#000000</item>
     <item name="about_color2" type="color">#FFC107</item>
     <item name="about_color1" type="color">#512196F3</item>
     <color name="about_bg1">#F44336</color>
