@@ -1,5 +1,6 @@
 package com.linsheng.FATJS.activitys;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.DEV_MODE;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
@@ -101,13 +102,13 @@ public class FloatingButton extends Service {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-
-                // 测试方法
-//                testMethodPre(); // 这个和下面这个 btnClick() 不能同时开启，只能开一个，否则会冲突
-
-                // 改变悬浮窗大小
-                btnClick();
-
+                if (DEV_MODE) {
+                    // FATJS 的开发者模式
+                    testMethodPre();
+                } else {
+                    // 改变悬浮窗大小
+                    btnClick();
+                }
             }
         });
     }

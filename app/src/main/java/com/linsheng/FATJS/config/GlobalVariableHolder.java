@@ -9,6 +9,7 @@ import com.caoccao.javet.interop.V8Runtime;
 import java.util.HashMap;
 
 public class GlobalVariableHolder {
+    public static boolean DEV_MODE = false; // FATJS 的开发者模式
     public static V8Runtime v8Runtime;
     public static final String PATH = "/FATJS_DIR/";
     public static final String FATJS_INFO = "author: 林笙\n\nwx: FATJS_Lin\n\nGitHub: FATJS";
