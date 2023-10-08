@@ -190,9 +190,19 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(context, "there are no files", Toast.LENGTH_SHORT).show();
             //finish();
         } else {
-            for (int i = 0; i < files.length; i++) {
-                String name = files[i];
-                list.add(name);
+            for (String name : files) {
+                if (name.endsWith(".js")
+                        || name.endsWith(".txt")
+                        || name.endsWith(".py")
+                        || name.endsWith(".java")
+                        || name.endsWith(".class")
+                        || name.endsWith(".ini")
+                        || name.endsWith(".xml")
+                        || name.endsWith(".cpp")
+                        || name.endsWith(".c")
+                ) {
+                    list.add(name);
+                }
             }
         }
         myRecyclerAdapter.notifyDataSetChanged();
