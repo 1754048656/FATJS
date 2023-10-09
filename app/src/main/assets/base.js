@@ -67,13 +67,13 @@ const enabled = (b) => task._enabled(b);
 const scrollable = (b) => task._scrollable(b);
 const editable = (b) => task._editable(b);
 const multiLine = (b) => task._multiLine(b);
-const untilFindOne = (...params) => { // �������ط���
+const untilFindOne = (...params) => {
     if(params.length === 0) {
         task._untilFindOne();
     }
     task._untilFindOne(params);
 }
-const findOne = (...params) => { // �������ط���
+const findOne = (...params) => {
     if(params.length === 0) {
         task._findOne();
     }
