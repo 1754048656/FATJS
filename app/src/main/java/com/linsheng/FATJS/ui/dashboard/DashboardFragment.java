@@ -1,5 +1,6 @@
 package com.linsheng.FATJS.ui.dashboard;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.DEV_MODE;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.PATH;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.tag;
@@ -88,6 +89,16 @@ public class DashboardFragment extends Fragment {
         floatPermission();
         accessibilityPermission();
         screenPermission();
+        devPermission();
+    }
+
+    private void devPermission() {
+        switch_dev.setChecked(DEV_MODE);
+    }
+
+    private void getDevPermission() {
+        DEV_MODE = true;
+        switch_dev.setChecked(DEV_MODE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -268,11 +279,14 @@ public class DashboardFragment extends Fragment {
     @SuppressLint({"UseSwitchCompatOrMaterialCode", "StaticFieldLeak"})
     public static Switch switch_screen;
     public static boolean _screen = false;
+    @SuppressLint({"UseSwitchCompatOrMaterialCode"})
+    Switch switch_dev;
     private void permissions(View root) {
         switch_storage = root.findViewById(R.id.switch_storage);
         switch_float = root.findViewById(R.id.switch_float);
         switch_screen = root.findViewById(R.id.switch_screen);
         switch_accessibility = root.findViewById(R.id.switch_accessibility);
+        switch_dev = root.findViewById(R.id.switch_dev);
         switch_storage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -325,6 +339,15 @@ public class DashboardFragment extends Fragment {
                 }
                 printLogMsg("switch_screen => " + switch_screen.isChecked());
                 getMediaProjectionManger();
+            }
+        });
+        switch_dev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DEV_MODE = !DEV_MODE;
+                switch_dev.setChecked(DEV_MODE);
+                printLogMsg("DEV_MODE => " + DEV_MODE);
+                Toast.makeText(context, "DEV_MODE => " + DEV_MODE, Toast.LENGTH_SHORT).show();
             }
         });
     }
