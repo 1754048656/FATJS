@@ -35,6 +35,7 @@ import com.caoccao.javet.interop.V8Host;
 import com.caoccao.javet.interop.converters.JavetProxyConverter;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.FileUtils;
+import com.linsheng.FATJS.utils.OkHttpUtils;
 import com.linsheng.FATJS.utils.ScreenshotUtils;
 
 import java.util.List;
@@ -62,6 +63,7 @@ public class TaskBase extends UiSelector {
             }
             v8Runtime.setConverter(new JavetProxyConverter()); // 配置可调用Java方法
             v8Runtime.getGlobalObject().set("Task", TaskBase.class);
+            v8Runtime.getGlobalObject().set("http", OkHttpUtils.class);
             v8Runtime.getExecutor(script).executeVoid();
         } catch (Exception e) {
             printLogMsg(ExceptionUtil.toString(e));
