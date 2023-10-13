@@ -24,13 +24,13 @@ import static com.linsheng.FATJS.node.AccUtils.swipe;
 import static com.linsheng.FATJS.node.AccUtils.timeSleep;
 import static com.linsheng.FATJS.node.AccUtils.viewVideo;
 
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Build;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.RequiresApi;
 
+import com.caoccao.javet.exceptions.JavetException;
 import com.caoccao.javet.interop.V8Host;
 import com.caoccao.javet.interop.converters.JavetProxyConverter;
 import com.linsheng.FATJS.utils.ExceptionUtil;
@@ -62,7 +62,7 @@ public class TaskBase extends UiSelector {
                 script = base + "\n" + script;
             }
             v8Runtime.setConverter(new JavetProxyConverter()); // 配置可调用Java方法
-            v8Runtime.getGlobalObject().set("Task", TaskBase.class);
+            v8Runtime.getGlobalObject().set("engines", TaskBase.class);
             v8Runtime.getGlobalObject().set("http", OkHttpUtils.class);
             v8Runtime.getExecutor(script).executeVoid();
         } catch (Exception e) {
@@ -77,6 +77,15 @@ public class TaskBase extends UiSelector {
     /**********************************************************************************************/
     public int _width;
     public int _height;
+    public static boolean execScript(String script) {
+        try {
+            v8Runtime.getExecutor(script).executeVoid();
+            return true;
+        } catch (JavetException e) {
+            ExceptionUtil.toString(e);
+        }
+        return false;
+    }
     public boolean _capture(String filePath) {
         return ScreenshotUtils.capture(filePath);
     }
