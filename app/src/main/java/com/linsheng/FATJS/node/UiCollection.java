@@ -36,21 +36,21 @@ import java.util.List;
  */
 public class UiCollection {
 
-    public UiCollection(List<AccessibilityNodeInfo> accNodeInfoList) {
-        this.accNodeInfoList = accNodeInfoList;
+    public UiCollection(List<AccessibilityNodeInfo> nodeList) {
+        this.nodeList = nodeList;
     }
 
     public UiCollection() {
     }
 
-    public List<AccessibilityNodeInfo> accNodeInfoList = new ArrayList<>();
+    public List<AccessibilityNodeInfo> nodeList = new ArrayList<>();
 
     /**
      * 遍历打印accNodeInfoList
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void foreachPrint() {
-        this.accNodeInfoList.forEach(node -> {
+        this.nodeList.forEach(node -> {
             printLogMsg("foreachPrint: " + node);
         });
     }
@@ -69,7 +69,7 @@ public class UiCollection {
      */
     public UiObject filterOne(FilterCondition<AccessibilityNodeInfo> condition) {
         List<AccessibilityNodeInfo> filteredList = new ArrayList<>();
-        for (AccessibilityNodeInfo item : this.accNodeInfoList) {
+        for (AccessibilityNodeInfo item : this.nodeList) {
             if (condition.shouldKeep(item)) {
                 printLogMsg("shouldKeep: " + item);
                 filteredList.add(item);
@@ -78,7 +78,7 @@ public class UiCollection {
         }
         UiObject uiObject = new UiObject();
         if (filteredList.size() > 0) {
-            uiObject.accNodeInfo = filteredList.get(0);
+            uiObject.node = filteredList.get(0);
         }
         return uiObject;
     }
@@ -93,7 +93,7 @@ public class UiCollection {
      */
     public List<AccessibilityNodeInfo> filter(FilterCondition<AccessibilityNodeInfo> condition) {
         List<AccessibilityNodeInfo> filteredList = new ArrayList<>();
-        for (AccessibilityNodeInfo item : this.accNodeInfoList) {
+        for (AccessibilityNodeInfo item : this.nodeList) {
             if (condition.shouldKeep(item)) {
                 printLogMsg("shouldKeep: " + item);
                 filteredList.add(item);

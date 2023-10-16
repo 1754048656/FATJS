@@ -26,7 +26,7 @@ import java.util.Random;
  */
 public class UiObject {
 
-    public AccessibilityNodeInfo accNodeInfo;
+    public AccessibilityNodeInfo node;
 
     /**
      * 返回 {Boolean}
@@ -35,24 +35,24 @@ public class UiObject {
      * @return
      */
     public boolean click() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
         try {
-            boolean action1 = accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            boolean action1 = node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             if (action1) {
                 // 回收
-                accNodeInfo.recycle();
+                node.recycle();
                 return true;
             }
 
-            while (!accNodeInfo.isClickable()) {
-                accNodeInfo = accNodeInfo.getParent();
+            while (!node.isClickable()) {
+                node = node.getParent();
             }
-            if (accNodeInfo.isClickable()) {
-                boolean action = accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            if (node.isClickable()) {
+                boolean action = node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
                 // 回收
-                accNodeInfo.recycle();
+                node.recycle();
                 return action;
             }
         }catch (Exception e) {}
@@ -61,19 +61,19 @@ public class UiObject {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean clickPoint() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        printLogMsg("DrawingOrder => " + accNodeInfo.getDrawingOrder());
+        printLogMsg("DrawingOrder => " + node.getDrawingOrder());
 
         Rect rect = new Rect();
-        accNodeInfo.getBoundsInScreen(rect);
+        node.getBoundsInScreen(rect);
         int x = (rect.left + rect.right) / 2;
         int y = (rect.top + rect.bottom) / 2;
         boolean aBoolean = clickByPoint(x, y, new Random().nextInt(55) + 60);
         // 回收
-        accNodeInfo.recycle();
+        node.recycle();
         return aBoolean;
     }
 
@@ -121,10 +121,10 @@ public class UiObject {
      * @return
      */
     public boolean longClick() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_LONG_CLICK);
+        return node.performAction(AccessibilityNodeInfo.ACTION_LONG_CLICK);
     }
 
     /**
@@ -137,7 +137,7 @@ public class UiObject {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public boolean setText(String text) {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
@@ -148,7 +148,7 @@ public class UiObject {
         args.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, text);
 
         // 调用performAction()方法执行设置文本操作
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, args);
+        return node.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, args);
     }
 
 
@@ -168,10 +168,10 @@ public class UiObject {
      * @return
      */
     public boolean copy() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_COPY);
+        return node.performAction(AccessibilityNodeInfo.ACTION_COPY);
     }
 
     /**
@@ -180,10 +180,10 @@ public class UiObject {
      * @return
      */
     public boolean cut() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_CUT);
+        return node.performAction(AccessibilityNodeInfo.ACTION_CUT);
     }
 
     /**
@@ -196,10 +196,10 @@ public class UiObject {
      * @return
      */
     public boolean paste() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_PASTE);
+        return node.performAction(AccessibilityNodeInfo.ACTION_PASTE);
     }
 
     /**
@@ -214,7 +214,7 @@ public class UiObject {
      * @return
      */
     public boolean setSelection(int start, int end) {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
@@ -226,7 +226,7 @@ public class UiObject {
         args.putInt(AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_END_INT, end);
 
         // 执行选中文本操作
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SET_SELECTION, args);
+        return node.performAction(AccessibilityNodeInfo.ACTION_SET_SELECTION, args);
     }
 
     /**
@@ -237,11 +237,11 @@ public class UiObject {
      * @return
      */
     public boolean scrollForward() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+        return node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
     }
 
     /**
@@ -252,11 +252,11 @@ public class UiObject {
      * @return
      */
     public boolean scrollBackward() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+        return node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
     }
 
     /**
@@ -265,11 +265,11 @@ public class UiObject {
      * @return
      */
     public boolean select() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SELECT);
+        return node.performAction(AccessibilityNodeInfo.ACTION_SELECT);
     }
 
     /**
@@ -278,11 +278,11 @@ public class UiObject {
      * @return
      */
     public boolean collapse() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_COLLAPSE);
+        return node.performAction(AccessibilityNodeInfo.ACTION_COLLAPSE);
     }
 
     /**
@@ -291,11 +291,11 @@ public class UiObject {
      * @return
      */
     public boolean expand() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_EXPAND);
+        return node.performAction(AccessibilityNodeInfo.ACTION_EXPAND);
     }
 
     /**
@@ -303,7 +303,7 @@ public class UiObject {
      * @return
      */
     public boolean show() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
@@ -315,11 +315,11 @@ public class UiObject {
      * @return
      */
     public boolean scrollUp() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);
+        return node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);
     }
 
     /**
@@ -327,11 +327,11 @@ public class UiObject {
      * @return
      */
     public boolean scrollDown() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+        return node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
     }
 
     /**
@@ -339,11 +339,11 @@ public class UiObject {
      * @return
      */
     public boolean scrollLeft() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);
+        return node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);
     }
 
     /**
@@ -351,11 +351,11 @@ public class UiObject {
      * @return
      */
     public boolean scrollRight() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return false;
         }
 
-        return accNodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+        return node.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
     }
 
     /**
@@ -368,13 +368,13 @@ public class UiObject {
      * @return
      */
     public UiCollection children() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return null;
         }
 
         UiCollection uiCollection = new UiCollection();
-        for (int i = 0; i < accNodeInfo.getChildCount(); i++) {
-            uiCollection.accNodeInfoList.add(accNodeInfo.getChild(i));
+        for (int i = 0; i < node.getChildCount(); i++) {
+            uiCollection.nodeList.add(node.getChild(i));
         }
         return uiCollection;
     }
@@ -386,11 +386,11 @@ public class UiObject {
      * @return
      */
     public int childCount() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return -1;
         }
 
-        return accNodeInfo.getChildCount();
+        return node.getChildCount();
     }
 
 
@@ -409,12 +409,12 @@ public class UiObject {
      * @return
      */
     public UiObject child(int i) {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return null;
         }
 
         UiObject uiObject = new UiObject();
-        uiObject.accNodeInfo = accNodeInfo.getChild(i);
+        uiObject.node = node.getChild(i);
         return uiObject;
     }
 
@@ -424,12 +424,12 @@ public class UiObject {
      * @return
      */
     public UiObject parent() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return null;
         }
 
         UiObject uiObject = new UiObject();
-        uiObject.accNodeInfo = accNodeInfo.getParent();
+        uiObject.node = node.getParent();
         return uiObject;
     }
 
@@ -447,12 +447,12 @@ public class UiObject {
      * @return
      */
     public Rect bounds() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return null;
         }
 
         Rect rect = new Rect();
-        accNodeInfo.getBoundsInScreen(rect);
+        node.getBoundsInScreen(rect);
         return rect;
     }
 
@@ -462,12 +462,12 @@ public class UiObject {
      * @return
      */
     public Rect boundsInParent() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return null;
         }
 
         Rect rect = new Rect();
-        accNodeInfo.getBoundsInParent(rect);
+        node.getBoundsInParent(rect);
         return rect;
     }
 
@@ -477,12 +477,12 @@ public class UiObject {
      * @return
      */
     public int drawingOrder() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return -1;
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return accNodeInfo.getDrawingOrder();
+            return node.getDrawingOrder();
         }
         return 0;
     }
@@ -493,11 +493,11 @@ public class UiObject {
      * @return
      */
     public String id() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return null;
         }
 
-        return accNodeInfo.getViewIdResourceName();
+        return node.getViewIdResourceName();
     }
 
     /**
@@ -506,11 +506,11 @@ public class UiObject {
      * @return
      */
     public String text() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return null;
         }
 
-        return String.valueOf(accNodeInfo.getText());
+        return String.valueOf(node.getText());
     }
 
     /**
@@ -519,11 +519,11 @@ public class UiObject {
      * @return
      */
     public String desc() {
-        if (accNodeInfo == null) {
+        if (node == null) {
             return null;
         }
 
-        return String.valueOf(accNodeInfo.getContentDescription());
+        return String.valueOf(node.getContentDescription());
     }
 
 
@@ -537,7 +537,7 @@ public class UiObject {
      */
     public UiCollection findByText(String str) {
         // 检查accNodeInfo是否为空
-        if (accNodeInfo == null) {
+        if (node == null) {
             return null;
         }
 
@@ -545,11 +545,11 @@ public class UiObject {
         List<AccessibilityNodeInfo> nodeInfoOutList = new ArrayList<>();
 
         // 递归查找匹配的元素
-        recursionByText(accNodeInfo, str, nodeInfoOutList);
+        recursionByText(node, str, nodeInfoOutList);
 
         // 封装匹配元素列表到UiCollection对象中并返回
         UiCollection uiCollection = new UiCollection();
-        uiCollection.accNodeInfoList = nodeInfoOutList;
+        uiCollection.nodeList = nodeInfoOutList;
         return uiCollection;
     }
     /**

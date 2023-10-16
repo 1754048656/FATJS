@@ -786,9 +786,9 @@ public class UiSelector implements IUiSelector{
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiCollection uiCollection = new UiCollection();
         depthFirstSearchAll(accNodeInfo, attributes, uiCollection);
-        if (uiCollection.accNodeInfoList.size() - 1 >= i) {
+        if (uiCollection.nodeList.size() - 1 >= i) {
             UiObject uiObject = new UiObject();
-            uiObject.accNodeInfo = uiCollection.accNodeInfoList.get(i);
+            uiObject.node = uiCollection.nodeList.get(i);
             accNodeInfo.recycle(); // 释放 TODO 还应该释放列表中其他的
             return uiObject;
         }
@@ -838,7 +838,7 @@ public class UiSelector implements IUiSelector{
             }
         }
         if (numFlag == attributesMap.size()) {
-            uiCollection.accNodeInfoList.add(root);
+            uiCollection.nodeList.add(root);
         }
         for (int i = 0; i < root.getChildCount(); i++) {
             depthFirstSearchAll(root.getChild(i), attributesMap, uiCollection);
@@ -872,7 +872,7 @@ public class UiSelector implements IUiSelector{
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
         if (uiObject != null) {
-            uiObject.accNodeInfo.recycle();
+            uiObject.node.recycle();
             accNodeInfo.recycle(); // 释放
             return true;
         }
@@ -898,7 +898,7 @@ public class UiSelector implements IUiSelector{
             uiObject = depthFirstSearch(accNodeInfo, attributes);
             if (uiObject != null) {
                 AccUtils.printLogMsg("waitFor: found");
-                uiObject.accNodeInfo.recycle();
+                uiObject.node.recycle();
                 accNodeInfo.recycle(); // 释放
                 return;
             }
@@ -955,7 +955,7 @@ public class UiSelector implements IUiSelector{
 
             if (isMatched) {
                 UiObject uiObject = new UiObject();
-                uiObject.accNodeInfo = node;
+                uiObject.node = node;
                 return uiObject;
             }
 
@@ -984,7 +984,7 @@ public class UiSelector implements IUiSelector{
         }
         if (numFlag == attributesMap.size()) {
             uiObject = new UiObject();
-            uiObject.accNodeInfo = root;
+            uiObject.node = root;
             return uiObject;
         }
         for (int i = 0; i < root.getChildCount(); i++) {

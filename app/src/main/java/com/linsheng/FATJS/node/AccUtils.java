@@ -310,6 +310,27 @@ public class AccUtils extends AccessibilityService {
         },null);
     }
 
+    /**
+     * 获取中心坐标
+     * @param nodeInfo
+     * @return
+     */
+    public static int[] getPoint(AccessibilityNodeInfo nodeInfo) {
+        if (nodeInfo != null) {
+            Rect rect = new Rect();
+            nodeInfo.getBoundsInScreen(rect);
+            int x= (rect.left + rect.right) / 2;
+            int y = (rect.top + rect.bottom) / 2;
+            int[] ints = new int[2];
+            ints[0] = x;
+            ints[1] = y;
+            // 回收
+            nodeInfo.recycle();
+            return ints;
+        }
+        return null;
+    }
+
     /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
     /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
     /* ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇以下方法将逐渐被弃用⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇ */
@@ -936,27 +957,6 @@ public class AccUtils extends AccessibilityService {
             return true;
         }
         return false;
-    }
-
-    /**
-     * 获取坐标
-     * @param nodeInfo
-     * @return
-     */
-    public static List<Integer> getPoint(AccessibilityNodeInfo nodeInfo) {
-        if (nodeInfo != null) {
-            Rect rect = new Rect();
-            nodeInfo.getBoundsInScreen(rect);
-            int x=(rect.left+rect.right)/2;
-            int y = (rect.top + rect.bottom) / 2;
-            List<Integer> list = new ArrayList<>();
-            list.add(x);
-            list.add(y);
-            // 回收
-            nodeInfo.recycle();
-            return list;
-        }
-        return null;
     }
 
     /**

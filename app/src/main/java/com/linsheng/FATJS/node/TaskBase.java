@@ -13,6 +13,7 @@ import static com.linsheng.FATJS.node.AccUtils.clickNodeByPoint;
 import static com.linsheng.FATJS.node.AccUtils.clickParentCanClick;
 import static com.linsheng.FATJS.node.AccUtils.doubleClickPoint;
 import static com.linsheng.FATJS.node.AccUtils.getBounds;
+import static com.linsheng.FATJS.node.AccUtils.getPoint;
 import static com.linsheng.FATJS.node.AccUtils.getRootInActiveMy;
 import static com.linsheng.FATJS.node.AccUtils.home;
 import static com.linsheng.FATJS.node.AccUtils.loadScriptFromAssets;
@@ -77,6 +78,9 @@ public class TaskBase extends UiSelector {
     /**********************************************************************************************/
     public int _width;
     public int _height;
+    public int[] _getPoint(AccessibilityNodeInfo nodeInfo) {
+        return getPoint(nodeInfo);
+    }
     public static boolean execScript(String script) {
         try {
             v8Runtime.getExecutor(script).executeVoid();
