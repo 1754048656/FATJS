@@ -1,5 +1,6 @@
 //-------------------- pre set -------------------//
 let task = new engines()
+const activityName = () => task._activityName();
 const new_UiObject = (node) => new UiObject(node);
 const getPoint = (node) => task._getPoint(node);
 const capture = (filePath) => task._capture(filePath);

@@ -1,11 +1,13 @@
 package com.linsheng.FATJS.node;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.currentActivityName;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.v8Runtime;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.waitOneSecond;
 import static com.linsheng.FATJS.node.AccUtils.back;
 import static com.linsheng.FATJS.node.AccUtils.backToDesktop;
 import static com.linsheng.FATJS.node.AccUtils.click;
@@ -79,6 +81,10 @@ public class TaskBase extends UiSelector {
     /**********************************************************************************************/
     public int _width;
     public int _height;
+    public String _activityName() {
+        timeSleep(waitOneSecond);
+        return currentActivityName;
+    }
     public int[] _getPoint(AccessibilityNodeInfo nodeInfo) {
         return getPoint(nodeInfo);
     }
