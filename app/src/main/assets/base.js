@@ -1,5 +1,6 @@
 //-------------------- pre set -------------------//
 let task = new engines()
+const new_UiObject = (node) => new UiObject(node);
 const getPoint = (node) => task._getPoint(node);
 const capture = (filePath) => task._capture(filePath);
 const mkdir = (dir) => task._mkdir(dir);

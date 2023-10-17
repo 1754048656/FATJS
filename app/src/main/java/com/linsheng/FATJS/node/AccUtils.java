@@ -311,7 +311,7 @@ public class AccUtils extends AccessibilityService {
     }
 
     /**
-     * 获取中心坐标
+     * 获取中心坐标，不回收node
      * @param nodeInfo
      * @return
      */
@@ -319,13 +319,13 @@ public class AccUtils extends AccessibilityService {
         if (nodeInfo != null) {
             Rect rect = new Rect();
             nodeInfo.getBoundsInScreen(rect);
-            int x= (rect.left + rect.right) / 2;
+            int x = (rect.left + rect.right) / 2;
             int y = (rect.top + rect.bottom) / 2;
             int[] ints = new int[2];
             ints[0] = x;
             ints[1] = y;
             // 回收
-            nodeInfo.recycle();
+            //nodeInfo.recycle();
             return ints;
         }
         return null;

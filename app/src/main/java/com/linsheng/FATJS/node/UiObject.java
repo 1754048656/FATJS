@@ -28,6 +28,41 @@ public class UiObject {
 
     public AccessibilityNodeInfo node;
 
+    public UiObject(AccessibilityNodeInfo node) {
+        this.node = node;
+    }
+
+    public UiObject() {
+    }
+
+    /**
+     * 判断node是否为null
+     * @return
+     */
+    public boolean exist() {
+        return node != null;
+    }
+
+    /**
+     * 获取中心坐标
+     * @return
+     */
+    public int[] getPoint() {
+        if (node == null) {
+            return null;
+        }
+        Rect rect = new Rect();
+        node.getBoundsInScreen(rect);
+        int x = (rect.left + rect.right) / 2;
+        int y = (rect.top + rect.bottom) / 2;
+        int[] ints = new int[2];
+        ints[0] = x;
+        ints[1] = y;
+        // 回收
+        node.recycle();
+        return ints;
+    }
+
     /**
      * 返回 {Boolean}
      * 点击该控件，并返回是否点击成功。
