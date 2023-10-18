@@ -93,7 +93,7 @@ public class TaskBase extends UiSelector {
             v8Runtime.getExecutor(script).executeVoid();
             return true;
         } catch (JavetException e) {
-            ExceptionUtil.toString(e);
+            printLogMsg(ExceptionUtil.toString(e));
         }
         return false;
     }
