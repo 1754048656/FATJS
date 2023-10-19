@@ -73,6 +73,7 @@ public class UiCollection {
             if (condition.shouldKeep(item)) {
                 printLogMsg("shouldKeep: " + item);
                 filteredList.add(item);
+                break;
             }else
                 item.recycle(); // 释放过滤掉的
         }
