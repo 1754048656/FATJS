@@ -52,12 +52,12 @@ public class FloatingButton extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        printLogMsg("onBind: ");
+        printLogMsg("onBind: ", 0);
         return null;
     }
 
     private void setTypePhone(WindowManager.LayoutParams parameters) {
-        printLogMsg("onCreate: Build.VERSION.SDK_INT => " + Build.VERSION.SDK_INT);
+        printLogMsg("onCreate: Build.VERSION.SDK_INT => " + Build.VERSION.SDK_INT, 0);
         if (Build.VERSION.SDK_INT < 27) {
             parameters.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
@@ -116,9 +116,9 @@ public class FloatingButton extends Service {
     private void testMethodPre() {
         // 判断是否有任务正在执行
         if (isRunning) {
-            printLogMsg("有任务正在执行");
-            Toast.makeText(context, "有任务正在执行", Toast.LENGTH_SHORT).show();
             killThread = true;
+            printLogMsg("有任务正在执行", 0);
+            Toast.makeText(context, "有任务正在执行", Toast.LENGTH_SHORT).show();
             return;
         }
         new Thread(new Runnable() {
@@ -130,7 +130,7 @@ public class FloatingButton extends Service {
                     // 测试方法
                     testMethod();
                 } catch (Exception e) {
-                    AccUtils.printLogMsg(ExceptionUtil.toString(e));
+                    printLogMsg(ExceptionUtil.toString(e));
                 }
             }
         }).start();
@@ -141,7 +141,7 @@ public class FloatingButton extends Service {
             Log.i(TAG, "onClick: 打开 --> 全屏");
             if (isRunning) {
                 isStop = false;
-                printLogMsg("开始运行");
+                printLogMsg("开始运行", 0);
             }
             GlobalVariableHolder.btnTextView.setText("全屏");
 
@@ -154,7 +154,7 @@ public class FloatingButton extends Service {
             Log.i(TAG, "onClick: 隐藏 --> 打开");
             if (isRunning) {
                 isStop = true;
-                printLogMsg("暂停中");
+                printLogMsg("暂停中", 0);
             }
             GlobalVariableHolder.btnTextView.setText("打开");
 
@@ -167,7 +167,7 @@ public class FloatingButton extends Service {
             Log.i(TAG, "onClick: 全屏 --> 隐藏");
             if (isRunning) {
                 isStop = true;
-                printLogMsg("暂停中");
+                printLogMsg("暂停中", 0);
             }
             GlobalVariableHolder.btnTextView.setText("隐藏");
 
@@ -187,7 +187,7 @@ public class FloatingButton extends Service {
         // 将测试的动作写到这里，点击悬浮窗的 打开 按钮，就可以执行
         TaskBase taskDemo = new TaskBase();
         @SuppressLint("SdCardPath") String script_path = "/sdcard/FATJS_DIR/dev_script.js";
-        printLogMsg("script_path => " + script_path);
+        printLogMsg("script_path => " + script_path, 0);
         taskDemo.initJavet(script_path);
     }
 }

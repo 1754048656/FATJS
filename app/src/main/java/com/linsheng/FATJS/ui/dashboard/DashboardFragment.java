@@ -79,7 +79,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        printLogMsg("checkPermissions onStart");
+        printLogMsg("checkPermissions onStart", 0);
         checkPermissions();
     }
 
@@ -116,10 +116,10 @@ public class DashboardFragment extends Fragment {
         switch_storage.setChecked(permission);
         if (permission) {
             // 权限已经被授予，可以进行SD卡读写操作
-            printLogMsg("SD卡读写权限已授予");
+            printLogMsg("SD卡读写权限已授予", 0);
         } else {
             // 权限尚未被授予，需要进行相应处理
-            printLogMsg("SD卡读写权限未授予");
+            printLogMsg("SD卡读写权限未授予", 0);
         }
     }
     public void getStoragePermission() {
@@ -155,11 +155,11 @@ public class DashboardFragment extends Fragment {
             public void onDenied(@NonNull List<String> permissions, boolean doNotAskAgain) {
                 switch_storage.setChecked(false);
                 if (doNotAskAgain) {
-                    printLogMsg("被永久拒绝授权，请手动授予权限");
+                    printLogMsg("被永久拒绝授权，请手动授予权限", 0);
                     // 如果是被永久拒绝就跳转到应用权限系统设置页面
                     //XXPermissions.startPermissionActivity(context, permissions);
                 } else {
-                    printLogMsg("获取权限失败");
+                    printLogMsg("获取权限失败", 0);
                 }
             }
         });
@@ -170,10 +170,10 @@ public class DashboardFragment extends Fragment {
         _float = permission;
         switch_float.setChecked(permission);
         if (permission) {
-            printLogMsg("悬浮窗权限已授予");
+            printLogMsg("悬浮窗权限已授予", 0);
         }else {
             // 权限尚未被授予，需要进行相应处理
-            printLogMsg("悬浮窗权限未授予");
+            printLogMsg("悬浮窗权限未授予", 0);
         }
     }
     public void getFloatPermission() {
@@ -209,11 +209,11 @@ public class DashboardFragment extends Fragment {
             public void onDenied(@NonNull List<String> permissions, boolean doNotAskAgain) {
                 switch_float.setChecked(false);
                 if (doNotAskAgain) {
-                    printLogMsg("被永久拒绝授权，请手动授予权限");
+                    printLogMsg("被永久拒绝授权，请手动授予权限", 0);
                     // 如果是被永久拒绝就跳转到应用权限系统设置页面
                     XXPermissions.startPermissionActivity(context, permissions);
                 } else {
-                    printLogMsg("获取权限失败");
+                    printLogMsg("获取权限失败", 0);
                 }
             }
         });
@@ -222,12 +222,12 @@ public class DashboardFragment extends Fragment {
         if (ScreenCaptureManager.getInstance().isOpen()) {
             _screen = true;
             switch_screen.setChecked(true);
-            printLogMsg("屏幕录制权限已授予");
+            printLogMsg("屏幕录制权限已授予", 0);
             return;
         }
         _screen = false;
         switch_screen.setChecked(false);
-        printLogMsg("屏幕录制权限未授予");
+        printLogMsg("屏幕录制权限未授予", 0);
     }
     // 开启捕获屏幕
     public void getMediaProjectionManger() {
@@ -248,7 +248,7 @@ public class DashboardFragment extends Fragment {
                         if (accessibilityService.equals(service)) {
                             _accessibility = true;
                             switch_accessibility.setChecked(true);
-                            printLogMsg("无障碍权限已授予");
+                            printLogMsg("无障碍权限已授予", 0);
                             return true;
                         }
                     }
@@ -258,12 +258,12 @@ public class DashboardFragment extends Fragment {
             ex.printStackTrace();
             _accessibility = false;
             switch_accessibility.setChecked(false);
-            printLogMsg("无障碍权限未授予");
+            printLogMsg("无障碍权限未授予", 0);
             return false;
         }
         _accessibility = false;
         switch_accessibility.setChecked(false);
-        printLogMsg("无障碍权限未授予");
+        printLogMsg("无障碍权限未授予", 0);
         return false;
     }
 
@@ -291,12 +291,12 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (_storage) {
-                    printLogMsg("switch_storage already True");
+                    printLogMsg("switch_storage already True", 0);
                     switch_storage.setChecked(_storage);
                     Toast.makeText(context, "switch_storage already True", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                printLogMsg("switch_storage => " + switch_storage.isChecked());
+                printLogMsg("switch_storage => " + switch_storage.isChecked(), 0);
                 getStoragePermission();
             }
         });
@@ -304,12 +304,12 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (_float) {
-                    printLogMsg("switch_float already True");
+                    printLogMsg("switch_float already True", 0);
                     switch_float.setChecked(_float);
                     Toast.makeText(context, "switch_float already True", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                printLogMsg("switch_float => " + switch_float.isChecked());
+                printLogMsg("switch_float => " + switch_float.isChecked(), 0);
                 getFloatPermission();
             }
         });
@@ -317,12 +317,12 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (_accessibility) {
-                    printLogMsg("switch_accessibility already True");
+                    printLogMsg("switch_accessibility already True", 0);
                     switch_accessibility.setChecked(_accessibility);
                     Toast.makeText(context, "switch_accessibility already True", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                printLogMsg("switch_accessibility => " + switch_accessibility.isChecked());
+                printLogMsg("switch_accessibility => " + switch_accessibility.isChecked(), 0);
                 startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
             }
         });
@@ -330,14 +330,14 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (_screen) {
-                    printLogMsg("switch_screen already True");
+                    printLogMsg("switch_screen already True", 0);
 //                    switch_screen.setChecked(_screen);
 //                    Toast.makeText(context, "switch_screen already True", Toast.LENGTH_SHORT).show();
                     _screen = false;
                     ScreenCaptureManager.getInstance().stop();
                     return;
                 }
-                printLogMsg("switch_screen => " + switch_screen.isChecked());
+                printLogMsg("switch_screen => " + switch_screen.isChecked(), 0);
                 getMediaProjectionManger();
             }
         });
@@ -346,7 +346,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 DEV_MODE = !DEV_MODE;
                 switch_dev.setChecked(DEV_MODE);
-                printLogMsg("DEV_MODE => " + DEV_MODE);
+                printLogMsg("DEV_MODE => " + DEV_MODE, 0);
                 Toast.makeText(context, "DEV_MODE => " + DEV_MODE, Toast.LENGTH_SHORT).show();
             }
         });

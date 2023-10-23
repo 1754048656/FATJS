@@ -2,6 +2,7 @@ package com.linsheng.FATJS.activitys;
 
 import static com.linsheng.FATJS.config.GlobalVariableHolder.__mHeight;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.tag;
@@ -125,8 +126,17 @@ public class FloatingWindow extends Service {
         content_text.setText(textContent);
 
         // 退出程序处理
-        if (textContent.contains("_sleep failed with error message divide by zero")) {
-            content_text.setText("上个任务已强制结束");
+        if (textContent.contains("by zero")) {
+            String curTime = getStringDate();
+            String logTmp = curTime + " | 上个任务已强制结束";
+            content_text.setText(logTmp);
+            content_text.setTextSize(text_size);
+            content_text.setLayoutParams(txtParameters);
+            content_text.setTextColor(Color.argb(255, 233, 196, 112));
+            return content_text;
+        }
+
+        if (textContent.contains("暂停中") || textContent.contains("开始运行") || textContent.contains("有任务正在执行")) {
             content_text.setTextSize(text_size);
             content_text.setLayoutParams(txtParameters);
             content_text.setTextColor(Color.argb(255, 233, 196, 112));

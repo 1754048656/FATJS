@@ -1,5 +1,6 @@
 package com.linsheng.FATJS.node;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.DEV_MODE;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.currentActivityName;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
@@ -61,15 +62,16 @@ public class TaskBase extends UiSelector {
             if (base == null) {
                 base = loadScriptFromAssets("base.js");
             }
-            if (!script_path.contains("FATJS_DIR/dev_script.js")) { // 测试方法，不拼接base.js 用作代码提示
-                script = base + "\n" + script;
-            }
             v8Runtime.setConverter(new JavetProxyConverter()); // 配置可调用Java方法
             v8Runtime.getGlobalObject().set("engines", TaskBase.class);
             v8Runtime.getGlobalObject().set("http", OkHttpUtils.class);
             v8Runtime.getGlobalObject().set("UiObject", UiObject.class);
+            if (!DEV_MODE) { // 测试方法，不拼接base.js 用作代码提示
+                script = base + "\n" + script;
+            }
             v8Runtime.getExecutor(script).executeVoid();
         } catch (Exception e) {
+            killThread = false;
             printLogMsg(ExceptionUtil.toString(e));
         }finally {
             isRunning = false;
@@ -93,6 +95,7 @@ public class TaskBase extends UiSelector {
             v8Runtime.getExecutor(script).executeVoid();
             return true;
         } catch (JavetException e) {
+            killThread = false;
             printLogMsg(ExceptionUtil.toString(e));
         }
         return false;
