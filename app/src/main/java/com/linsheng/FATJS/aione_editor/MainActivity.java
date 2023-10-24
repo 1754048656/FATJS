@@ -105,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
         if (permission) {
             printLogMsg("onCreate: permission true => " + permission, 0);
             // 打开悬浮窗
-            startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
-            // 打开悬浮窗
             startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
+            // 打开悬浮窗
+            startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
         }
     }
 
@@ -146,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
                 DashboardFragment.switch_screen.setChecked(true);
 
                 // 打开悬浮窗
-                context.startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
-                // 打开悬浮窗
                 context.startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
+                // 打开悬浮窗
+                context.startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
 
                 Toast.makeText(context, "屏幕录制权限，部分可开启临时悬浮窗", Toast.LENGTH_SHORT).show();
             }else {

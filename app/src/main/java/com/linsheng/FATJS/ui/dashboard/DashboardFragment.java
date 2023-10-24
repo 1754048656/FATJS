@@ -201,9 +201,9 @@ public class DashboardFragment extends Fragment {
                 _float = true;
                 switch_float.setChecked(true);
                 // 打开悬浮窗
-                context.startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
-                // 打开悬浮窗
                 context.startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
+                // 打开悬浮窗
+                context.startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
             }
             @Override
             public void onDenied(@NonNull List<String> permissions, boolean doNotAskAgain) {
