@@ -11,6 +11,7 @@ import static com.linsheng.FATJS.config.GlobalVariableHolder.tag;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.waitFiveSecond;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.waitOneSecond;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.waitThreeSecond;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.waitTwoSecond;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
@@ -28,6 +29,9 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.RequiresApi;
+
+import com.linsheng.FATJS.config.GlobalVariableHolder;
+import com.linsheng.FATJS.utils.ExceptionUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -117,7 +121,7 @@ public class AccUtils extends AccessibilityService {
     // 移动悬浮窗
     public static void moveFloatWindow(String val) {
         try {
-            AccUtils.printLogMsg("移动悬浮窗 => " + val);
+            AccUtils.printLogMsg("移动悬浮窗 => " + val, 0);
             Intent intent = new Intent();
             intent.setAction("com.msg");
             switch (val) {
@@ -139,12 +143,31 @@ public class AccUtils extends AccessibilityService {
             }
             context.sendBroadcast(intent);
         }catch (Exception e){
-            e.printStackTrace();
+            printLogMsg(ExceptionUtil.toString(e), 0);
         }
     }
 
     // 日志打印
     public static void printLogMsg(String msg) {
+        Intent intent = new Intent();
+        intent.setAction("com.msg");
+        intent.putExtra("msg", msg);
+        context.sendBroadcast(intent);
+
+        if (killThread) { // 停止当前任务
+            int i = 1 / 0;
+        }
+        while (isStop) {
+            try {
+                Thread.sleep(waitTwoSecond);
+            } catch (InterruptedException e) {
+                printLogMsg(ExceptionUtil.toString(e), 0);
+            }
+        }
+    }
+
+    // 日志打印
+    public static void printLogMsg(String msg, int type) {
         Intent intent = new Intent();
         intent.setAction("com.msg");
         intent.putExtra("msg", msg);
@@ -1074,16 +1097,15 @@ public class AccUtils extends AccessibilityService {
      */
     public static void timeSleep(int time) {
         try {
-            if (killThread) {
-                int i = 1/0;
+            if (killThread) { // 停止当前任务
+                int i = 1 / 0;
             }
             while (isStop) {
                 Thread.sleep(waitThreeSecond);
             }
             Thread.sleep(time + new Random().nextInt(waitOneSecond));
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            int i = 1/0;
+            printLogMsg(ExceptionUtil.toString(e));
         }
     }
 

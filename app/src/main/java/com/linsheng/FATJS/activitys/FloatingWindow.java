@@ -2,6 +2,7 @@ package com.linsheng.FATJS.activitys;
 
 import static com.linsheng.FATJS.config.GlobalVariableHolder.__mHeight;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.tag;
@@ -25,6 +26,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 
@@ -64,7 +66,7 @@ public class FloatingWindow extends Service {
                 Log.i(TAG, "onReceive: hide_mini");
                 // 隐藏悬浮窗相关
                 WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(0, 0, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
-                setTypePhone(parameters); //悬浮窗适配低版本安卓
+                setTypePhone(parameters);
                 parameters.x = 0;
                 parameters.y = 0;
                 parameters.gravity = Gravity.RIGHT | Gravity.TOP;
@@ -75,7 +77,7 @@ public class FloatingWindow extends Service {
                 Log.i(TAG, "onReceive: show_max");
                 // 展开悬浮窗相关
                 WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(float_window_width, float_window_height, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
-                setTypePhone(parameters); //悬浮窗适配低版本安卓
+                setTypePhone(parameters);
                 parameters.x = 20;
                 parameters.y = offset_y;
                 parameters.gravity = Gravity.LEFT | Gravity.TOP;
@@ -86,7 +88,7 @@ public class FloatingWindow extends Service {
                 Log.i(TAG, "onReceive: full_screen");
                 // 全屏悬浮窗
                 WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(mWidth, __mHeight - offset_y - 250, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
-                setTypePhone(parameters); //悬浮窗适配低版本安卓
+                setTypePhone(parameters);
                 parameters.x = 0;
                 parameters.y = offset_y;
                 parameters.gravity = Gravity.LEFT | Gravity.TOP;
@@ -115,8 +117,8 @@ public class FloatingWindow extends Service {
     }
     private void setTypePhone(WindowManager.LayoutParams parameters) {
         Log.i(TAG, "onCreate: Build.VERSION.SDK_INT => " + Build.VERSION.SDK_INT);
-        if (Build.VERSION.SDK_INT < 27) {
-            parameters.type = WindowManager.LayoutParams.TYPE_PHONE;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            parameters.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         }
     }
     public TextView createText(String textContent) {
@@ -125,8 +127,17 @@ public class FloatingWindow extends Service {
         content_text.setText(textContent);
 
         // 退出程序处理
-        if (textContent.contains("_sleep failed with error message divide by zero")) {
-            content_text.setText("上个任务已强制结束");
+        if (textContent.contains("by zero")) {
+            String curTime = getStringDate();
+            String logTmp = curTime + " | 上个任务已强制结束";
+            content_text.setText(logTmp);
+            content_text.setTextSize(text_size);
+            content_text.setLayoutParams(txtParameters);
+            content_text.setTextColor(Color.argb(255, 233, 196, 112));
+            return content_text;
+        }
+
+        if (textContent.contains("暂停中") || textContent.contains("开始运行") || textContent.contains("有任务正在执行")) {
             content_text.setTextSize(text_size);
             content_text.setLayoutParams(txtParameters);
             content_text.setTextColor(Color.argb(255, 233, 196, 112));
@@ -173,10 +184,11 @@ public class FloatingWindow extends Service {
         return formatter.format(currentTime);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i(TAG, "onCreate");
+        Log.i(TAG, "onCreate FloatingWindow");
         // 定义面板
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
         sv = new ScrollView(context);
@@ -202,7 +214,7 @@ public class FloatingWindow extends Service {
 //        parameters.gravity = Gravity.LEFT | Gravity.TOP;
 
         WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(0, 0, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
-        setTypePhone(parameters); //悬浮窗适配低版本安卓
+        setTypePhone(parameters);
         parameters.x = 0;
         parameters.y = 0;
         parameters.gravity = Gravity.RIGHT | Gravity.TOP;

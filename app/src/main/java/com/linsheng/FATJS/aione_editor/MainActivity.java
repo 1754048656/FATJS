@@ -103,11 +103,11 @@ public class MainActivity extends AppCompatActivity {
         // 在其他应用上层显示
         boolean permission = WindowPermissionCheck.checkPermission(this);
         if (permission) {
-            printLogMsg("onCreate: permission true => " + permission);
-            // 打开悬浮窗
-            startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
+            printLogMsg("onCreate: permission true => " + permission, 0);
             // 打开悬浮窗
             startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
+            // 打开悬浮窗
+            startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
         }
     }
 
@@ -146,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
                 DashboardFragment.switch_screen.setChecked(true);
 
                 // 打开悬浮窗
-                context.startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
-                // 打开悬浮窗
                 context.startService(new Intent(GlobalVariableHolder.context, FloatingWindow.class));
+                // 打开悬浮窗
+                context.startService(new Intent(GlobalVariableHolder.context, FloatingButton.class));
 
                 Toast.makeText(context, "屏幕录制权限，部分可开启临时悬浮窗", Toast.LENGTH_SHORT).show();
             }else {
@@ -162,12 +162,12 @@ public class MainActivity extends AppCompatActivity {
     private void getPhoneInfo() {
         // 获取 ANDROID_ID
         GlobalVariableHolder.ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
-        printLogMsg( "ANDROID_ID =>" + GlobalVariableHolder.ANDROID_ID);
+        printLogMsg( "ANDROID_ID =>" + GlobalVariableHolder.ANDROID_ID, 0);
 
         // 获取手机名称
         String phoneName = getPhoneName();
         GlobalVariableHolder.PHONE_NAME = phoneName;
-        printLogMsg( "phoneName => " + phoneName);
+        printLogMsg( "phoneName => " + phoneName, 0);
     }
 
     // 获取本机名称

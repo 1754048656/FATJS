@@ -3,6 +3,9 @@ package com.linsheng.FATJS.ui.home;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.PATH;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
+import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 import android.app.AlertDialog;
@@ -40,6 +43,7 @@ import com.linsheng.FATJS.aione_editor.Scripts;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.databinding.FragmentHomeBinding;
 import com.linsheng.FATJS.node.TaskBase;
+import com.linsheng.FATJS.utils.ExceptionUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -76,7 +80,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        printLogMsg("HomeFragment onStart");
+        printLogMsg("HomeFragment onStart", 0);
         getFileList(0);
     }
 
@@ -96,7 +100,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void btnClick() {
-        printLogMsg("btnClick");
+        printLogMsg("btnClick", 0);
         startActivity(new Intent(getActivity(), EditorActivity.class));
     }
 
@@ -163,7 +167,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(context, name + " is not a js file", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    printLogMsg("run script " + name);
+                    printLogMsg("run script " + name, 0);
                     runScript(name);
                 }
             });
@@ -264,9 +268,9 @@ public class HomeFragment extends Fragment {
 
         // 判断是否有任务正在执行
         if (isRunning || threadList.size() > 0) {
-            printLogMsg("有任务正在执行");
-            Toast.makeText(context, "有任务正在执行", Toast.LENGTH_SHORT).show();
-
+            killThread = true;
+            printLogMsg("有任务正在执行，已强制停止", 0);
+            Toast.makeText(context, "有任务正在执行，已强制停止，请打开悬浮窗", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -277,6 +281,7 @@ public class HomeFragment extends Fragment {
                     TaskBase taskBase = new TaskBase();
                     taskBase.initJavet(script_path);
                 }catch (Exception e) {
+                    printLogMsg(ExceptionUtil.toString(e));
                 }finally {
                     threadList = new ArrayList<>();
                 }
