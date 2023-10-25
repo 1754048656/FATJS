@@ -36,6 +36,8 @@ public class GlobalVariableHolder {
     public static int mWidth = 1440;
     public static int mHeight = 3040;
     public static int __mHeight = -1; //去掉导航栏和状态栏的高度
+    public static int statusBarHeight = -1; //状态栏的高度
+    public static int navigationBarHeight = -1; //导航栏的高度
 
     public static String tag = "FATJS_LOG";
     // 停顿时长

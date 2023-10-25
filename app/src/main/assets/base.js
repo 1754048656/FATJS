@@ -15,6 +15,8 @@ const getText = (node) => task._getText(node);
 const getDesc = (node) => task._getDesc(node);
 const width = task._width;
 const height = task._height;
+const statusBarHeight = task._statusBarHeight;
+const navigationBarHeight = task._navigationBarHeight;
 const screenSize = () => task._screenSize();
 const sleep = (time) => task._sleep(time);
 const open = (name) => task._open(name);

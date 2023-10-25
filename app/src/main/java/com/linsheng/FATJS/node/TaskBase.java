@@ -1,14 +1,6 @@
 package com.linsheng.FATJS.node;
 
-import static com.linsheng.FATJS.config.GlobalVariableHolder.DEV_MODE;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.currentActivityName;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.v8Runtime;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.waitOneSecond;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.back;
 import static com.linsheng.FATJS.node.AccUtils.backToDesktop;
 import static com.linsheng.FATJS.node.AccUtils.click;
@@ -49,6 +41,8 @@ public class TaskBase extends UiSelector {
     public TaskBase() {
         _width = mWidth;
         _height = mHeight;
+        _statusBarHeight = statusBarHeight;
+        _navigationBarHeight = navigationBarHeight;
     }
     private static String base;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -83,6 +77,8 @@ public class TaskBase extends UiSelector {
     /**********************************************************************************************/
     public int _width;
     public int _height;
+    public int _statusBarHeight;
+    public int _navigationBarHeight;
     public String _activityName() {
         timeSleep(waitOneSecond);
         return currentActivityName;

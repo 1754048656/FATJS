@@ -120,7 +120,57 @@ public class MainActivity extends AppCompatActivity {
         DisplayMetrics __dm = new DisplayMetrics();//屏幕度量
         getWindowManager().getDefaultDisplay().getMetrics(__dm);
         __mHeight = __dm.heightPixels;//去掉导航栏和状态栏的高度
+        statusBarHeight = getStatusBarHeight(); //状态栏的高度
+        navigationBarHeight = getNavigationBarHeight();
     }
+
+    public int getNavigationBarHeight() {
+        int navigationBarHeight = 0;
+        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+        return navigationBarHeight;
+    }
+
+//    public int getNavigationBarHeight() {
+//        int navigationBarHeight = 0;
+//        Resources resources = getResources();
+//        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+//        if (resourceId > 0 && hasNavigationBar()) {
+//            navigationBarHeight = resources.getDimensionPixelSize(resourceId);
+//        }
+//        return navigationBarHeight;
+//    }
+//    public boolean hasNavigationBar() {
+//        boolean hasNavigationBar = false;
+//        Resources resources = getResources();
+//        int resourceId = resources.getIdentifier("config_showNavigationBar", "bool", "android");
+//        if (resourceId > 0) {
+//            hasNavigationBar = resources.getBoolean(resourceId);
+//        }
+//        return hasNavigationBar;
+//    }
+
+
+    public int getStatusBarHeight() {
+        int statusBarHeight = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
+    }
+
+//    public int getStatusBarHeight() {
+//        int statusBarHeight = 0;
+//        Rect rectangle = new Rect();
+//        Window window = getWindow();
+//        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+//        statusBarHeight = rectangle.top;
+//        return statusBarHeight;
+//    }
+
 
     private void openForwardService() {
         Intent intent = new Intent(this, MyService.class);
