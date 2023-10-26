@@ -16,6 +16,7 @@ import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
 import static com.linsheng.FATJS.node.AccUtils.openApp;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 import static com.linsheng.FATJS.node.AccUtils.scrollUp;
+import static com.linsheng.FATJS.node.AccUtils.startApplication;
 import static com.linsheng.FATJS.node.AccUtils.swipe;
 import static com.linsheng.FATJS.node.AccUtils.timeSleep;
 import static com.linsheng.FATJS.node.AccUtils.viewVideo;
@@ -137,6 +138,9 @@ public class TaskBase extends UiSelector {
     }
     public void _open(String name){
         openApp(name);
+    }
+    public void _openPkName(String packageName){
+        startApplication(context, packageName);
     }
     public void _print(String msg) {
         printLogMsg(msg);

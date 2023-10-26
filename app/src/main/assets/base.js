@@ -21,6 +21,7 @@ const navigationBarOpen = task._navigationBarOpen;
 const screenSize = () => task._screenSize();
 const sleep = (time) => task._sleep(time);
 const open = (name) => task._open(name);
+const openPkName = (pkName) => task._openPkName(pkName);
 const print = (msg) => task._print(msg + '');
 const clickNode = (node) => task._clickNode(node);
 const clickNodePoint = (node) => task._clickNodePoint(node);
