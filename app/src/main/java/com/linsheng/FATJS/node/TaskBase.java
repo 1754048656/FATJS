@@ -43,6 +43,7 @@ public class TaskBase extends UiSelector {
         _height = mHeight;
         _statusBarHeight = statusBarHeight;
         _navigationBarHeight = navigationBarHeight;
+        _navigationBarOpen = navigationBarOpen;
     }
     private static String base;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -79,6 +80,7 @@ public class TaskBase extends UiSelector {
     public int _height;
     public int _statusBarHeight;
     public int _navigationBarHeight;
+    public boolean _navigationBarOpen;
     public String _activityName() {
         timeSleep(waitOneSecond);
         return currentActivityName;
