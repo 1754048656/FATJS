@@ -1,10 +1,6 @@
 package com.linsheng.FATJS.activitys;
 
-import static com.linsheng.FATJS.config.GlobalVariableHolder.__mHeight;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.btnTextView;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 import android.annotation.SuppressLint;

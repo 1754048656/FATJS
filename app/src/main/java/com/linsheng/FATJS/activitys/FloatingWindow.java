@@ -1,12 +1,6 @@
 package com.linsheng.FATJS.activitys;
 
-import static com.linsheng.FATJS.config.GlobalVariableHolder.__mHeight;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.tag;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.text_size;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;

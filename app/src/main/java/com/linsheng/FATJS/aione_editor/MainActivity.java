@@ -54,7 +54,7 @@ import com.linsheng.FATJS.utils.FileUtils;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String TAG = GlobalVariableHolder.tag;
     private ActivityMainBinding binding;
 
     @Override
@@ -121,7 +121,24 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(__dm);
         __mHeight = __dm.heightPixels;//去掉导航栏和状态栏的高度
         statusBarHeight = getStatusBarHeight(); //状态栏的高度
-        navigationBarHeight = getNavigationBarHeight();
+        navigationBarHeight = getNavigationBarHeight(); //导航栏的高度
+        if (__mHeight + navigationBarHeight == mHeight) { // 屏幕内是否有导航栏的高度
+            navigationBarOpen = true;
+            return;
+        }
+        if (__mHeight + statusBarHeight + navigationBarHeight == mHeight) {
+            navigationBarOpen = true;
+            return;
+        }
+        if (__mHeight + statusBarHeight == mHeight) {
+            navigationBarOpen = false;
+            return;
+        }
+        if (__mHeight + navigationBarHeight > mHeight) {
+            navigationBarOpen = false;
+            return;
+        }
+        navigationBarOpen = false;
     }
 
     public int getNavigationBarHeight() {

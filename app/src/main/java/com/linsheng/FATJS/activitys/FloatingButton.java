@@ -1,13 +1,6 @@
 package com.linsheng.FATJS.activitys;
 
-import static com.linsheng.FATJS.config.GlobalVariableHolder.DEV_MODE;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.text_size;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 
@@ -55,7 +48,6 @@ public class FloatingButton extends Service {
     }
 
     private void setTypePhone(WindowManager.LayoutParams parameters) {
-        printLogMsg("onCreate: Build.VERSION.SDK_INT => " + Build.VERSION.SDK_INT, 0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             parameters.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         }
@@ -66,6 +58,14 @@ public class FloatingButton extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        printLogMsg("Build.VERSION.SDK: " + Build.VERSION.SDK_INT, 0);
+        printLogMsg("---------------", 0);
+        printLogMsg("mWidth: " + mWidth, 0);
+        printLogMsg("mHeight: " + mHeight, 0);
+        printLogMsg("__mHeight: " + __mHeight, 0);
+        printLogMsg("statusBarHeight: " + statusBarHeight, 0);
+        printLogMsg("navigationBarHeight: " + navigationBarHeight, 0);
+        printLogMsg("navigationBarOpen: " + navigationBarOpen, 0);
         Log.i(TAG, "onCreate FloatingButton");
         int btn_h = (int) (btn_w * 0.5638461538); // 按照比例调整
         // 定义面板
