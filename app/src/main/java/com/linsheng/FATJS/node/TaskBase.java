@@ -136,10 +136,10 @@ public class TaskBase extends UiSelector {
     public void _sleep(int time) {
         timeSleep(time);
     }
-    public void _open(String name){
+    public void _open(String name) {
         openApp(name);
     }
-    public void _openPkName(String packageName){
+    public void _openPkName(String packageName) {
         startApplication(context, packageName);
     }
     public void _print(String msg) {
