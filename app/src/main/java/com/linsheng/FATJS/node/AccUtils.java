@@ -291,7 +291,7 @@ public class AccUtils extends AccessibilityService {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static boolean click(int x, int y) {
+    public static boolean click(float x, float y) {
         return clickPoint(x, y, 75 + new Random().nextInt(80));
     }
 
@@ -303,11 +303,47 @@ public class AccUtils extends AccessibilityService {
      */
     @RequiresApi(24)
     public static boolean clickPoint(float x1, float y1, long duration) {
-        Path path=new Path();
+        Path path = new Path();
         x1 = x1 + new Random().nextInt(9) - 4;
         y1 = y1 + new Random().nextInt(9) - 4;
         printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
-        if (x1 > mWidth || y1 > mHeight || x1 < 0 || y1 < 0) {   // 2220是荣耀20i下面的导航栏按钮
+        if (x1 > mWidth || y1 > mHeight || x1 < 0 || y1 < 0) {
+            printLogMsg("mWidth: " + mWidth);
+            printLogMsg("mHeight: " + mHeight);
+            printLogMsg("超出了点击范围");
+            return false;
+        }
+        path.moveTo(x1, y1);
+        GestureDescription.Builder builder=new GestureDescription.Builder();
+        GestureDescription gestureDescription=builder
+                .addStroke(new GestureDescription.StrokeDescription(path,0,duration))
+                .build();
+
+        return AccessibilityHelper.dispatchGesture(gestureDescription,new GestureResultCallback() {
+            @Override
+            public void onCompleted(GestureDescription gestureDescription1) {
+                super.onCompleted(gestureDescription1);
+                Log.e(TAG,"点击结束..."+ gestureDescription1.getStrokeCount());
+            }
+            @Override
+            public void onCancelled(GestureDescription gestureDescription1) {
+                super.onCancelled(gestureDescription1);
+                Log.e(TAG,"点击取消");
+            }
+        },null);
+    }
+
+    /**
+     * 点击精确坐标
+     * @param x1
+     * @param y1
+     * @param duration
+     */
+    @RequiresApi(24)
+    public static boolean clickExactPoint(float x1, float y1, long duration) {
+        Path path = new Path();
+        printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
+        if (x1 > mWidth || y1 > mHeight || x1 < 0 || y1 < 0) {
             printLogMsg("mWidth: " + mWidth);
             printLogMsg("mHeight: " + mHeight);
             printLogMsg("超出了点击范围");
@@ -338,13 +374,17 @@ public class AccUtils extends AccessibilityService {
      * @param nodeInfo
      * @return
      */
-    public static int[] getPoint(AccessibilityNodeInfo nodeInfo) {
+    public static float[] getPoint(AccessibilityNodeInfo nodeInfo) {
         if (nodeInfo != null) {
             Rect rect = new Rect();
             nodeInfo.getBoundsInScreen(rect);
-            int x = (rect.left + rect.right) / 2;
-            int y = (rect.top + rect.bottom) / 2;
-            int[] ints = new int[2];
+            float left = rect.left;
+            float right = rect.right;
+            float top = rect.top;
+            float bottom = rect.bottom;
+            float x = (left + right) / 2;
+            float y = (top + bottom) / 2;
+            float[] ints = new float[2];
             ints[0] = x;
             ints[1] = y;
             // 回收
@@ -993,34 +1033,12 @@ public class AccUtils extends AccessibilityService {
             if (nodeInfo != null) {
                 Rect rect = new Rect();
                 nodeInfo.getBoundsInScreen(rect);
-                int x = (rect.left + rect.right) / 2;
-                int y = (rect.top + rect.bottom) / 2;
-                Boolean aBoolean = clickPoint(x, y, new Random().nextInt(54) + 50);
-                // 回收
-                nodeInfo.recycle();
-                return aBoolean;
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    /**
-     * 根据坐标点击加偏移量
-     * @param nodeInfo
-     * @return
-     */
-    @RequiresApi(24)
-    public static Boolean clickNodeByPointOffset(AccessibilityNodeInfo nodeInfo, int offset_x, int offset_y) {
-        try {
-            if (nodeInfo != null) {
-                Rect rect = new Rect();
-                nodeInfo.getBoundsInScreen(rect);
-                int x = (rect.left + rect.right) / 2;
-                x += offset_x;
-                int y = (rect.top + rect.bottom) / 2;
-                y += offset_y;
+                float left = rect.left;
+                float right = rect.right;
+                float top = rect.top;
+                float bottom = rect.bottom;
+                float x = (left + right) / 2;
+                float y = (top + bottom) / 2;
                 Boolean aBoolean = clickPoint(x, y, new Random().nextInt(54) + 50);
                 // 回收
                 nodeInfo.recycle();

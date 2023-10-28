@@ -1,25 +1,7 @@
 package com.linsheng.FATJS.node;
 
 import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
-import static com.linsheng.FATJS.node.AccUtils.back;
-import static com.linsheng.FATJS.node.AccUtils.backToDesktop;
-import static com.linsheng.FATJS.node.AccUtils.click;
-import static com.linsheng.FATJS.node.AccUtils.clickNodeByPoint;
-import static com.linsheng.FATJS.node.AccUtils.clickParentCanClick;
-import static com.linsheng.FATJS.node.AccUtils.doubleClickPoint;
-import static com.linsheng.FATJS.node.AccUtils.getBounds;
-import static com.linsheng.FATJS.node.AccUtils.getPoint;
-import static com.linsheng.FATJS.node.AccUtils.getRootInActiveMy;
-import static com.linsheng.FATJS.node.AccUtils.home;
-import static com.linsheng.FATJS.node.AccUtils.loadScriptFromAssets;
-import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
-import static com.linsheng.FATJS.node.AccUtils.openApp;
-import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
-import static com.linsheng.FATJS.node.AccUtils.scrollUp;
-import static com.linsheng.FATJS.node.AccUtils.startApplication;
-import static com.linsheng.FATJS.node.AccUtils.swipe;
-import static com.linsheng.FATJS.node.AccUtils.timeSleep;
-import static com.linsheng.FATJS.node.AccUtils.viewVideo;
+import static com.linsheng.FATJS.node.AccUtils.*;
 
 import android.graphics.Rect;
 import android.os.Build;
@@ -86,7 +68,7 @@ public class TaskBase extends UiSelector {
         timeSleep(waitOneSecond);
         return currentActivityName;
     }
-    public int[] _getPoint(AccessibilityNodeInfo nodeInfo) {
+    public float[] _getPoint(AccessibilityNodeInfo nodeInfo) {
         return getPoint(nodeInfo);
     }
     public static boolean execScript(String script) {
@@ -151,8 +133,11 @@ public class TaskBase extends UiSelector {
     public boolean _clickNodePoint(AccessibilityNodeInfo nodeInfo) {
         return clickNodeByPoint(nodeInfo);
     }
-    public boolean _click(int x, int y) {
+    public boolean _click(float x, float y) {
         return click(x, y);
+    }
+    public boolean _clickExactPoint(float x, float y) {
+        return clickExactPoint(x, y, 75 + new Random().nextInt(80));
     }
     public boolean _doubleClick(float x, float y) {
         return doubleClickPoint(x , y, new Random().nextInt(50) + 95);
