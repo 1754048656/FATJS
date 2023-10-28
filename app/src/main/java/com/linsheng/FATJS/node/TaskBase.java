@@ -50,7 +50,7 @@ public class TaskBase extends UiSelector {
             v8Runtime.getExecutor(script).executeVoid();
         } catch (Exception e) {
             killThread = false;
-            printLogMsg(ExceptionUtil.toString(e));
+            printLogMsg(e.toString());
         }finally {
             isRunning = false;
             isStop = false;
@@ -77,7 +77,7 @@ public class TaskBase extends UiSelector {
             return true;
         } catch (JavetException e) {
             killThread = false;
-            printLogMsg(ExceptionUtil.toString(e));
+            printLogMsg(e.toString());
         }
         return false;
     }
