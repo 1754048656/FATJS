@@ -422,28 +422,16 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 刷新当前 Activity()
-     * @param accessibilityEvent
+     * @param event
      */
-    protected void refreshCurrentActivity(AccessibilityEvent accessibilityEvent) {
-        AccessibilityNodeInfo source = accessibilityEvent.getSource();
-
-        if (source != null) {
-            CharSequence packageName = source.getPackageName();
-            if (accessibilityEvent.getEventType() == accessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-
-                //获取当前窗口activity名
-                ComponentName componentName = new ComponentName(
-                        accessibilityEvent.getPackageName().toString(),
-                        accessibilityEvent.getClassName().toString()
-                );
-
-                try {
-                    String activityName = getPackageManager().getActivityInfo(componentName, 0).toString();
-                    activityName = activityName.substring(activityName.indexOf(" "), activityName.indexOf("}"));
-                    currentActivityName = activityName.trim();
-                    //Log.i(TAG, " => " + currentActivityName);
-                } catch (PackageManager.NameNotFoundException e) {}
-            }
+    protected void refreshCurrentActivity(AccessibilityEvent event) {
+        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            String packageName = String.valueOf(event.getPackageName());
+            String className = String.valueOf(event.getClassName());
+            // 获取到了当前活动的包名和类名，可以进行相应处理
+            // printLogMsg(packageName, 0);
+            currentActivityName = className;
+            printLogMsg(className, 0);
         }
     }
 
