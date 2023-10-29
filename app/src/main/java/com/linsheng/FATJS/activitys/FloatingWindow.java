@@ -133,8 +133,7 @@ public class FloatingWindow extends Service {
 
         if (textContent.contains("暂停中") || textContent.contains("开始运行") || textContent.contains("有任务正在执行")) {
             content_text.setLayoutParams(txtParameters);
-            //content_text.setTextColor(Color.argb(255, 233, 196, 112));
-            content_text.setTextColor(Color.argb(255, 19, 157, 217));
+            content_text.setTextColor(Color.argb(255, 233, 196, 112));
             return content_text;
         }
 
