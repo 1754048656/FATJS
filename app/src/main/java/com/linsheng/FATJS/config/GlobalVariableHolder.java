@@ -29,7 +29,7 @@ public class GlobalVariableHolder {
     }};
 
     // 当前ActivityName
-    public static volatile String currentActivityName;
+    public static volatile String currentActivityName = "";
 
     // 屏幕宽高
     public static int text_size = 11;

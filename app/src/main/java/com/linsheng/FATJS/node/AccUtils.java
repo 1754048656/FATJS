@@ -430,8 +430,14 @@ public class AccUtils extends AccessibilityService {
             String className = String.valueOf(event.getClassName());
             // 获取到了当前活动的包名和类名，可以进行相应处理
             // printLogMsg(packageName, 0);
+            if (
+                    className.contains(".FrameLayout") ||
+                    currentActivityName.equals(className)
+            ) {
+                return;
+            }
             currentActivityName = className;
-            printLogMsg(className, 0);
+            printLogMsg("AT: " + className, 0);
         }
     }
 

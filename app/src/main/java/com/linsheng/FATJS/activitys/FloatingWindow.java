@@ -119,30 +119,34 @@ public class FloatingWindow extends Service {
         TextView content_text = new TextView(context);;
         ViewGroup.LayoutParams txtParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         content_text.setText(textContent);
+        content_text.setTextSize(text_size);
 
         // 退出程序处理
         if (textContent.contains("by zero")) {
             String curTime = getStringDate();
             String logTmp = curTime + " | 上个任务已强制结束";
             content_text.setText(logTmp);
-            content_text.setTextSize(text_size);
             content_text.setLayoutParams(txtParameters);
             content_text.setTextColor(Color.argb(255, 233, 196, 112));
             return content_text;
         }
 
         if (textContent.contains("暂停中") || textContent.contains("开始运行") || textContent.contains("有任务正在执行")) {
-            content_text.setTextSize(text_size);
             content_text.setLayoutParams(txtParameters);
-            content_text.setTextColor(Color.argb(255, 233, 196, 112));
+            //content_text.setTextColor(Color.argb(255, 233, 196, 112));
+            content_text.setTextColor(Color.argb(255, 19, 157, 217));
+            return content_text;
+        }
+
+        if (textContent.contains("AT: ")) {
+            content_text.setLayoutParams(txtParameters);
+            content_text.setTextColor(Color.argb(255, 40, 178, 238));
             return content_text;
         }
 
         if (textContent.contains("Exception")) {
-            content_text.setTextSize(text_size);
             content_text.setTextColor(Color.argb(255, 233, 196, 112));
         }else {
-            content_text.setTextSize(text_size);
             content_text.setTextColor(Color.argb(255,255,255,255));
         }
 
