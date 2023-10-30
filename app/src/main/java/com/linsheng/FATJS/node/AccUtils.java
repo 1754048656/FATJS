@@ -1109,13 +1109,17 @@ public class AccUtils extends AccessibilityService {
      */
     public static void timeSleep(int time) {
         try {
-            if (killThread) { // 停止当前任务
-                int i = 1 / 0;
+            int loop_time = time / 100;
+            for (int i = 0; i < loop_time; i++) {
+                Thread.sleep(100);
+
+                if (killThread) { // 停止当前任务
+                    int t = 1 / 0;
+                }
+                while (isStop) {
+                    Thread.sleep(waitThreeSecond);
+                }
             }
-            while (isStop) {
-                Thread.sleep(waitThreeSecond);
-            }
-            Thread.sleep(time + new Random().nextInt(waitOneSecond));
         } catch (InterruptedException e) {
             printLogMsg(ExceptionUtil.toString(e));
         }
