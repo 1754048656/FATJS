@@ -5,6 +5,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.caoccao.javet.interop.V8Runtime;
+import com.linsheng.FATJS.aione_editor.MainActivity;
 
 import java.util.HashMap;
 
@@ -20,6 +21,7 @@ public class GlobalVariableHolder {
     public static TextView btnTextView = null;
     // 上下文
     public static Context context = null;
+    public static MainActivity mainActivity = null;
     // ll
     public static LinearLayout ll = null;
 

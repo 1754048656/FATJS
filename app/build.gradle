@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.linsheng.FATJS"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -52,4 +52,5 @@ dependencies {
     implementation 'com.caoccao.javet:javet-android:2.2.3' // Android (arm, arm64, x86 and x86_64)
     implementation 'com.github.getActivity:XXPermissions:18.3' // 权限请求框架：https://github.com/getActivity/XXPermissions
     implementation("com.squareup.okhttp3:okhttp:4.10.0") // okhttp3
+    implementation 'com.alibaba.fastjson2:fastjson2:2.0.41' // fastjson v2
 }

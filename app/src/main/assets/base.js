@@ -1,5 +1,8 @@
 //-------------------- pre set -------------------//
-let task = new engines()
+let task = new engines();
+const context = () => task._context();
+const startActivity = (intent) => task._startActivity(intent);
+const intent = (json) => task._intent(JSON.stringify(json));
 const lockScreen = () => task._lockScreen();
 const activityName = () => task._activityName();
 const new_UiObject = (node) => new UiObject(node);

@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         context = getApplicationContext();
+        mainActivity = this;
         // 开启前台服务 未适配低版本安卓
         openForwardService();
         openFloatWindow();
