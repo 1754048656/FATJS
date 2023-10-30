@@ -64,6 +64,9 @@ public class TaskBase extends UiSelector {
     public int _statusBarHeight;
     public int _navigationBarHeight;
     public boolean _navigationBarOpen;
+    public boolean _lockScreen() {
+        return lockScreenNow();
+    }
     public String _activityName() {
         timeSleep(waitOneSecond);
         return currentActivityName;
