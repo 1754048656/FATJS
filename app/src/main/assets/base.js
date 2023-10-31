@@ -97,10 +97,13 @@ const waitFor = () => task._waitFor();
 function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-const wait1s = 1000 + random(0, 200)
-const wait2s = 2000 + random(0, 200)
-const wait3s = 3000 + random(0, 200)
-const wait4s = 4000 + random(0, 200)
-const wait5s = 5000 + random(0, 200)
-const wait6s = 6000 + random(0, 200)
+function content(full_str, item_str) {
+    return full_str.indexOf(item_str) != -1
+}
+const wait1s = 1000 + random(0, 200);
+const wait2s = 2000 + random(0, 200);
+const wait3s = 3000 + random(0, 200);
+const wait4s = 4000 + random(0, 200);
+const wait5s = 5000 + random(0, 200);
+const wait6s = 6000 + random(0, 200);
 //-------------------- pre set -------------------//
