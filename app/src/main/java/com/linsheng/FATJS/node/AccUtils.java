@@ -432,6 +432,7 @@ public class AccUtils extends AccessibilityService {
             // printLogMsg(packageName, 0);
             if (
                     className.contains(".FrameLayout") ||
+                    className.contains("android.view.View") ||
                     currentActivityName.equals(className)
             ) {
                 return;

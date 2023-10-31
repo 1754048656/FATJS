@@ -46,6 +46,14 @@ public class UiCollection {
     public List<AccessibilityNodeInfo> nodeList = new ArrayList<>();
 
     /**
+     * 返回 nodeList 数组长度
+     * @return
+     */
+    public int size() {
+        return nodeList.size();
+    }
+
+    /**
      * 遍历打印accNodeInfoList
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
