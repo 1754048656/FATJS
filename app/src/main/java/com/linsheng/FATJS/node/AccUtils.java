@@ -16,6 +16,8 @@ import static com.linsheng.FATJS.config.GlobalVariableHolder.waitTwoSecond;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -113,6 +115,15 @@ public class AccUtils extends AccessibilityService {
             swipe((int)(mWidth / 2) , mHeight - 480, (int)(mWidth / 2) + 80, 200, 450);
             timeSleep(waitFiveSecond + new Random().nextInt(waitFiveSecond));
         }
+    }
+
+    public static void clip(String text) {
+        // 获取剪贴板管理器
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        // 创建一个剪贴板数据对象
+        ClipData clip = ClipData.newPlainText("label", text);
+        // 将剪贴板数据设置到剪贴板管理器
+        clipboard.setPrimaryClip(clip);
     }
     /**
      ************************************************工具方法*********************************************

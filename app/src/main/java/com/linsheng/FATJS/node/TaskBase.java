@@ -3,6 +3,8 @@ package com.linsheng.FATJS.node;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.*;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -72,6 +74,9 @@ public class TaskBase extends UiSelector {
     public int _statusBarHeight;
     public int _navigationBarHeight;
     public boolean _navigationBarOpen;
+    public void _clip(String text) {
+        clip(text);
+    }
     public Context _context() {
         return context;
     }

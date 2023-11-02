@@ -1,5 +1,6 @@
 //-------------------- pre set -------------------//
 let task = new engines();
+const clip = () => task._clip();
 const context = () => task._context();
 const startActivity = (intent) => task._startActivity(intent);
 const intent = (json) => task._intent(JSON.stringify(json));
@@ -106,4 +107,11 @@ const wait3s = 3000 + random(0, 200);
 const wait4s = 4000 + random(0, 200);
 const wait5s = 5000 + random(0, 200);
 const wait6s = 6000 + random(0, 200);
+//-------------------- pre set -------------------//
+const foreachPrint = null;
+const childCount = null;
+const children = null;
+const child = null;
+const nodeList = null;
+const setText = null;
 //-------------------- pre set -------------------//
