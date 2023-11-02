@@ -54,6 +54,21 @@ public class UiCollection {
     }
 
     /**
+     * 获取nodeList第 i 个节点，返回UiObject
+     * @param i
+     * @return
+     */
+    public UiObject get(int i) {
+        UiObject uiObject = new UiObject();
+        if (nodeList.size() == 0) {
+            return uiObject;
+        }
+
+        uiObject.node = nodeList.get(i);
+        return uiObject;
+    }
+
+    /**
      * 遍历打印accNodeInfoList
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
