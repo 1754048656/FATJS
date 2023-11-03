@@ -70,6 +70,7 @@ public class FloatingWindow extends Service {
                 parameters.x = 0;
                 parameters.y = 0;
                 parameters.gravity = Gravity.RIGHT | Gravity.TOP;
+                isOpenFloatWin = false;
 
                 wm.updateViewLayout(sv, parameters);
                 windowAutoScroll();
@@ -81,6 +82,7 @@ public class FloatingWindow extends Service {
                 parameters.x = 20;
                 parameters.y = offset_y;
                 parameters.gravity = Gravity.LEFT | Gravity.TOP;
+                isOpenFloatWin = true;
 
                 wm.updateViewLayout(sv, parameters);
                 windowAutoScroll();

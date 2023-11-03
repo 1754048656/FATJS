@@ -53,5 +53,6 @@ public class GlobalVariableHolder {
     public static final int waitSixSecond     =   6000;
     public static boolean isStop = false; // 暂停标识
     public static boolean isRunning = false; // 是否有任务在运行
-    public static boolean killThread = false;
+    public static boolean killThread = false; // 是否强制关闭
+    public static boolean isOpenFloatWin = false; // 悬浮窗是否打开
 }
