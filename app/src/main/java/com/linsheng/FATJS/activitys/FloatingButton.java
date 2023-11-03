@@ -4,8 +4,6 @@ import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -82,8 +80,8 @@ public class FloatingButton extends Service {
         ll = new LinearLayout(GlobalVariableHolder.context);
 
         ViewGroup.LayoutParams txtParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        GlobalVariableHolder.btnTextView.setText("");
-        GlobalVariableHolder.btnTextView.setTextSize((float) (text_size + 2));
+        GlobalVariableHolder.btnTextView.setText("FATJS");
+        GlobalVariableHolder.btnTextView.setTextSize((float) (text_size + 1));
         GlobalVariableHolder.btnTextView.setGravity(Gravity.CENTER); //文字居中
         GlobalVariableHolder.btnTextView.setTextColor(Color.argb(255,255,255,255));
         GlobalVariableHolder.btnTextView.setLayoutParams(txtParameters);
@@ -120,8 +118,7 @@ public class FloatingButton extends Service {
                 // FATJS 的开发者模式
                 testMethodPre();
             } else {
-                // 改变悬浮窗大小
-                btnClick();
+                // btnClick(); // 改变悬浮窗大小
                 splitCircles(parameters, txtParameters, llParameters);
             }
         });
@@ -141,8 +138,8 @@ public class FloatingButton extends Service {
 
         // 创建第一个小圆
         TextView smallCircle1 = new TextView(GlobalVariableHolder.context);
-        smallCircle1.setText("小圆1");
-        smallCircle1.setTextSize((float) (text_size + 2));
+        smallCircle1.setText("停止");
+        smallCircle1.setTextSize((float) (text_size));
         smallCircle1.setGravity(Gravity.CENTER);
         smallCircle1.setTextColor(Color.argb(255,255,255,255));
         smallCircle1.setLayoutParams(txtParameters);
@@ -176,8 +173,12 @@ public class FloatingButton extends Service {
 
         // 创建第二个小圆
         TextView smallCircle2 = new TextView(GlobalVariableHolder.context);
-        smallCircle2.setText("小圆2");
-        smallCircle2.setTextSize((float) (text_size + 2));
+        if (isStop) {
+            smallCircle2.setText("开始");
+        } else {
+            smallCircle2.setText("暂停");
+        }
+        smallCircle2.setTextSize((float) (text_size));
         smallCircle2.setGravity(Gravity.CENTER);
         smallCircle2.setTextColor(Color.argb(255,255,255,255));
         smallCircle2.setLayoutParams(txtParameters);
@@ -210,8 +211,29 @@ public class FloatingButton extends Service {
         animator2.start();
 
         // 设置小圆的点击事件，用于还原消失
-        smallLL1.setOnClickListener((v) -> hideSmallCircles());
-        smallLL2.setOnClickListener((v) -> hideSmallCircles());
+        smallLL1.setOnClickListener((v) -> {
+            // 判断是否有任务正在执行
+            if (isRunning) {
+                killThread = true;
+                printLogMsg("有任务正在执行", 0);
+                Toast.makeText(context, "有任务正在执行", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            hideSmallCircles();
+        });
+        smallLL2.setOnClickListener((v) -> {
+            if (isRunning) {
+                isStop = !isStop;
+                if (isStop) {
+                    printLogMsg("暂停中...", 0);
+                    smallCircle2.setText("开始");
+                } else {
+                    printLogMsg("开始运行...", 0);
+                    smallCircle2.setText("暂停");
+                }
+            }
+            hideSmallCircles();
+        });
 
         isSmallCirclesVisible = true;
     }
@@ -253,7 +275,10 @@ public class FloatingButton extends Service {
         ll.setOnTouchListener(new View.OnTouchListener() {
             int x, y;
             float touchedX, touchedY;
+            private static final int TOUCH_THRESHOLD = 10;
             private final WindowManager.LayoutParams updatedParameters = parameters;
+            private boolean isMoving = false; // 是否正在移动
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -263,16 +288,27 @@ public class FloatingButton extends Service {
                         y = updatedParameters.y;
                         touchedX = event.getRawX();
                         touchedY = event.getRawY();
+                        isMoving = false; // 重置移动标志位
                         break;
 
                     case MotionEvent.ACTION_MOVE:
-                        updatedParameters.x = (int) (x - (event.getRawX() - touchedX));
+                        float deltaX = event.getRawX() - touchedX;
+                        float deltaY = event.getRawY() - touchedY;
+                        if (Math.abs(deltaX) > TOUCH_THRESHOLD || Math.abs(deltaY) > TOUCH_THRESHOLD) {
+                            isMoving = true; // 设置移动标志位为true
+                        }
+                        int mx = (int) (x - (event.getRawX() - touchedX));
+                        updatedParameters.x = mx <= 0 ? 0 : mx;
                         updatedParameters.y = (int) (y + (event.getRawY() - touchedY));
                         wm.updateViewLayout(ll, updatedParameters);
-                    default:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (!isMoving) {
+                            v.performClick(); // 触发点击事件
+                        }
                         break;
                 }
-                return false;
+                return true;
             }
         });
     }
