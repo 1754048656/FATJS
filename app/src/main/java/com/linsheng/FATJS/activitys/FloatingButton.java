@@ -4,13 +4,18 @@ import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,6 +39,8 @@ public class FloatingButton extends Service {
     private WindowManager wm;
     private LinearLayout ll;
     private final int btn_w = (mWidth / 8);
+    private int btn_h = (mWidth / 8);
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -67,7 +74,7 @@ public class FloatingButton extends Service {
         printLogMsg("navigationBarHeight: " + navigationBarHeight, 0);
         printLogMsg("navigationBarOpen: " + navigationBarOpen, 0);
         Log.i(TAG, "onCreate FloatingButton");
-        int btn_h = (int) (btn_w * 0.5638461538); // 按照比例调整
+        btn_h = (int) (btn_w); // 按照比例调整
         // 定义面板
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
         Log.e(TAG, "GlobalVariableHolder.context => " + GlobalVariableHolder.context);
@@ -75,7 +82,7 @@ public class FloatingButton extends Service {
         ll = new LinearLayout(GlobalVariableHolder.context);
 
         ViewGroup.LayoutParams txtParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        GlobalVariableHolder.btnTextView.setText("打开");
+        GlobalVariableHolder.btnTextView.setText("");
         GlobalVariableHolder.btnTextView.setTextSize((float) (text_size + 2));
         GlobalVariableHolder.btnTextView.setGravity(Gravity.CENTER); //文字居中
         GlobalVariableHolder.btnTextView.setTextColor(Color.argb(255,255,255,255));
@@ -88,10 +95,17 @@ public class FloatingButton extends Service {
         ll.setOrientation(LinearLayout.VERTICAL); //线性布局
         ll.setLayoutParams(llParameters);
 
+        // 将面板设置为圆形
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.OVAL);
+        shape.setColor(Color.argb(180,0,0,0));
+        shape.setStroke(6, Color.argb(180,255,255,255)); // 添加边框
+        ll.setBackground(shape);
+
         // 设置面板
         WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(btn_w, btn_h, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
         setTypePhone(parameters);
-        parameters.x = 130;
+        parameters.x = (mWidth / 6);
         //private int offset_y = (mHeight / 8);
         parameters.y = 0;
         parameters.gravity = Gravity.RIGHT | Gravity.TOP;
@@ -108,10 +122,130 @@ public class FloatingButton extends Service {
             } else {
                 // 改变悬浮窗大小
                 btnClick();
+                splitCircles(parameters, txtParameters, llParameters);
             }
         });
 
         moveBtn(parameters);
+    }
+
+    private boolean isSmallCirclesVisible = false;
+    private LinearLayout smallLL1, smallLL2;
+
+    private void splitCircles(WindowManager.LayoutParams parameters, ViewGroup.LayoutParams txtParameters, LinearLayout.LayoutParams llParameters) {
+        if (isSmallCirclesVisible) {
+            // 隐藏小圆
+            hideSmallCircles();
+            return;
+        }
+
+        // 创建第一个小圆
+        TextView smallCircle1 = new TextView(GlobalVariableHolder.context);
+        smallCircle1.setText("小圆1");
+        smallCircle1.setTextSize((float) (text_size + 2));
+        smallCircle1.setGravity(Gravity.CENTER);
+        smallCircle1.setTextColor(Color.argb(255,255,255,255));
+        smallCircle1.setLayoutParams(txtParameters);
+
+        smallLL1 = new LinearLayout(GlobalVariableHolder.context);
+        smallLL1.setBackgroundColor(Color.argb(180,0,0,0));
+        smallLL1.setGravity(Gravity.CENTER);
+        smallLL1.setOrientation(LinearLayout.VERTICAL);
+        smallLL1.setLayoutParams(llParameters);
+
+        GradientDrawable smallShape1 = new GradientDrawable();
+        smallShape1.setShape(GradientDrawable.OVAL);
+        smallShape1.setColor(Color.argb(180,0,0,0));
+        smallShape1.setStroke(6, Color.argb(180,255,255,255));
+        smallLL1.setBackground(smallShape1);
+
+        WindowManager.LayoutParams smallParams1 = new WindowManager.LayoutParams(btn_w, btn_h, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+        setTypePhone(smallParams1);
+        smallParams1.x = parameters.x + (2 * (btn_w * 4 / 3));
+        smallParams1.y = parameters.y;
+        smallParams1.gravity = Gravity.RIGHT | Gravity.TOP;
+        smallParams1.setTitle("FATJS");
+
+        smallLL1.addView(smallCircle1);
+        wm.addView(smallLL1, smallParams1);
+
+        // 添加小圆1的弹出动画效果
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(smallLL1, "translationX", btn_h, 0);
+        animator1.setDuration(230);
+        animator1.start();
+
+        // 创建第二个小圆
+        TextView smallCircle2 = new TextView(GlobalVariableHolder.context);
+        smallCircle2.setText("小圆2");
+        smallCircle2.setTextSize((float) (text_size + 2));
+        smallCircle2.setGravity(Gravity.CENTER);
+        smallCircle2.setTextColor(Color.argb(255,255,255,255));
+        smallCircle2.setLayoutParams(txtParameters);
+
+        smallLL2 = new LinearLayout(GlobalVariableHolder.context);
+        smallLL2.setBackgroundColor(Color.argb(180,0,0,0));
+        smallLL2.setGravity(Gravity.CENTER);
+        smallLL2.setOrientation(LinearLayout.VERTICAL);
+        smallLL2.setLayoutParams(llParameters);
+
+        GradientDrawable smallShape2 = new GradientDrawable();
+        smallShape2.setShape(GradientDrawable.OVAL);
+        smallShape2.setColor(Color.argb(180,0,0,0));
+        smallShape2.setStroke(6, Color.argb(180,255,255,255));
+        smallLL2.setBackground(smallShape2);
+
+        WindowManager.LayoutParams smallParams2 = new WindowManager.LayoutParams(btn_w, btn_h, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
+        setTypePhone(smallParams2);
+        smallParams2.x = parameters.x + (btn_w * 4 / 3);
+        smallParams2.y = parameters.y;
+        smallParams2.gravity = Gravity.RIGHT | Gravity.TOP;
+        smallParams2.setTitle("FATJS");
+
+        smallLL2.addView(smallCircle2);
+        wm.addView(smallLL2, smallParams2);
+
+        // 添加小圆2的弹出动画效果
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(smallLL2, "translationX", btn_h, 0);
+        animator2.setDuration(150);
+        animator2.start();
+
+        // 设置小圆的点击事件，用于还原消失
+        smallLL1.setOnClickListener((v) -> hideSmallCircles());
+        smallLL2.setOnClickListener((v) -> hideSmallCircles());
+
+        isSmallCirclesVisible = true;
+    }
+
+
+
+    private void hideSmallCircles() {
+        if (isSmallCirclesVisible) {
+            // 添加小圆的透明度动画效果
+            ObjectAnimator alphaAnimator1 = ObjectAnimator.ofFloat(smallLL1, "alpha", 1f, 0f);
+            alphaAnimator1.setDuration(100);
+            alphaAnimator1.start();
+
+            ObjectAnimator alphaAnimator2 = ObjectAnimator.ofFloat(smallLL2, "alpha", 1f, 0f);
+            alphaAnimator2.setDuration(100);
+            alphaAnimator2.start();
+
+            // 添加小圆的平移动画效果
+            ObjectAnimator translationAnimator1 = ObjectAnimator.ofFloat(smallLL1, "translationX", 0f, smallLL1.getWidth());
+            translationAnimator1.setDuration(100);
+            translationAnimator1.start();
+
+            ObjectAnimator translationAnimator2 = ObjectAnimator.ofFloat(smallLL2, "translationX", 0f, smallLL2.getWidth());
+            translationAnimator2.setDuration(230);
+            translationAnimator2.start();
+
+            // 延迟一段时间后移除小圆的视图
+            new Handler().postDelayed(() -> {
+                wm.removeView(smallLL1);
+                wm.removeView(smallLL2);
+            }, 100);
+
+            isSmallCirclesVisible = false;
+        }
     }
 
     private void moveBtn(WindowManager.LayoutParams parameters) {

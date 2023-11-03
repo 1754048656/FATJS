@@ -7,8 +7,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -203,6 +209,7 @@ public class FloatingWindow extends Service {
         GlobalVariableHolder.ll.setPadding(5, 5, 5, 5);
         sv.setVerticalScrollBarEnabled(true);
         sv.setLayoutParams(svParams);
+        sv.setBackground(getRoundRectShapeWithBorder(20, Color.argb(188,0,0,0), 3, Color.WHITE));
 
         // 设置面板
 //        WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(float_window_width, float_window_height, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
@@ -256,6 +263,22 @@ public class FloatingWindow extends Service {
 //                return false;
 //            }
 //        });
+    }
+    // 获取圆角矩形形状带边框
+    private static Drawable getRoundRectShapeWithBorder(int radius, int backgroundColor, int borderWidth, int borderColor) {
+        float[] outerRadii = new float[]{radius, radius, radius, radius, radius, radius, radius, radius};
+        RoundRectShape roundRectShape = new RoundRectShape(outerRadii, null, null);
+        ShapeDrawable shapeDrawable = new ShapeDrawable(roundRectShape);
+        shapeDrawable.getPaint().setColor(backgroundColor);
+        shapeDrawable.getPaint().setStyle(Paint.Style.FILL);
+        shapeDrawable.getPaint().setAntiAlias(true);
+        shapeDrawable.getPaint().setStrokeWidth(borderWidth);
+        shapeDrawable.getPaint().setPathEffect(new DashPathEffect(new float[]{borderWidth, borderWidth}, 0));
+        shapeDrawable.getPaint().setStrokeCap(Paint.Cap.ROUND);
+        shapeDrawable.getPaint().setStrokeJoin(Paint.Join.ROUND);
+        shapeDrawable.getPaint().setShadowLayer(10, 0, 0, borderColor);
+        shapeDrawable.getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
+        return shapeDrawable;
     }
 
 }
