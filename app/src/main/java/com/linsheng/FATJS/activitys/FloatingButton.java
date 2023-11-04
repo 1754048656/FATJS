@@ -29,14 +29,16 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.node.TaskBase;
 import com.linsheng.FATJS.utils.ExceptionUtil;
+import com.linsheng.FATJS.utils.VibratorUtil;
 
 public class FloatingButton extends Service {
-    private static final String TAG = GlobalVariableHolder.tag;
+    private static final String TAG = tag;
     private WindowManager wm;
     private LinearLayout ll;
+    ViewGroup.LayoutParams txtParameters;
+    ViewGroup.LayoutParams llParameters;
     private final int btn_w = (mWidth / 8);
     private int btn_h = (mWidth / 8);
 
@@ -54,13 +56,10 @@ public class FloatingButton extends Service {
     }
 
     private void setTypePhone(WindowManager.LayoutParams parameters) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            parameters.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        }
+        parameters.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @SuppressLint("RtlHardcoded")
+    @SuppressLint({"RtlHardcoded", "SetTextI18n"})
     @Override
     public void onCreate() {
         super.onCreate();
@@ -76,19 +75,19 @@ public class FloatingButton extends Service {
         btn_h = (int) (btn_w); // 按照比例调整
         // 定义面板
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        Log.e(TAG, "GlobalVariableHolder.context => " + GlobalVariableHolder.context);
-        GlobalVariableHolder.btnTextView = new TextView(GlobalVariableHolder.context);
-        ll = new LinearLayout(GlobalVariableHolder.context);
+        Log.e(TAG, "context => " + context);
+        btnTextView = new TextView(context);
+        ll = new LinearLayout(context);
 
-        ViewGroup.LayoutParams txtParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        GlobalVariableHolder.btnTextView.setText("FATJS");
-        GlobalVariableHolder.btnTextView.setTextSize((float) (text_size + 1));
-        GlobalVariableHolder.btnTextView.setGravity(Gravity.CENTER); //文字居中
-        GlobalVariableHolder.btnTextView.setTextColor(Color.argb(255,255,255,255));
-        GlobalVariableHolder.btnTextView.setLayoutParams(txtParameters);
+        txtParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        btnTextView.setText("FATJS");
+        btnTextView.setTextSize((float) (text_size + 1));
+        btnTextView.setGravity(Gravity.CENTER); //文字居中
+        btnTextView.setTextColor(Color.argb(255,255,255,255));
+        btnTextView.setLayoutParams(txtParameters);
 
         // LinearLayout 容器
-        LinearLayout.LayoutParams llParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        llParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         ll.setBackgroundColor(Color.argb(180,0,0,0));
         ll.setGravity(Gravity.CENTER); //文字居中
         ll.setOrientation(LinearLayout.VERTICAL); //线性布局
@@ -102,27 +101,41 @@ public class FloatingButton extends Service {
         ll.setBackground(shape);
 
         // 设置面板
-        WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(btn_w, btn_h, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
-        setTypePhone(parameters);
+        WindowManager.LayoutParams parameters = new WindowManager.LayoutParams();
+        parameters.width = btn_w;
+        parameters.height = btn_h;
+
+        parameters.format = PixelFormat.TRANSLUCENT;
+        parameters.flags =
+                //在此模式下，系统会将当前Window区域以外的单击事件传递给底层的Window，
+                // 当前Window区域以内的单击事件则自己处理，这个标记很重要，
+                // 一般来说都需要开启此标记，否则其他Window将无法收到单击事件
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                        //表示Window不需要获取焦点，也不需要接收各种输入事件，最终事件会直接传递给下层的具有焦点的Window
+                        //不加入该Flag能响应返回键回调，但是返回键一直被屏蔽，加入后又不能收到监听
+                        | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                        //加入该Flag，让浮窗层级在软键盘之下，否则如果软键盘覆盖弹窗后，点击软键盘和浮窗重合位置会被浮窗响应
+                        | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+                        //忽略周围的装饰，例如状态栏。解决切换全屏模式时，位置上移的问题
+                        // | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                        //允许悬浮窗范围越界到屏幕外
+                        | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+                        //设置该Flag，当触摸事件在悬浮窗以外区域时，发送一个MotionEvent.ACTION_OUTSIDE事件
+                        //不会接收到悬浮窗区域以外的move、up事件，只有一次ACTION_OUTSIDE事件
+                        //这里设置这个Flag，来关闭悬浮窗
+                        | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+                        //允许窗体浮动在锁屏之上，国产ROM无效
+                        | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
         parameters.x = (mWidth / 6);
         //private int offset_y = (mHeight / 8);
         parameters.y = 0;
         parameters.gravity = Gravity.RIGHT | Gravity.TOP;
         parameters.setTitle("FATJS");
+        setTypePhone(parameters);
 
         // 添加元素到面板
-        ll.addView(GlobalVariableHolder.btnTextView);
+        ll.addView(btnTextView);
         wm.addView(ll, parameters);
-
-        ll.setOnClickListener((v) -> {
-            if (DEV_MODE) {
-                // FATJS 的开发者模式
-                testMethodPre();
-            } else {
-                // btnClick(); // 改变悬浮窗大小
-                splitCircles(parameters, txtParameters, llParameters);
-            }
-        });
 
         moveBtn(parameters);
     }
@@ -130,7 +143,8 @@ public class FloatingButton extends Service {
     private boolean isSmallCirclesVisible = false;
     private LinearLayout smallLL1, smallLL2, smallLL3, smallLL4;
 
-    private void splitCircles(WindowManager.LayoutParams parameters, ViewGroup.LayoutParams txtParameters, LinearLayout.LayoutParams llParameters) {
+    @SuppressLint("RtlHardcoded")
+    private void splitCircles(WindowManager.LayoutParams parameters) {
         if (isSmallCirclesVisible) {
             // 隐藏小圆
             hideSmallCircles();
@@ -138,14 +152,14 @@ public class FloatingButton extends Service {
         }
 
         // 创建第一个小圆
-        TextView smallCircle1 = new TextView(GlobalVariableHolder.context);
+        TextView smallCircle1 = new TextView(context);
         smallCircle1.setText("停止");
         smallCircle1.setTextSize((float) (text_size));
         smallCircle1.setGravity(Gravity.CENTER);
         smallCircle1.setTextColor(Color.argb(255, 255, 255, 255));
         smallCircle1.setLayoutParams(txtParameters);
 
-        smallLL1 = new LinearLayout(GlobalVariableHolder.context);
+        smallLL1 = new LinearLayout(context);
         smallLL1.setBackgroundColor(Color.argb(180, 0, 0, 0));
         smallLL1.setGravity(Gravity.CENTER);
         smallLL1.setOrientation(LinearLayout.VERTICAL);
@@ -173,7 +187,7 @@ public class FloatingButton extends Service {
         animator1.start();
 
         // 创建第二个小圆
-        TextView smallCircle2 = new TextView(GlobalVariableHolder.context);
+        TextView smallCircle2 = new TextView(context);
         if (isStop) {
             smallCircle2.setText("开始");
         } else {
@@ -184,7 +198,7 @@ public class FloatingButton extends Service {
         smallCircle2.setTextColor(Color.argb(255, 255, 255, 255));
         smallCircle2.setLayoutParams(txtParameters);
 
-        smallLL2 = new LinearLayout(GlobalVariableHolder.context);
+        smallLL2 = new LinearLayout(context);
         smallLL2.setBackgroundColor(Color.argb(180, 0, 0, 0));
         smallLL2.setGravity(Gravity.CENTER);
         smallLL2.setOrientation(LinearLayout.VERTICAL);
@@ -212,7 +226,7 @@ public class FloatingButton extends Service {
         animator2.start();
 
         // 创建第三个小圆
-        TextView smallCircle3 = new TextView(GlobalVariableHolder.context);
+        TextView smallCircle3 = new TextView(context);
         if (isOpenFloatWin) {
             smallCircle3.setText("隐藏");
         }else {
@@ -223,7 +237,7 @@ public class FloatingButton extends Service {
         smallCircle3.setTextColor(Color.argb(255, 255, 255, 255));
         smallCircle3.setLayoutParams(txtParameters);
 
-        smallLL3 = new LinearLayout(GlobalVariableHolder.context);
+        smallLL3 = new LinearLayout(context);
         smallLL3.setBackgroundColor(Color.argb(180, 0, 0, 0));
         smallLL3.setGravity(Gravity.CENTER);
         smallLL3.setOrientation(LinearLayout.VERTICAL);
@@ -251,14 +265,14 @@ public class FloatingButton extends Service {
         animator3.start();
 
         // 创建第四个小圆
-        TextView smallCircle4 = new TextView(GlobalVariableHolder.context);
+        TextView smallCircle4 = new TextView(context);
         smallCircle4.setText("全屏");
         smallCircle4.setTextSize((float) (text_size));
         smallCircle4.setGravity(Gravity.CENTER);
         smallCircle4.setTextColor(Color.argb(255, 255, 255, 255));
         smallCircle4.setLayoutParams(txtParameters);
 
-        smallLL4 = new LinearLayout(GlobalVariableHolder.context);
+        smallLL4 = new LinearLayout(context);
         smallLL4.setBackgroundColor(Color.argb(180, 0, 0, 0));
         smallLL4.setGravity(Gravity.CENTER);
         smallLL4.setOrientation(LinearLayout.VERTICAL);
@@ -287,16 +301,15 @@ public class FloatingButton extends Service {
 
         // 设置小圆的点击事件，用于还原消失
         smallLL1.setOnClickListener((v) -> {
+            hideSmallCircles();
             // 判断是否有任务正在执行
             if (isRunning) {
                 killThread = true;
                 printLogMsg("有任务正在执行", 0);
-                Toast.makeText(context, "有任务正在执行", Toast.LENGTH_SHORT).show();
-                return;
             }
-            hideSmallCircles();
         });
         smallLL2.setOnClickListener((v) -> {
+            hideSmallCircles();
             if (isRunning) {
                 isStop = !isStop;
                 if (isStop) {
@@ -307,9 +320,9 @@ public class FloatingButton extends Service {
                     smallCircle2.setText("暂停");
                 }
             }
-            hideSmallCircles();
         });
         smallLL3.setOnClickListener((v) -> {
+            hideSmallCircles();
             // TODO: 处理小圆3的点击事件
             if (isOpenFloatWin) {
                 moveFloatWindow("隐藏");
@@ -318,18 +331,15 @@ public class FloatingButton extends Service {
                 moveFloatWindow("打开");
                 smallCircle3.setText("隐藏");
             }
-            hideSmallCircles();
         });
         smallLL4.setOnClickListener((v) -> {
+            hideSmallCircles();
             // TODO: 处理小圆4的点击事件
             moveFloatWindow("全屏");
-            hideSmallCircles();
         });
 
         isSmallCirclesVisible = true;
     }
-
-
 
     private void hideSmallCircles() {
         if (isSmallCirclesVisible) {
@@ -373,7 +383,7 @@ public class FloatingButton extends Service {
                 wm.removeView(smallLL2);
                 wm.removeView(smallLL3);
                 wm.removeView(smallLL4);
-            }, 100);
+            }, 50);
 
 
             isSmallCirclesVisible = false;
@@ -407,6 +417,9 @@ public class FloatingButton extends Service {
                         if (Math.abs(deltaX) > TOUCH_THRESHOLD || Math.abs(deltaY) > TOUCH_THRESHOLD) {
                             isMoving = true; // 设置移动标志位为true
                         }
+                        if (isMoving) {
+                            hideSmallCircles();
+                        }
                         int mx = (int) (x - (event.getRawX() - touchedX));
                         int my = (int) (y + (event.getRawY() - touchedY));
                         updatedParameters.x = mx <= 0 ? 0 : mx;
@@ -415,8 +428,21 @@ public class FloatingButton extends Service {
                         break;
                     case MotionEvent.ACTION_UP:
                         if (!isMoving) {
-                            v.performClick(); // 触发点击事件
+                            // v.performClick(); // 触发点击事件
+                            if (DEV_MODE) {
+                                // FATJS 的开发者模式
+                                testMethodPre();
+                            } else {
+                                // btnClick(); // 改变悬浮窗大小
+                                splitCircles(parameters);
+                            }
+                            VibratorUtil.startVibrator();
                         }
+                        break;
+                    case MotionEvent.ACTION_OUTSIDE:
+                        // 处理ACTION_OUTSIDE事件
+                        // 关闭悬浮窗
+                        hideSmallCircles();
                         break;
                 }
                 return true;
@@ -463,52 +489,51 @@ public class FloatingButton extends Service {
     }
 
     private void btnClick() {
-        if ("打开".contentEquals(GlobalVariableHolder.btnTextView.getText())) {
+        if ("打开".contentEquals(btnTextView.getText())) {
             Log.i(TAG, "onClick: 打开 --> 全屏");
             if (isRunning) {
                 isStop = false;
                 printLogMsg("开始运行", 0);
             }
-            GlobalVariableHolder.btnTextView.setText("全屏");
+            btnTextView.setText("全屏");
 
             // 展开悬浮窗
             Intent intent = new Intent();
             intent.setAction("com.msg");
             intent.putExtra("msg", "show_max");
-            GlobalVariableHolder.context.sendBroadcast(intent);
-        }else if("隐藏".contentEquals(GlobalVariableHolder.btnTextView.getText())){
+            context.sendBroadcast(intent);
+        }else if("隐藏".contentEquals(btnTextView.getText())){
             Log.i(TAG, "onClick: 隐藏 --> 打开");
             if (isRunning) {
                 isStop = true;
                 printLogMsg("暂停中", 0);
             }
-            GlobalVariableHolder.btnTextView.setText("打开");
+            btnTextView.setText("打开");
 
             // 隐藏悬浮窗
             Intent intent = new Intent();
             intent.setAction("com.msg");
             intent.putExtra("msg", "hide_mini");
-            GlobalVariableHolder.context.sendBroadcast(intent);
-        }else if("全屏".contentEquals(GlobalVariableHolder.btnTextView.getText())) {
+            context.sendBroadcast(intent);
+        }else if("全屏".contentEquals(btnTextView.getText())) {
             Log.i(TAG, "onClick: 全屏 --> 隐藏");
             if (isRunning) {
                 isStop = true;
                 printLogMsg("暂停中", 0);
             }
-            GlobalVariableHolder.btnTextView.setText("隐藏");
+            btnTextView.setText("隐藏");
 
             // 隐藏悬浮窗
             Intent intent = new Intent();
             intent.setAction("com.msg");
             intent.putExtra("msg", "full_screen");
-            GlobalVariableHolder.context.sendBroadcast(intent);
+            context.sendBroadcast(intent);
         }
     }
 
     /**
      * 测试方法
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void testMethod() {
         // 将测试的动作写到这里，点击悬浮窗的 打开 按钮，就可以执行
         TaskBase taskDemo = new TaskBase();

@@ -9,37 +9,25 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.hjq.permissions.OnPermissionCallback;
-import com.hjq.permissions.Permission;
-import com.hjq.permissions.XXPermissions;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.activitys.FloatingButton;
 import com.linsheng.FATJS.activitys.FloatingWindow;
-import com.linsheng.FATJS.aione_editor.EditorActivity;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.config.WindowPermissionCheck;
 import com.linsheng.FATJS.databinding.ActivityMainBinding;
@@ -47,11 +35,6 @@ import com.linsheng.FATJS.findColor.config.CaptureScreenService;
 import com.linsheng.FATJS.findColor.config.ScreenCaptureManager;
 import com.linsheng.FATJS.service.MyService;
 import com.linsheng.FATJS.ui.dashboard.DashboardFragment;
-import com.linsheng.FATJS.ui.home.HomeFragment;
-import com.linsheng.FATJS.ui.notifications.NotificationsFragment;
-import com.linsheng.FATJS.utils.FileUtils;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = GlobalVariableHolder.tag;

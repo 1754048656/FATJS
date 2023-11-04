@@ -1,17 +1,6 @@
 package com.linsheng.FATJS.node;
 
-import static com.linsheng.FATJS.config.GlobalVariableHolder.btnTextView;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.currentActivityName;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.tag;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.waitFiveSecond;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.waitOneSecond;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.waitThreeSecond;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.waitTwoSecond;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
@@ -241,6 +230,15 @@ public class AccUtils extends AccessibilityService {
         nodeInfo.getBoundsInScreen(rect);
         // 回收
         return rect;
+    }
+
+    protected void systemClickListener(AccessibilityEvent event) {
+        // 监听系统事件
+        if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_CLICKED) {
+            // 当发生点击事件时执行相应的操作
+            // 可以在这里处理系统点击事件的逻辑
+            // printLogMsg("当发生点击事件时执行相应的操作", 0);
+        }
     }
 
     static class StopRunException extends RuntimeException {

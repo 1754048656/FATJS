@@ -21,5 +21,8 @@ public class MyAccessibilityService extends AccUtils {
 
         // 刷新当前 Activity()
         super.refreshCurrentActivity(accessibilityEvent);
+
+        // 监听点击事件
+        super.systemClickListener(accessibilityEvent);
     }
 }
