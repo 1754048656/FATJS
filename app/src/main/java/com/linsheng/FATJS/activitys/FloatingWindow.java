@@ -211,7 +211,7 @@ public class FloatingWindow extends Service {
         GlobalVariableHolder.ll.setPadding(5, 5, 5, 5);
         sv.setVerticalScrollBarEnabled(true);
         sv.setLayoutParams(svParams);
-        sv.setBackground(getRoundRectShapeWithBorder(20, Color.argb(188,0,0,0), 3, Color.WHITE));
+        sv.setBackground(getRoundRectShapeWithBorder(10, Color.argb(188,0,0,0), 3, Color.WHITE));
 
         // 设置面板
 //        WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(float_window_width, float_window_height, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
@@ -271,7 +271,7 @@ public class FloatingWindow extends Service {
         float[] outerRadii = new float[]{radius, radius, radius, radius, radius, radius, radius, radius};
         RoundRectShape roundRectShape = new RoundRectShape(outerRadii, null, null);
         ShapeDrawable shapeDrawable = new ShapeDrawable(roundRectShape);
-        shapeDrawable.getPaint().setColor(backgroundColor);
+        // shapeDrawable.getPaint().setColor(backgroundColor);
         shapeDrawable.getPaint().setStyle(Paint.Style.FILL);
         shapeDrawable.getPaint().setAntiAlias(true);
         shapeDrawable.getPaint().setStrokeWidth(borderWidth);
@@ -279,7 +279,7 @@ public class FloatingWindow extends Service {
         shapeDrawable.getPaint().setStrokeCap(Paint.Cap.ROUND);
         shapeDrawable.getPaint().setStrokeJoin(Paint.Join.ROUND);
         shapeDrawable.getPaint().setShadowLayer(10, 0, 0, borderColor);
-        shapeDrawable.getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
+        // shapeDrawable.getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
         return shapeDrawable;
     }
 
