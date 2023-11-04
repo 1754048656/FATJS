@@ -390,6 +390,7 @@ public class FloatingButton extends Service {
         }
     }
 
+    static boolean isAction = false;
     private void moveBtn(WindowManager.LayoutParams parameters) {
         // 监听触摸，移动
         ll.setOnTouchListener(new View.OnTouchListener() {
@@ -417,8 +418,10 @@ public class FloatingButton extends Service {
                         if (Math.abs(deltaX) > TOUCH_THRESHOLD || Math.abs(deltaY) > TOUCH_THRESHOLD) {
                             isMoving = true; // 设置移动标志位为true
                         }
-                        if (isMoving) {
+                        if (isMoving && !isAction) {
+                            isAction = true;
                             hideSmallCircles();
+                            isAction = false;
                         }
                         int mx = (int) (x - (event.getRawX() - touchedX));
                         int my = (int) (y + (event.getRawY() - touchedY));
