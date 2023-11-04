@@ -167,7 +167,7 @@ public class FloatingWindow extends Service {
         // 日志模板
         String curTime = getStringDate();
         String logTmp = curTime + " | " + msg;
-        GlobalVariableHolder.ll.addView(createText(logTmp));
+        ll.addView(createText(logTmp));
         Log.i(TAG, "printLog: " + logTmp);
 
         windowAutoScroll();
@@ -197,21 +197,20 @@ public class FloatingWindow extends Service {
         // 定义面板
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
         sv = new ScrollView(context);
-        GlobalVariableHolder.ll = new LinearLayout(context);
+        ll = new LinearLayout(context);
 
         // LinearLayout 容器
         LinearLayout.LayoutParams llParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        GlobalVariableHolder.ll.setPadding(5, 5, 5, 5);
-        GlobalVariableHolder.ll.setOrientation(LinearLayout.VERTICAL);
-        GlobalVariableHolder.ll.setLayoutParams(llParameters);
+        ll.setPadding(5, 5, 5, 5);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        ll.setLayoutParams(llParameters);
 
         // ScrollView容器
         ViewGroup.LayoutParams svParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        sv.setBackgroundColor(Color.argb(188,0,0,0));
-        GlobalVariableHolder.ll.setPadding(5, 5, 5, 5);
+        ll.setPadding(5, 5, 5, 5);
         sv.setVerticalScrollBarEnabled(true);
         sv.setLayoutParams(svParams);
-        sv.setBackground(getRoundRectShapeWithBorder(10, Color.argb(188,0,0,0), 3, Color.WHITE));
+        sv.setBackground(getRoundRectShapeWithBorder(15, Color.argb(188,0,0,0), 3, Color.WHITE));
 
         // 设置面板
 //        WindowManager.LayoutParams parameters = new WindowManager.LayoutParams(float_window_width, float_window_height, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT);
@@ -228,8 +227,8 @@ public class FloatingWindow extends Service {
         parameters.setTitle("FATJS");
 
         // 添加元素到面板
-        GlobalVariableHolder.ll.addView(createText("日志面板log"));
-        sv.addView(GlobalVariableHolder.ll);
+        ll.addView(createText("日志面板log"));
+        sv.addView(ll);
         wm.addView(sv, parameters);
 
         // 监听触摸，移动
@@ -271,14 +270,14 @@ public class FloatingWindow extends Service {
         float[] outerRadii = new float[]{radius, radius, radius, radius, radius, radius, radius, radius};
         RoundRectShape roundRectShape = new RoundRectShape(outerRadii, null, null);
         ShapeDrawable shapeDrawable = new ShapeDrawable(roundRectShape);
-        // shapeDrawable.getPaint().setColor(backgroundColor);
+        shapeDrawable.getPaint().setColor(backgroundColor);
         shapeDrawable.getPaint().setStyle(Paint.Style.FILL);
         shapeDrawable.getPaint().setAntiAlias(true);
         shapeDrawable.getPaint().setStrokeWidth(borderWidth);
         shapeDrawable.getPaint().setPathEffect(new DashPathEffect(new float[]{borderWidth, borderWidth}, 0));
         shapeDrawable.getPaint().setStrokeCap(Paint.Cap.ROUND);
         shapeDrawable.getPaint().setStrokeJoin(Paint.Join.ROUND);
-        shapeDrawable.getPaint().setShadowLayer(10, 0, 0, borderColor);
+        // shapeDrawable.getPaint().setShadowLayer(radius, 0, 0, borderColor);
         // shapeDrawable.getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
         return shapeDrawable;
     }
