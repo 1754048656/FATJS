@@ -439,7 +439,7 @@ public class FloatingButton extends Service {
                                 // btnClick(); // 改变悬浮窗大小
                                 splitCircles(parameters);
                             }
-                            VibratorUtil.startVibrator();
+                            // VibratorUtil.startVibrator(); // 震动
                         }
                         break;
                     case MotionEvent.ACTION_OUTSIDE:
