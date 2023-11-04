@@ -81,7 +81,7 @@ public class FloatingButton extends Service {
 
         txtParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         btnTextView.setText("FATJS");
-        btnTextView.setTextSize((float) (text_size + 1));
+        btnTextView.setTextSize((float) (text_size + 2));
         btnTextView.setGravity(Gravity.CENTER); //文字居中
         btnTextView.setTextColor(Color.argb(255,255,255,255));
         btnTextView.setLayoutParams(txtParameters);
@@ -154,7 +154,7 @@ public class FloatingButton extends Service {
         // 创建第一个小圆
         TextView smallCircle1 = new TextView(context);
         smallCircle1.setText("停止");
-        smallCircle1.setTextSize((float) (text_size));
+        smallCircle1.setTextSize((float) (text_size + 2));
         smallCircle1.setGravity(Gravity.CENTER);
         smallCircle1.setTextColor(Color.argb(255, 255, 255, 255));
         smallCircle1.setLayoutParams(txtParameters);
@@ -193,7 +193,7 @@ public class FloatingButton extends Service {
         } else {
             smallCircle2.setText("暂停");
         }
-        smallCircle2.setTextSize((float) (text_size));
+        smallCircle2.setTextSize((float) (text_size + 2));
         smallCircle2.setGravity(Gravity.CENTER);
         smallCircle2.setTextColor(Color.argb(255, 255, 255, 255));
         smallCircle2.setLayoutParams(txtParameters);
@@ -232,7 +232,7 @@ public class FloatingButton extends Service {
         }else {
             smallCircle3.setText("打开");
         }
-        smallCircle3.setTextSize((float) (text_size));
+        smallCircle3.setTextSize((float) (text_size + 2));
         smallCircle3.setGravity(Gravity.CENTER);
         smallCircle3.setTextColor(Color.argb(255, 255, 255, 255));
         smallCircle3.setLayoutParams(txtParameters);
@@ -267,7 +267,7 @@ public class FloatingButton extends Service {
         // 创建第四个小圆
         TextView smallCircle4 = new TextView(context);
         smallCircle4.setText("全屏");
-        smallCircle4.setTextSize((float) (text_size));
+        smallCircle4.setTextSize((float) (text_size + 2));
         smallCircle4.setGravity(Gravity.CENTER);
         smallCircle4.setTextColor(Color.argb(255, 255, 255, 255));
         smallCircle4.setLayoutParams(txtParameters);
