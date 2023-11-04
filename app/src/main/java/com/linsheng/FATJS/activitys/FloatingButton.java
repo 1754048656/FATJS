@@ -183,7 +183,7 @@ public class FloatingButton extends Service {
 
         // 添加小圆1的弹出动画效果
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(smallLL1, "translationY", -btn_h, 0);
-        animator1.setDuration(200);
+        animator1.setDuration(100);
         animator1.start();
 
         // 创建第二个小圆
@@ -222,7 +222,7 @@ public class FloatingButton extends Service {
 
         // 添加小圆2的弹出动画效果
         ObjectAnimator animator2 = ObjectAnimator.ofFloat(smallLL2, "translationY", -btn_h, 0);
-        animator2.setDuration(250);
+        animator2.setDuration(150);
         animator2.start();
 
         // 创建第三个小圆
@@ -261,7 +261,7 @@ public class FloatingButton extends Service {
 
         // 添加小圆3的弹出动画效果
         ObjectAnimator animator3 = ObjectAnimator.ofFloat(smallLL3, "translationY", -btn_h, 0);
-        animator3.setDuration(300);
+        animator3.setDuration(200);
         animator3.start();
 
         // 创建第四个小圆
@@ -296,7 +296,7 @@ public class FloatingButton extends Service {
 
         // 添加小圆4的弹出动画效果
         ObjectAnimator animator4 = ObjectAnimator.ofFloat(smallLL4, "translationY", -btn_h, 0);
-        animator4.setDuration(350);
+        animator4.setDuration(300);
         animator4.start();
 
         // 设置小圆的点击事件，用于还原消失
