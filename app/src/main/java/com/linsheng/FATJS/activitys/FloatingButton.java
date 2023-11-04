@@ -305,6 +305,10 @@ public class FloatingButton extends Service {
             // 判断是否有任务正在执行
             if (isRunning) {
                 killThread = true;
+                if (isStop) {
+                    smallCircle2.setText("暂停");
+                    isStop = false;
+                }
                 printLogMsg("有任务正在执行", 0);
             }
         });

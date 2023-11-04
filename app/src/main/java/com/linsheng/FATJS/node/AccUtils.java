@@ -152,8 +152,11 @@ public class AccUtils extends AccessibilityService {
             int i = 1 / 0;
         }
         while (isStop) {
+            if (killThread) { // 停止当前任务
+                int t = 1 / 0;
+            }
             try {
-                Thread.sleep(waitTwoSecond);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 printLogMsg(ExceptionUtil.toString(e), 0);
             }
@@ -1121,7 +1124,10 @@ public class AccUtils extends AccessibilityService {
                     int t = 1 / 0;
                 }
                 while (isStop) {
-                    Thread.sleep(waitThreeSecond);
+                    if (killThread) { // 停止当前任务
+                        int t = 1 / 0;
+                    }
+                    Thread.sleep(100);
                 }
             }
         } catch (InterruptedException e) {
