@@ -345,36 +345,36 @@ public class FloatingButton extends Service {
         if (isSmallCirclesVisible) {
             // 添加小圆的透明度动画效果
             ObjectAnimator alphaAnimator1 = ObjectAnimator.ofFloat(smallLL1, "alpha", 1f, 0f);
-            alphaAnimator1.setDuration(350);
+            alphaAnimator1.setDuration(201);
             alphaAnimator1.start();
 
             ObjectAnimator alphaAnimator2 = ObjectAnimator.ofFloat(smallLL2, "alpha", 1f, 0f);
-            alphaAnimator2.setDuration(300);
+            alphaAnimator2.setDuration(201);
             alphaAnimator2.start();
 
             ObjectAnimator alphaAnimator3 = ObjectAnimator.ofFloat(smallLL3, "alpha", 1f, 0f);
-            alphaAnimator3.setDuration(250);
+            alphaAnimator3.setDuration(201);
             alphaAnimator3.start();
 
             ObjectAnimator alphaAnimator4 = ObjectAnimator.ofFloat(smallLL4, "alpha", 1f, 0f);
-            alphaAnimator4.setDuration(200);
+            alphaAnimator4.setDuration(201);
             alphaAnimator4.start();
 
             // 添加小圆的平移动画效果
             ObjectAnimator translationAnimator1 = ObjectAnimator.ofFloat(smallLL1, "translationY", 0f, -smallLL1.getWidth());
-            translationAnimator1.setDuration(350);
+            translationAnimator1.setDuration(201);
             translationAnimator1.start();
 
             ObjectAnimator translationAnimator2 = ObjectAnimator.ofFloat(smallLL2, "translationY", 0f, -smallLL2.getWidth());
-            translationAnimator2.setDuration(300);
+            translationAnimator2.setDuration(201);
             translationAnimator2.start();
 
             ObjectAnimator translationAnimator3 = ObjectAnimator.ofFloat(smallLL3, "translationY", 0f, -smallLL3.getWidth());
-            translationAnimator3.setDuration(250);
+            translationAnimator3.setDuration(201);
             translationAnimator3.start();
 
             ObjectAnimator translationAnimator4 = ObjectAnimator.ofFloat(smallLL4, "translationY", 0f, -smallLL4.getWidth());
-            translationAnimator4.setDuration(200);
+            translationAnimator4.setDuration(201);
             translationAnimator4.start();
 
             // 延迟一段时间后移除小圆的视图
