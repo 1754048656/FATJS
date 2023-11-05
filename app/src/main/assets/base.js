@@ -101,6 +101,7 @@ function random(min, max) {
 function content(full_str, item_str) {
     return full_str.indexOf(item_str) != -1
 }
+const waiths = 300 + random(0, 200);
 const wait1s = 1000 + random(0, 200);
 const wait2s = 2000 + random(0, 200);
 const wait3s = 3000 + random(0, 200);
