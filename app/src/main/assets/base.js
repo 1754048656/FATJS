@@ -115,4 +115,5 @@ const children = null;
 const child = null;
 const nodeList = null;
 const setText = null;
+const paste = null;
 //-------------------- pre set -------------------//
