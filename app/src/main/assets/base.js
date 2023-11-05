@@ -1,6 +1,6 @@
 //-------------------- pre set -------------------//
 let task = new engines();
-const clip = () => task._clip();
+const clip = (text) => task._clip(text);
 const context = () => task._context();
 const startActivity = (intent) => task._startActivity(intent);
 const intent = (json) => task._intent(JSON.stringify(json));
