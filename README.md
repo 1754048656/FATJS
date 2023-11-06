@@ -35,6 +35,7 @@ home()
 print('点击设置')
 text('设置').findOne().click()
 sleep(2000) //等待2s
+back() //返回
 ```
 
 #### 知识星球
