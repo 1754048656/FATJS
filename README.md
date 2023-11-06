@@ -38,4 +38,4 @@ sleep(2000) //等待2s
 ```
 
 #### 知识星球
-<img src="./img/image-6.png" alt="image-3" style="zoom: 30%;float: left; margin-right: 10px;" />
+<img src="./img/image-6.png" alt="image-3" style="float: left; margin-right: 10px;zoom: 30%;" />
