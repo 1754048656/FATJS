@@ -95,7 +95,7 @@ const findOne = (...params) => {
 const find = () => task._find();
 const exists = () => task._exists();
 const waitFor = () => task._waitFor();
-//-------------------- pre set -------------------//
+//------------------------------------------------//
 const nodeList = null;
 const size = null;
 const get = null;
@@ -134,7 +134,7 @@ const boundsInParent = null;
 //const id = null;
 //const text = null;
 //const desc = null;
-//-------------------- pre set -------------------//
+//------------------------------------------------//
 const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const content = (full_str, item_str) => full_str.indexOf(item_str) != -1
 const waiths = 300 + random(0, 200);
