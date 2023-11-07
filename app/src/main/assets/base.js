@@ -95,12 +95,48 @@ const findOne = (...params) => {
 const find = () => task._find();
 const exists = () => task._exists();
 const waitFor = () => task._waitFor();
-function random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function content(full_str, item_str) {
-    return full_str.indexOf(item_str) != -1
-}
+//------------------------------------------------//
+const nodeList = null;
+const size = null;
+const get = null;
+const foreachPrint = null;
+const filterOne = null;
+const filter = null;
+const node = null;
+const exist = null;
+//const getPoint = null;
+//const click = null;
+const clickPoint = null;
+//const clickExactPoint = null;
+const longClick = null;
+const setText = null;
+const copy = null;
+const cut = null;
+const paste = null;
+const setSelection = null;
+const scrollForward = null;
+const scrollBackward = null;
+const select = null;
+const collapse = null;
+const expand = null;
+const show = null;
+//const scrollUp = null;
+const scrollDown = null;
+const scrollLeft = null;
+const scrollRight = null;
+const children = null;
+const childCount = null;
+const child = null;
+const parent = null;
+//const bounds = null;
+const boundsInParent = null;
+//const drawingOrder = null;
+//const id = null;
+//const text = null;
+//const desc = null;
+//------------------------------------------------//
+const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const content = (full_str, item_str) => full_str.indexOf(item_str) != -1
 const waiths = 300 + random(0, 200);
 const wait1s = 1000 + random(0, 200);
 const wait2s = 2000 + random(0, 200);
@@ -108,12 +144,4 @@ const wait3s = 3000 + random(0, 200);
 const wait4s = 4000 + random(0, 200);
 const wait5s = 5000 + random(0, 200);
 const wait6s = 6000 + random(0, 200);
-//-------------------- pre set -------------------//
-const foreachPrint = null;
-const childCount = null;
-const children = null;
-const child = null;
-const nodeList = null;
-const setText = null;
-const paste = null;
 //-------------------- pre set -------------------//
