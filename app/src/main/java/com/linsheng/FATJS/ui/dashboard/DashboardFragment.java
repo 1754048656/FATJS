@@ -107,7 +107,7 @@ public class DashboardFragment extends Fragment {
         try {
             String directoryPath = Environment.getExternalStorageDirectory().getAbsoluteFile() + PATH;
             String filePath = directoryPath + "version.txt";
-            printLogMsg(directoryPath);
+            printLogMsg(directoryPath, 0);
             FileUtils.createDirectory(directoryPath);
             permission = FileUtils.writeToTxt(filePath, "test");
         }catch (Exception e) {}
