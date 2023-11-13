@@ -1139,14 +1139,18 @@ public class AccUtils extends AccessibilityService {
      * *******************************************基本操作**************************************************
      */
 
-    public static Boolean startApplication(Context ctx, String pkName){
-        PackageManager packageManager= ctx.getPackageManager();
+    public static Boolean startApplication(Context ctx, String pkName) {
+        PackageManager packageManager = ctx.getPackageManager();
         Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
         resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         resolveIntent.setPackage(pkName);
         List<ResolveInfo> apps = packageManager.queryIntentActivities(resolveIntent, 0);
-        ResolveInfo ri = apps.iterator().next();
-        if (ri != null ) {
+        if (apps == null || apps.size() == 0) {
+            printLogMsg("Exception startApplication failed: No matching activities found", 0);
+            return false;
+        }
+        ResolveInfo ri = apps.get(0); // Get the first matching activity
+        if (ri != null && ri.activityInfo != null) {
             String packageName = ri.activityInfo.packageName;
             String className = ri.activityInfo.name;
             Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -1154,8 +1158,13 @@ public class AccUtils extends AccessibilityService {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ComponentName cn = new ComponentName(packageName, className);
             intent.setComponent(cn);
-            ctx.startActivity(intent);
-            return true;
+            try {
+                ctx.startActivity(intent);
+                return true;
+            } catch (SecurityException e) {
+                e.printStackTrace();
+                printLogMsg("Exception startApplication failed: SecurityException", 0);
+            }
         }
         return false;
     }
