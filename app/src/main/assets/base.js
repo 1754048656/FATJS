@@ -1,5 +1,9 @@
 //-------------------- pre set -------------------//
 let task = new engines();
+const showLog = () => task._showLog();
+const hideLog = () => task._hideLog();
+const fullScreenLog = () => task._fullScreenLog();
+const clearLog = () => task._clearLog();
 const clip = (text) => task._clip(text);
 const context = () => task._context();
 const startActivity = (intent) => task._startActivity(intent);

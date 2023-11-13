@@ -74,6 +74,22 @@ public class TaskBase extends UiSelector {
     public int _statusBarHeight;
     public int _navigationBarHeight;
     public boolean _navigationBarOpen;
+    public void _showLog() {
+        try {
+            moveFloatWindow("打开");
+        }catch (Exception e) {}
+    }
+    public void _hideLog() {
+        try {
+            moveFloatWindow("隐藏");
+        }catch (Exception e) {}
+    }
+    public void _fullScreenLog() {
+        try {
+            moveFloatWindow("全屏");
+        }catch (Exception e) {}
+    }
+    public void _clearLog() {}
     public void _clip(String text) {
         clip(text);
     }
