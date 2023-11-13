@@ -39,7 +39,7 @@ public class UiObject {
      * 判断node是否为null
      * @return
      */
-    public boolean exist() {
+    public boolean exists() {
         return node != null;
     }
 

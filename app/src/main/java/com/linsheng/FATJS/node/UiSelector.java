@@ -872,7 +872,8 @@ public class UiSelector implements IUiSelector{
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
         if (uiObject != null) {
-            uiObject.node.recycle();
+            if (uiObject.exists())
+                uiObject.node.recycle();
             accNodeInfo.recycle(); // 释放
             return true;
         }
@@ -898,7 +899,8 @@ public class UiSelector implements IUiSelector{
             uiObject = depthFirstSearch(accNodeInfo, attributes);
             if (uiObject != null) {
                 AccUtils.printLogMsg("waitFor: found");
-                uiObject.node.recycle();
+                if (uiObject.exists())
+                    uiObject.node.recycle();
                 accNodeInfo.recycle(); // 释放
                 return;
             }
