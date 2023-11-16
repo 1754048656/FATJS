@@ -20,24 +20,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.hjq.permissions.OnPermissionCallback;
-import com.hjq.permissions.Permission;
-import com.hjq.permissions.XXPermissions;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.aione_editor.EditorActivity;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
-import com.linsheng.FATJS.script.dyService.DyTaskService;
-import com.linsheng.FATJS.service.MyService;
+import com.linsheng.FATJS.script.JavaTaskDemo;
 import com.linsheng.FATJS.utils.FileUtils;
 
 import java.io.File;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     File patch_signed_7zip = null;
@@ -66,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 try {
 
-                    DyTaskService dyTaskService = new DyTaskService();
-                    dyTaskService.main();
+                    JavaTaskDemo javaTaskDemo = new JavaTaskDemo();
+                    javaTaskDemo.main();
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -227,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
             // UID跳转
             Intent intentToUri = new Intent();
-            intentToUri.setData(Uri.parse("snssdk1128://user/profile/" + intent.getStringExtra("tem")));
+            intentToUri.setData(Uri.parse("xx" + intent.getStringExtra("tem")));
             startActivity(intentToUri);
         }
     }
