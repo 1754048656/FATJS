@@ -348,7 +348,7 @@ public class AccUtils extends AccessibilityService {
     @RequiresApi(24)
     public static boolean clickExactPoint(float x1, float y1, long duration) {
         Path path = new Path();
-        printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
+        // printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
         if (x1 > mWidth || y1 > mHeight || x1 < 0 || y1 < 0) {
             printLogMsg("mWidth: " + mWidth);
             printLogMsg("mHeight: " + mHeight);

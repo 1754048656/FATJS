@@ -183,14 +183,11 @@ public class TaskBase extends UiSelector {
     public boolean _clickNodePoint(AccessibilityNodeInfo nodeInfo) {
         return clickNodeByPoint(nodeInfo);
     }
-    public boolean _clickTime(float x, float y, long time) {
-        return clickPoint(x, y, time);
-    }
     public boolean _click(float x, float y) {
         return click(x, y);
     }
-    public boolean _clickExactPoint(float x, float y) {
-        return clickExactPoint(x, y, 75 + new Random().nextInt(80));
+    public boolean _clickExactPoint(float x, float y, long time) {
+        return clickExactPoint(x, y, time);
     }
     public boolean _doubleClick(float x, float y) {
         return doubleClickPoint(x , y, new Random().nextInt(50) + 95);
