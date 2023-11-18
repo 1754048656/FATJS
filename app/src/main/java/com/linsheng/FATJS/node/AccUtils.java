@@ -1112,13 +1112,12 @@ public class AccUtils extends AccessibilityService {
 
     /**
      * 等待
-     * @param time
+     * @param loop_time
      */
-    public static void timeSleep(int time) {
+    public static void timeSleep(int loop_time) {
         try {
-            int loop_time = time / 100;
             for (int i = 0; i < loop_time; i++) {
-                Thread.sleep(100);
+                Thread.sleep(1);
 
                 if (killThread) { // 停止当前任务
                     int t = 1 / 0;
@@ -1127,7 +1126,7 @@ public class AccUtils extends AccessibilityService {
                     if (killThread) { // 停止当前任务
                         int t = 1 / 0;
                     }
-                    Thread.sleep(100);
+                    Thread.sleep(10);
                 }
             }
         } catch (InterruptedException e) {
