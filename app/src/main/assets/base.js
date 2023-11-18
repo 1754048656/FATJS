@@ -34,6 +34,7 @@ const openPkName = (pkName) => task._openPkName(pkName);
 const print = (msg) => task._print(msg + '');
 const clickNode = (node) => task._clickNode(node);
 const clickNodePoint = (node) => task._clickNodePoint(node);
+const clickTime = (x, y, time) => task._clickTime(x, y, time);
 const click = (x, y) => task._click(x, y);
 const clickExactPoint = (x, y) => task._clickExactPoint(x, y);
 const doubleClick = (x, y) => task._doubleClick(x, y);
