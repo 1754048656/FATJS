@@ -670,7 +670,7 @@ public class UiSelector implements IUiSelector{
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject untilFindOne() {
-        printLogMsg("Attributes " + this.containsAttributes);
+        //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
         this.containsAttributes = new HashMap<>();
         AccessibilityNodeInfo accNodeInfo;
@@ -678,11 +678,11 @@ public class UiSelector implements IUiSelector{
             accNodeInfo = AccUtils.getRootInActiveMy();
             UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
             if (uiObject != null) {
-                printLogMsg("untilFindOne: found");
+                //printLogMsg("untilFindOne: found");
                 accNodeInfo.recycle(); // 释放
                 return uiObject;
             }
-            printLogMsg("untilFindOne: wait 1s");
+            //printLogMsg("untilFindOne: wait 1s");
             AccUtils.timeSleep(waitOneSecond);
         }
     }
@@ -710,7 +710,7 @@ public class UiSelector implements IUiSelector{
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject untilFindOne(int timeout) {
-        printLogMsg("Attributes " + this.containsAttributes);
+        //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
         this.containsAttributes = new HashMap<>();
         long startTime = System.currentTimeMillis();
@@ -719,15 +719,15 @@ public class UiSelector implements IUiSelector{
             accNodeInfo = AccUtils.getRootInActiveMy();
             UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
             if (uiObject != null) {
-                printLogMsg("untilFindOne timeout: found");
+                //printLogMsg("untilFindOne timeout: found");
                 accNodeInfo.recycle(); // 释放
                 return uiObject;
             }
-            printLogMsg("untilFindOne timeout: wait 1s");
+            //printLogMsg("untilFindOne timeout: wait 1s");
             AccUtils.timeSleep(waitOneSecond);
             long currentTime = System.currentTimeMillis();
             if (currentTime - startTime >= timeout) {
-                printLogMsg("untilFindOne timeout: not found");
+                //printLogMsg("untilFindOne timeout: not found");
                 if (accNodeInfo != null)
                     accNodeInfo.recycle(); // 释放
                 return new UiObject();
@@ -742,9 +742,12 @@ public class UiSelector implements IUiSelector{
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject findOne() {
-        printLogMsg("Attributes " + this.containsAttributes);
+        //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
         this.containsAttributes = new HashMap<>();
+        if (attributes == null || attributes.isEmpty()) {
+            return new UiObject();
+        }
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
         if (uiObject == null) {
@@ -758,9 +761,12 @@ public class UiSelector implements IUiSelector{
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject findOne(AccessibilityNodeInfo accNodeInfo) {
-        printLogMsg("Attributes " + this.containsAttributes);
+        //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
         this.containsAttributes = new HashMap<>();
+        if (attributes == null || attributes.isEmpty()) {
+            return new UiObject();
+        }
         UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
         if (uiObject == null) {
             if (accNodeInfo != null)
@@ -781,9 +787,12 @@ public class UiSelector implements IUiSelector{
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject findOne(int i) {
-        printLogMsg("Attributes " + this.containsAttributes);
+        //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
         this.containsAttributes = new HashMap<>();
+        if (attributes == null || attributes.isEmpty()) {
+            return new UiObject();
+        }
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiCollection uiCollection = new UiCollection();
         depthFirstSearchAll(accNodeInfo, attributes, uiCollection);
@@ -814,11 +823,14 @@ public class UiSelector implements IUiSelector{
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public UiCollection find() {
-        printLogMsg("Attributes " + this.containsAttributes);
+        //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
         this.containsAttributes = new HashMap<>();
-        AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiCollection uiCollection = new UiCollection();
+        if (attributes == null || attributes.isEmpty()) {
+            return uiCollection;
+        }
+        AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         depthFirstSearchAll(accNodeInfo, attributes, uiCollection);
         if (accNodeInfo != null)
             accNodeInfo.recycle(); // 释放
@@ -867,19 +879,19 @@ public class UiSelector implements IUiSelector{
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean exists() {
-        printLogMsg("Attributes " + this.containsAttributes);
+        //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
         this.containsAttributes = new HashMap<>();
         AccessibilityNodeInfo accNodeInfo = AccUtils.getRootInActiveMy();
         UiObject uiObject = depthFirstSearch(accNodeInfo, attributes);
         if (uiObject != null) {
-            printLogMsg("exists: true");
+            //printLogMsg("exists: true");
             accNodeInfo.recycle(); // 释放
             if (uiObject.exists())
                 uiObject.node.recycle();
             return true;
         }
-        printLogMsg("exists: false");
+        //printLogMsg("exists: false");
         if (accNodeInfo != null)
             accNodeInfo.recycle(); // 释放
         return false;
@@ -892,7 +904,7 @@ public class UiSelector implements IUiSelector{
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void waitFor() {
-        printLogMsg("Attributes " + this.containsAttributes);
+        //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
         this.containsAttributes = new HashMap<>();
         UiObject uiObject;
@@ -901,13 +913,13 @@ public class UiSelector implements IUiSelector{
             accNodeInfo = AccUtils.getRootInActiveMy();
             uiObject = depthFirstSearch(accNodeInfo, attributes);
             if (uiObject != null) {
-                printLogMsg("waitFor: found");
+                //printLogMsg("waitFor: found");
                 accNodeInfo.recycle(); // 释放
                 if (uiObject.exists())
                     uiObject.node.recycle();
                 return;
             }
-            printLogMsg("waitFor: wait 1s");
+            //printLogMsg("waitFor: wait 1s");
             AccUtils.timeSleep(waitOneSecond);
         }
     }

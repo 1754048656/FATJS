@@ -94,7 +94,7 @@ public class UiCollection {
         List<AccessibilityNodeInfo> filteredList = new ArrayList<>();
         for (AccessibilityNodeInfo item : this.nodeList) {
             if (condition.shouldKeep(item)) {
-                printLogMsg("shouldKeep: " + item);
+                //printLogMsg("shouldKeep: " + item);
                 filteredList.add(item);
                 break;
             }else
@@ -119,7 +119,7 @@ public class UiCollection {
         List<AccessibilityNodeInfo> filteredList = new ArrayList<>();
         for (AccessibilityNodeInfo item : this.nodeList) {
             if (condition.shouldKeep(item)) {
-                printLogMsg("shouldKeep: " + item);
+                //printLogMsg("shouldKeep: " + item);
                 filteredList.add(item);
             }else
                 item.recycle(); // 释放过滤掉的

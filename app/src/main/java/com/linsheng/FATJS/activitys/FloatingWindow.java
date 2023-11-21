@@ -39,7 +39,7 @@ public class FloatingWindow extends Service {
     private  ScrollView sv;
     private int float_window_width = (int)(mWidth / 2.5);
     private int float_window_height = (int)(mHeight / 10.1333);
-    private int offset_y = (mHeight / 7);
+    private int offset_y = (mHeight / 5);
 
     // 广播
     DataReceiver dataReceiver = null;
