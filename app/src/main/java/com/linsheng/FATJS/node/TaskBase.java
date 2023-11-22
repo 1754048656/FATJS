@@ -78,7 +78,11 @@ public class TaskBase extends UiSelector {
     public boolean _navigationBarOpen;
     public int[] _findMultiColorInRegionFuzzy(int mainColor, String subColors, double distance, int x1, int y1, int x2, int y2) {
         int[] color = ScreenLib.findColor(mainColor, subColors, distance, x1, y1, x2, y2);
-        printLogMsg("findColor: " + Arrays.toString(color), 0);
+        if (color == null) {
+            printLogMsg("color: not found", 0);
+        }else {
+            printLogMsg("color: " + Arrays.toString(color), 0);
+        }
         return color;
     }
     public void _showLog() {
