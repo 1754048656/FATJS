@@ -20,6 +20,7 @@ import com.caoccao.javet.exceptions.JavetException;
 import com.caoccao.javet.interop.V8Host;
 import com.caoccao.javet.interop.converters.JavetProxyConverter;
 import com.linsheng.FATJS.aione_editor.MainActivity;
+import com.linsheng.FATJS.findColor.ScreenLib;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.FileUtils;
 import com.linsheng.FATJS.utils.OkHttpUtils;
@@ -74,6 +75,9 @@ public class TaskBase extends UiSelector {
     public int _statusBarHeight;
     public int _navigationBarHeight;
     public boolean _navigationBarOpen;
+    public int[] _findMultiColorInRegionFuzzy(int mainColor, String subColors, double distance, int x1, int y1, int x2, int y2) {
+        return ScreenLib.findColor(mainColor, subColors, distance, x1, y1, x2, y2);
+    }
     public void _showLog() {
         try {
             moveFloatWindow("打开");
