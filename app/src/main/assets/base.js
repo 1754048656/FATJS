@@ -1,7 +1,7 @@
 //-------------------- pre set -------------------//
 let task = new engines();
 const findMultiColorInRegionFuzzy = (mainColor, subColors, distance, x1, y1, x2, y2) => {
-    task._findMultiColorInRegionFuzzy(mainColor, subColors, distance, x1, y1, x2, y2);
+    return task._findMultiColorInRegionFuzzy(mainColor, subColors, distance, x1, y1, x2, y2);
 }
 const showLog = () => task._showLog();
 const hideLog = () => task._hideLog();

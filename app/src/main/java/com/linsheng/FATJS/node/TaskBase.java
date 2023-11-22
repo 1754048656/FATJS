@@ -26,6 +26,7 @@ import com.linsheng.FATJS.utils.FileUtils;
 import com.linsheng.FATJS.utils.OkHttpUtils;
 import com.linsheng.FATJS.utils.ScreenshotUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -76,7 +77,9 @@ public class TaskBase extends UiSelector {
     public int _navigationBarHeight;
     public boolean _navigationBarOpen;
     public int[] _findMultiColorInRegionFuzzy(int mainColor, String subColors, double distance, int x1, int y1, int x2, int y2) {
-        return ScreenLib.findColor(mainColor, subColors, distance, x1, y1, x2, y2);
+        int[] color = ScreenLib.findColor(mainColor, subColors, distance, x1, y1, x2, y2);
+        printLogMsg("findColor: " + Arrays.toString(color), 0);
+        return color;
     }
     public void _showLog() {
         try {
