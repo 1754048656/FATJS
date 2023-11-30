@@ -5,11 +5,13 @@ import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Path;
@@ -437,8 +439,8 @@ public class AccUtils extends AccessibilityService {
             // 获取到了当前活动的包名和类名，可以进行相应处理
             // printLogMsg(packageName, 0);
             if (
-                    className.contains(".FrameLayout") ||
-                    className.contains("android.view.View") ||
+                    className.startsWith("android.widget.") ||
+                    className.startsWith("android.view.") ||
                     currentActivityName.equals(className)
             ) {
                 return;
