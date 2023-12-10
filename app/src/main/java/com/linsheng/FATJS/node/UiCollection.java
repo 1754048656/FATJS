@@ -34,7 +34,7 @@ import java.util.List;
  * 如果想要对该集合的所有元素进行操作，可以直接在集合上调用相应的函数，例如uc.click()，该代码会对集合上所有 UiObject 执行点击操作并返回是否全部点击成功。
  * 因此，UiCollection 具有所有 UiObject 对控件操作的函数，包括click(), longClick(), scrollForward()等等，不再赘述。
  */
-public class UiCollection {
+public class UiCollection implements IUiCollection{
 
     public UiCollection(List<AccessibilityNodeInfo> nodeList) {
         this.nodeList = nodeList;

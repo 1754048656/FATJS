@@ -24,7 +24,7 @@ import java.util.Random;
  * 获取一个 UiObject 通常通过选择器的findOne(), findOnce()等函数，
  * 也可以通过 UiCollection 来获取，或者通过UiObject.child(), UiObject.parent()等函数来获取一个控件的子控件或父控件。
  */
-public class UiObject {
+public class UiObject implements IUiObject{
 
     public AccessibilityNodeInfo node;
 
