@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 public interface IUiObject {
-
     public boolean exists();
     public float[] getPoint();
     public boolean click();
