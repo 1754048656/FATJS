@@ -98,6 +98,10 @@ public class UiObject implements IUiObject{
         return false;
     }
 
+    /**
+     * 手势点击坐标
+     * @return
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean clickPoint() {
         if (node == null) {
@@ -120,6 +124,10 @@ public class UiObject implements IUiObject{
         return aBoolean;
     }
 
+    /**
+     * 手势点击精确坐标，不带偏移
+     * @return
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean clickExactPoint() {
         if (node == null) {
@@ -261,9 +269,9 @@ public class UiObject implements IUiObject{
      * et.setSelection(0, 2);
      * //对选中内容进行复制
      * if(et.copy()){
-     *     toast("复制成功");
+     *     print("复制成功");
      * }else{
-     *     toast("复制失败");
+     *     print("复制失败");
      * }
      * @return
      */

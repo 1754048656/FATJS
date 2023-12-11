@@ -664,7 +664,6 @@ public class UiSelector implements IUiSelector{
      * 根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，直到屏幕上出现满足条件的一个控件为止，并返回该控件。
      * 如果找不到控件，当屏幕内容发生变化时会重新寻找，直至找到。
      * 需要注意的是，如果屏幕上一直没有出现所描述的控件，则该函数会阻塞，直至所描述的控件出现为止。因此此函数不会返回null。
-     * 该函数本来应该命名为untilFindOne()，但由于历史遗留原因已经无法修改。如果想要只在屏幕上搜索一次而不是一直搜索，请使用findOnce()。
      * 另外，如果屏幕上有多个满足条件的控件，findOne()采用深度优先搜索(DFS)，会返回该搜索算法找到的第一个控件。注意控件找到的顺序有时会起到作用。
      * @return
      */
@@ -697,7 +696,7 @@ public class UiSelector implements IUiSelector{
      * //启动Auto.js
      * launchApp("Auto.js");
      * //在6秒内找出日志图标的控件
-     * var w = id("action_log").findOne(6000);
+     * var w = id("action_log").untilFindOne(6000);
      * //如果找到控件则点击
      * if(w != null){
      *     w.click();
@@ -759,6 +758,12 @@ public class UiSelector implements IUiSelector{
         return uiObject;
     }
 
+    /**
+     * 根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，是从传入的accNodeInfo节点树往下找。
+     * 如果没有找到符合条件的控件，则返回null。
+     * @param accNodeInfo
+     * @return
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject findOne(AccessibilityNodeInfo accNodeInfo) {
         //printLogMsg("Attributes " + this.containsAttributes);
