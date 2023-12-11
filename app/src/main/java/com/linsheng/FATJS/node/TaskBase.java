@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class TaskBase extends UiSelector {
+public class TaskBase extends UiSelector implements ITaskBase{
     public TaskBase() {
         _width = mWidth;
         _height = mHeight;
