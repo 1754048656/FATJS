@@ -6,6 +6,9 @@
 #### B站FATJS教程合集
 >https://space.bilibili.com/1456611110/
 
+#### FATJS文档
+>http://fatjs.fun/
+
 #### 加入圈子
 > - 加FATJS自动化交流群 ➕v：FATJS_Lin 不定期分享一些FATJS框架开发的干货
 > - 群里有很多大佬，有问题可以在群里提问，群里气氛也是非常活跃
