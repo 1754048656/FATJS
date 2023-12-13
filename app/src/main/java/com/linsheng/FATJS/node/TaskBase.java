@@ -76,6 +76,12 @@ public class TaskBase extends UiSelector implements ITaskBase{
     public int _statusBarHeight;
     public int _navigationBarHeight;
     public boolean _navigationBarOpen;
+    public int[] _floatLocation() {
+        int[] location = new int[2];
+        location[0] = float_x;
+        location[1] = float_y;
+        return location;
+    }
     public int[] _findMultiColorInRegionFuzzy(int mainColor, String subColors, double distance, int x1, int y1, int x2, int y2) {
         int[] color = ScreenLib.findColor(mainColor, subColors, distance, x1, y1, x2, y2);
         if (color == null) {

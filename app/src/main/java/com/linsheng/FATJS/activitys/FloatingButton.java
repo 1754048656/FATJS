@@ -429,9 +429,13 @@ public class FloatingButton extends Service {
                         }
                         int mx = (int) (x - (event.getRawX() - touchedX));
                         int my = (int) (y + (event.getRawY() - touchedY));
-                        updatedParameters.x = mx <= 0 ? 0 : mx;
-                        updatedParameters.y = my <= 0 ? 0 : my;
+                        updatedParameters.x = mx <= 0 ? 0 : (mx + btn_w) >= mWidth ? mWidth - btn_w : mx; // 防止悬浮球移出屏幕 x轴
+                        updatedParameters.y = my <= 0 ? 0 : (my + btn_h) >= __mHeight ? __mHeight - btn_h : my; // 防止悬浮球移出屏幕 y轴
                         wm.updateViewLayout(ll, updatedParameters);
+                        // 获取悬浮球的位置坐标
+                        float_x = mWidth - updatedParameters.x;
+                        float_y = updatedParameters.y + statusBarHeight + btn_h/2;
+                        // printLogMsg(String.valueOf(float_y), 0);
                         break;
                     case MotionEvent.ACTION_UP:
                         if (!isMoving) {
