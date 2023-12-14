@@ -383,13 +383,15 @@ public class FloatingButton extends Service {
 
             // 延迟一段时间后移除小圆的视图
             new Handler().postDelayed(() -> {
-                wm.removeView(smallLL1);
-                wm.removeView(smallLL2);
-                wm.removeView(smallLL3);
-                wm.removeView(smallLL4);
+                if (smallLL1.getWindowToken() != null)
+                    wm.removeView(smallLL1);
+                if (smallLL2.getWindowToken() != null)
+                    wm.removeView(smallLL2);
+                if (smallLL3.getWindowToken() != null)
+                    wm.removeView(smallLL3);
+                if (smallLL4.getWindowToken() != null)
+                    wm.removeView(smallLL4);
             }, 50);
-
-
             isSmallCirclesVisible = false;
         }
     }
