@@ -1,6 +1,7 @@
 package com.linsheng.FATJS.activitys;
 
 import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
+import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -19,6 +20,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -29,6 +31,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.config.GlobalVariableHolder;
+import com.linsheng.FATJS.node.AccUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -234,6 +237,14 @@ public class FloatingWindow extends Service {
         ll.addView(createText("日志面板log"));
         sv.addView(ll);
         wm.addView(sv, parameters);
+        ll.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (DEV_MODE)
+                    moveFloatWindow("隐藏");
+                return true;
+            }
+        });
 
         // 监听触摸，移动
 //        sv.setOnTouchListener(new View.OnTouchListener() {
