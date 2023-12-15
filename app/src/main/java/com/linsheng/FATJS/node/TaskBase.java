@@ -106,7 +106,12 @@ public class TaskBase extends UiSelector implements ITaskBase{
             moveFloatWindow("全屏");
         }catch (Exception e) {}
     }
-    public void _clearLog() {}
+    public void _clearLog() {
+        Intent intent = new Intent();
+        intent.setAction("com.msg");
+        intent.putExtra("msg", "screen_log_clear");
+        context.sendBroadcast(intent);
+    }
     public void _clip(String text) {
         clip(text);
     }

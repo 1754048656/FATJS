@@ -97,6 +97,10 @@ public class FloatingWindow extends Service {
 
                 wm.updateViewLayout(sv, parameters);
                 windowAutoScroll();
+            } else if ("screen_log_clear".equals(intent.getStringExtra("msg"))) {
+                // 清空悬浮窗日志
+                ll.removeAllViews();
+                ll.addView(createText("日志面板log"));
             } else {
                 // 日志相关
                 GlobalVariableHolder.broadcast_map.put("msg", false);

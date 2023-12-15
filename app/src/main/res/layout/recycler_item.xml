@@ -9,6 +9,14 @@
     android:gravity="center"
     android:orientation="horizontal">
 
+    <RadioButton
+        android:id="@+id/radio_button"
+        android:layout_width="35dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="" />
+
     <TextView
         android:id="@+id/file_name"
         android:layout_width="0dp"

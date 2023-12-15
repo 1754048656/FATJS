@@ -1,13 +1,11 @@
 package com.linsheng.FATJS.ui.home;
 
-import static com.linsheng.FATJS.config.GlobalVariableHolder.PATH;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
+import static com.linsheng.FATJS.node.AccUtils.isAccessibilityServiceOn;
 import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,9 +50,11 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter myRecyclerAdapter;
+    private MyRecyclerAdapter myRecyclerAdapter;
     private ArrayList<String> list = new ArrayList<>();
     private FragmentHomeBinding binding;
+    private int checkedPosition = -1;
+    private boolean __isOpenFloatWin = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +71,14 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         myRecyclerAdapter = new MyRecyclerAdapter(list);
         recyclerView.setAdapter(myRecyclerAdapter);
+
+        printLogMsg("HomeFragment onCreateView", 0);
         getFileList(1);
+        // 恢复选中状态
+        int checkedPosition = myRecyclerAdapter.getCheckedPosition();
+        if (checkedPosition != -1) {
+            myRecyclerAdapter.notifyItemChanged(checkedPosition);
+        }
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -82,6 +90,11 @@ public class HomeFragment extends Fragment {
         super.onStart();
         printLogMsg("HomeFragment onStart", 0);
         getFileList(0);
+        // 备份记录悬浮窗是否打开
+        __isOpenFloatWin = isOpenFloatWin;
+        if (DEV_MODE && __isOpenFloatWin) {
+            moveFloatWindow("隐藏");
+        }
     }
 
     public View aboutBtn;
@@ -105,6 +118,24 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        printLogMsg("HomeFragment onResume", 0);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        printLogMsg("HomeFragment onPause", 0);
+        // 保存选中状态
+        int checkedPosition = myRecyclerAdapter.getCheckedPosition();
+        myRecyclerAdapter.saveCheckedPosition(checkedPosition);
+        if (DEV_MODE && __isOpenFloatWin) {
+            moveFloatWindow("打开");
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
@@ -112,13 +143,14 @@ public class HomeFragment extends Fragment {
 
     private class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
         private ArrayList<String> list;
-
         public class MyViewHolder extends RecyclerView.ViewHolder {
+            public RadioButton radio_button;
             public TextView file_name;
             public ImageButton rename_script, delete_script, run_script;
 
             public MyViewHolder(View view) {
                 super(view);
+                radio_button = view.findViewById(R.id.radio_button);
                 file_name = view.findViewById(R.id.file_name);
                 run_script = view.findViewById(R.id.run_script);
                 delete_script = view.findViewById(R.id.delete_script);
@@ -138,9 +170,24 @@ public class HomeFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(MyRecyclerAdapter.MyViewHolder holder, int position) {
+        public void onBindViewHolder(MyRecyclerAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
             final String name = list.get(position);
             holder.file_name.setText(name);
+
+            holder.radio_button.setChecked(position == checkedPosition);
+            holder.radio_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (checkedPosition != position) {
+                        notifyItemChanged(checkedPosition);
+                        checkedPosition = position;
+                        checkedFileName = name;
+                        notifyItemChanged(checkedPosition);
+                        printLogMsg("已选中 " + checkedFileName, 0);
+                        Toast.makeText(context, "已选中 " + checkedFileName, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
             holder.file_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -173,13 +220,24 @@ public class HomeFragment extends Fragment {
             });
         }
 
+        // 保存选中状态
+        public void saveCheckedPosition(int position) {
+            checkedPosition = position;
+        }
+
+        // 恢复选中状态
+        public int getCheckedPosition() {
+            return checkedPosition;
+        }
+
         @Override
         public int getItemCount() {
             return list.size();
         }
     }
 
-    private void getFileList(int show) {
+    @SuppressLint("NotifyDataSetChanged")
+    private void getFileList(int show) { // 获取并刷新脚本文件列表
         list.clear();
         File f = new File(EditorActivity.scripts_path);
         if (!f.exists()) {
@@ -261,6 +319,7 @@ public class HomeFragment extends Fragment {
     private void runScript(String name) {
         String script_path = Environment.getExternalStorageDirectory() + PATH + name;
         if (!isAccessibilityServiceOn()){
+            printLogMsg("请开启无障碍服务", 0);
             Toast.makeText(context, "请开启无障碍服务", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
             return;
@@ -289,32 +348,6 @@ public class HomeFragment extends Fragment {
         });
         threadList.add(thread);
         thread.start();
-    }
-
-    // 判断本程序的无障碍服务是否已经开启
-    public Boolean isAccessibilityServiceOn() {
-        try{
-            String packageName = context.getPackageName();
-            String service = packageName + "/" + packageName + ".MyAccessibilityService";
-            int enabled = Settings.Secure.getInt(GlobalVariableHolder.context.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
-            TextUtils.SimpleStringSplitter splitter = new TextUtils.SimpleStringSplitter(':');
-            if (enabled == 1) {
-                String settingValue = Settings.Secure.getString(GlobalVariableHolder.context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
-                if (settingValue != null) {
-                    splitter.setString(settingValue);
-                    while (splitter.hasNext()) {
-                        String accessibilityService = splitter.next();
-                        if (accessibilityService.equals(service)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-            return false;
-        }
-        return false;
     }
 
     private void shareScript(final String mpath) {

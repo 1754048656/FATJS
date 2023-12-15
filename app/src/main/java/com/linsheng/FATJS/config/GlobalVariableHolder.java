@@ -24,6 +24,7 @@ public class GlobalVariableHolder {
     public static MainActivity mainActivity = null;
     // ll
     public static LinearLayout ll = null;
+    public static String checkedFileName = ""; // 当前选中的脚本文件名称
 
     public volatile static HashMap<String, Boolean> broadcast_map = new HashMap<String, Boolean>() {{
         put("jumpUid", false);

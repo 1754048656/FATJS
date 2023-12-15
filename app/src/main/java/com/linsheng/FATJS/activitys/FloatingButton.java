@@ -1,6 +1,7 @@
 package com.linsheng.FATJS.activitys;
 
 import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
+import static com.linsheng.FATJS.node.AccUtils.isAccessibilityServiceOn;
 import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
@@ -16,6 +17,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -31,6 +33,7 @@ import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.node.TaskBase;
 import com.linsheng.FATJS.utils.ExceptionUtil;
+import com.linsheng.FATJS.utils.StringUtils;
 import com.linsheng.FATJS.utils.VibratorUtil;
 
 public class FloatingButton extends Service {
@@ -39,6 +42,7 @@ public class FloatingButton extends Service {
     private LinearLayout ll;
     ViewGroup.LayoutParams txtParameters;
     ViewGroup.LayoutParams llParameters;
+    TextView smallCircle2;
     private final int btn_w = (mWidth / 8);
     private int btn_h = (mWidth / 8);
 
@@ -187,11 +191,15 @@ public class FloatingButton extends Service {
         animator1.start();
 
         // 创建第二个小圆
-        TextView smallCircle2 = new TextView(context);
-        if (isStop) {
+        smallCircle2 = new TextView(context);
+        if (!isRunning) {
             smallCircle2.setText("开始");
-        } else {
-            smallCircle2.setText("暂停");
+        }else {
+            if (isStop) {
+                smallCircle2.setText("开始");
+            } else {
+                smallCircle2.setText("暂停");
+            }
         }
         smallCircle2.setTextSize((float) (text_size + 2));
         smallCircle2.setGravity(Gravity.CENTER);
@@ -323,6 +331,9 @@ public class FloatingButton extends Service {
                     printLogMsg("开始运行...", 0);
                     smallCircle2.setText("暂停");
                 }
+            }else {
+                // 开始执行选中的脚本
+                testMethodPre();
             }
         });
         smallLL3.setOnClickListener((v) -> {
@@ -483,6 +494,22 @@ public class FloatingButton extends Service {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void testMethodPre() {
+        if (StringUtils.isEmpty(checkedFileName)) {
+            printLogMsg("未选中脚本", 0);
+            Toast.makeText(context, "未选中脚本", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!checkedFileName.endsWith(".js")) {
+            printLogMsg(checkedFileName + " is not a js file", 0);
+            Toast.makeText(context, checkedFileName + " is not a js file", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!isAccessibilityServiceOn()){
+            printLogMsg("请开启无障碍服务", 0);
+            Toast.makeText(context, "请开启无障碍服务", Toast.LENGTH_SHORT).show();
+            mainActivity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+            return;
+        }
         // 判断是否有任务正在执行
         if (isRunning) {
             killThread = true;
@@ -490,6 +517,8 @@ public class FloatingButton extends Service {
             Toast.makeText(context, "有任务正在执行", Toast.LENGTH_SHORT).show();
             return;
         }
+        printLogMsg("开始运行...", 0);
+        smallCircle2.setText("暂停");
         new Thread(() -> {
             try {
                 printLogMsg("w => " + mWidth + ", h => " + mHeight);
@@ -550,8 +579,9 @@ public class FloatingButton extends Service {
     private void testMethod() {
         // 将测试的动作写到这里，点击悬浮窗的 打开 按钮，就可以执行
         TaskBase taskDemo = new TaskBase();
-        @SuppressLint("SdCardPath") String script_path = "/sdcard/FATJS_DIR/dev_script.js";
-        printLogMsg("script_path => " + script_path, 0);
+        printLogMsg("run script " + checkedFileName, 0);
+        @SuppressLint("SdCardPath") String script_path = "/sdcard/FATJS_DIR/" + checkedFileName;
+        // printLogMsg("script_path => " + script_path, 0);
         taskDemo.initJavet(script_path);
     }
 }
