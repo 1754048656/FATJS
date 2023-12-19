@@ -518,7 +518,8 @@ public class FloatingButton extends Service {
             return;
         }
         printLogMsg("开始运行...", 0);
-        smallCircle2.setText("暂停");
+        if (smallCircle2 != null)
+            smallCircle2.setText("暂停");
         new Thread(() -> {
             try {
                 printLogMsg("w => " + mWidth + ", h => " + mHeight);
