@@ -8,6 +8,7 @@
 
 #### FATJS文档
 >http://fatjs.fun/
+or
 >http://43.143.157.144/
 
 #### 加入圈子
