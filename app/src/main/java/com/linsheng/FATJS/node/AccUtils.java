@@ -67,9 +67,9 @@ public class AccUtils extends AccessibilityService {
         int i = -1;
         if (m.find()){
             i = Integer.parseInt(m.group());
-            AccUtils.printLogMsg("提取到的第一个整数是：" + i);
+            printLogMsg("提取到的第一个整数是：" + i, 0);
         } else {
-            AccUtils.printLogMsg("在字符串中没有找到整数！");
+            printLogMsg("在字符串中没有找到整数！", 0);
         }
         return i;
     }
@@ -95,7 +95,7 @@ public class AccUtils extends AccessibilityService {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static void viewVideo(int num) {
         UiSelector uiSelector = new UiSelector();
-        printLogMsg("刷" + num + "个视频，点掉弹窗");
+        printLogMsg("刷" + num + "个视频，点掉弹窗", 0);
         for (int i = 0; i < num; i++) {
             uiSelector.text("我知道了").findOne().click();
             timeSleep(waitOneSecond);
@@ -183,14 +183,14 @@ public class AccUtils extends AccessibilityService {
      */
     static AccessibilityNodeInfo root;
     public static AccessibilityNodeInfo getRootInActiveMy() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             root = AccessibilityHelper.getRootInActiveWindow();
             if (root != null) {
                 return root;
             }
-            timeSleep(500);
+            timeSleep(50);
         }
-        printLogMsg( "Exception: do not find window");
+        printLogMsg( "Exception: do not find window", 0);
         return root;
     }
 
@@ -251,7 +251,7 @@ public class AccUtils extends AccessibilityService {
 
     public static void waitToAlarmClose() {
         printLogMsg("\n---------\n---------\n---------\n---------\n---------\n---------\n---------\n---------\n");
-        printLogMsg("W: " + mWidth + " H: " + mHeight);
+        printLogMsg("W: " + mWidth + " H: " + mHeight, 0);
         timeSleep(6000);
     }
 
@@ -314,11 +314,11 @@ public class AccUtils extends AccessibilityService {
         Path path = new Path();
         x1 = x1 + new Random().nextInt(9) - 4;
         y1 = y1 + new Random().nextInt(9) - 4;
-        printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
+        printLogMsg("[x => " + x1 + ", y => " + y1 + "]", 0);
         if (x1 > mWidth || y1 > mHeight || x1 < 0 || y1 < 0) {
-            printLogMsg("mWidth: " + mWidth);
-            printLogMsg("mHeight: " + mHeight);
-            printLogMsg("超出了点击范围");
+            printLogMsg("mWidth: " + mWidth, 0);
+            printLogMsg("mHeight: " + mHeight, 0);
+            printLogMsg("超出了点击范围", 0);
             return false;
         }
         path.moveTo(x1, y1);
@@ -350,11 +350,11 @@ public class AccUtils extends AccessibilityService {
     @RequiresApi(24)
     public static boolean clickExactPoint(float x1, float y1, long duration) {
         Path path = new Path();
-        // printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
+        // printLogMsg("[x => " + x1 + ", y => " + y1 + "]", 0);
         if (x1 > mWidth || y1 > mHeight || x1 < 0 || y1 < 0) {
-            printLogMsg("mWidth: " + mWidth);
-            printLogMsg("mHeight: " + mHeight);
-            printLogMsg("超出了点击范围");
+            printLogMsg("mWidth: " + mWidth, 0);
+            printLogMsg("mHeight: " + mHeight, 0);
+            printLogMsg("超出了点击范围", 0);
             return false;
         }
         path.moveTo(x1, y1);
@@ -1157,7 +1157,7 @@ public class AccUtils extends AccessibilityService {
                 }
             }
         } catch (InterruptedException e) {
-            printLogMsg(ExceptionUtil.toString(e));
+            printLogMsg(ExceptionUtil.toString(e), 0);
         }
     }
 

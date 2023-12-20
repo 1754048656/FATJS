@@ -723,7 +723,7 @@ public class UiSelector implements IUiSelector{
                 return uiObject;
             }
             //printLogMsg("untilFindOne timeout: wait 1s");
-            AccUtils.timeSleep(waitOneSecond);
+            AccUtils.timeSleep(10);
             long currentTime = System.currentTimeMillis();
             if (currentTime - startTime >= timeout) {
                 //printLogMsg("untilFindOne timeout: not found");
