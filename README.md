@@ -8,6 +8,7 @@
 
 #### FATJS文档
 >http://fatjs.fun/
+>http://43.143.157.144/
 
 #### 加入圈子
 > - 加FATJS自动化交流群 ➕v：FATJS_Lin 不定期分享一些FATJS框架开发的干货
