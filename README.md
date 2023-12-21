@@ -34,13 +34,17 @@ or
 #### Api示例
 
 ```js
-move('打开') //移动悬浮窗
+showLog //打开悬浮窗
 print('返回桌面') //打印日志
 home()
 print('点击设置')
 text('设置').findOne().click()
 sleep(2000) //等待2s
 back() //返回
+hideLog //隐藏悬浮窗
+click(100, 200) // 点击坐标
+capture('/sdcard/1.png') // 截屏
+...
 ```
 
 #### 知识星球
