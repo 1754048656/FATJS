@@ -152,4 +152,4 @@ const wait3s = 3000 + random(0, 200);
 const wait4s = 4000 + random(0, 200);
 const wait5s = 5000 + random(0, 200);
 const wait6s = 6000 + random(0, 200);
-//-------------------- pre set -------------------//
+//-------------------- pre end -------------------//

@@ -145,6 +145,9 @@ public class TaskBase extends UiSelector implements ITaskBase{
     }
     public static boolean execScript(String script) {
         try {
+            if (script.contains("let task = new engines()")) {
+                script = script.split("//-------------------- pre end -------------------//")[1];
+            }
             v8Runtime.getExecutor(script).executeVoid();
             return true;
         } catch (JavetException e) {
