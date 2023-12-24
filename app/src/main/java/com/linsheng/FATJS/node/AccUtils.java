@@ -471,7 +471,7 @@ public class AccUtils extends AccessibilityService {
                 return;
             }
             currentActivityName = className;
-            printLogMsg("AT: " + className, 0);
+            Log.i(TAG, "refreshCurrentActivity: " + className);
         }
     }
 
