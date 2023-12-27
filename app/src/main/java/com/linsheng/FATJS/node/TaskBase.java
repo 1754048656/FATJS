@@ -3,8 +3,6 @@ package com.linsheng.FATJS.node;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.*;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -14,16 +12,15 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.RequiresApi;
 
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.caoccao.javet.exceptions.JavetException;
 import com.caoccao.javet.interop.V8Host;
 import com.caoccao.javet.interop.converters.JavetProxyConverter;
-import com.linsheng.FATJS.aione_editor.MainActivity;
 import com.linsheng.FATJS.findColor.ScreenLib;
+import com.linsheng.FATJS.okhttp3.WebSocketUtils;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.FileUtils;
-import com.linsheng.FATJS.utils.OkHttpUtils;
+import com.linsheng.FATJS.okhttp3.HttpUtils;
 import com.linsheng.FATJS.utils.ScreenshotUtils;
 
 import java.util.Arrays;
@@ -52,7 +49,8 @@ public class TaskBase extends UiSelector implements ITaskBase{
             }
             v8Runtime.setConverter(new JavetProxyConverter()); // 配置可调用Java方法
             v8Runtime.getGlobalObject().set("engines", TaskBase.class);
-            v8Runtime.getGlobalObject().set("http", OkHttpUtils.class);
+            v8Runtime.getGlobalObject().set("http", HttpUtils.class);
+            v8Runtime.getGlobalObject().set("websocket", WebSocketUtils.class);
             v8Runtime.getGlobalObject().set("UiObject", UiObject.class);
             v8Runtime.getGlobalObject().set("app", App.class);
             v8Runtime.getGlobalObject().set("Intent", Intent.class);
