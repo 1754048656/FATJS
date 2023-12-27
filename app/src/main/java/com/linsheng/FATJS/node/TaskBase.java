@@ -74,6 +74,13 @@ public class TaskBase extends UiSelector implements ITaskBase{
     public int _statusBarHeight;
     public int _navigationBarHeight;
     public boolean _navigationBarOpen;
+    public boolean _killTask() {
+        if (!isRunning) {
+            return false;
+        }
+        killThread = true;
+        return true;
+    }
     public int[] _floatLocation() {
         int[] location = new int[2];
         location[0] = float_x;
