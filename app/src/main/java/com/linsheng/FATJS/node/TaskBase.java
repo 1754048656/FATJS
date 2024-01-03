@@ -17,6 +17,7 @@ import com.caoccao.javet.exceptions.JavetException;
 import com.caoccao.javet.interop.V8Host;
 import com.caoccao.javet.interop.converters.JavetProxyConverter;
 import com.linsheng.FATJS.findColor.ScreenLib;
+import com.linsheng.FATJS.ntptime.NtpService;
 import com.linsheng.FATJS.okhttp3.WebSocketUtils;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.FileUtils;
@@ -54,6 +55,7 @@ public class TaskBase extends UiSelector implements ITaskBase{
             v8Runtime.getGlobalObject().set("UiObject", UiObject.class);
             v8Runtime.getGlobalObject().set("app", App.class);
             v8Runtime.getGlobalObject().set("Intent", Intent.class);
+            v8Runtime.getGlobalObject().set("ntpService", NtpService.class);
             if (!script.contains("let task = new engines()")) {
                 script = base + "\n" + script;
             }
