@@ -274,7 +274,6 @@ public class HomeFragment extends Fragment {
         Intent editor_intent = new Intent(context, EditorActivity.class);
         editor_intent.putExtra("name", name);
         editor_intent.putExtra("path", EditorActivity.scripts_path + "/" + name);
-        Toast.makeText(context, "open " + name, Toast.LENGTH_SHORT).show();
         startActivity(editor_intent);
     }
 

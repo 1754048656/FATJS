@@ -109,7 +109,7 @@ public class Editor {
                     lines.append(num + "\n");
                 }
             }
-        }, 200);
+        }, 150);
     }
 
     public void show_lines() {
@@ -148,6 +148,7 @@ public class Editor {
         Scripts.write(path, editor.getText().toString());
         Toast.makeText(context, name + " saved", Toast.LENGTH_SHORT).show();
         after_save();
+        activity.finish();
     }
 
     public void save_as_dialog() {
@@ -185,7 +186,7 @@ public class Editor {
                     path = SCRIPT_PATH + "/" + name;
                     script = new File(path);
                     save();
-                    scriptList(); // 跳转到scriptList
+                    activity.finish();
                 } catch (Exception ee) {
                     Toast.makeText(context, "invalid file name", Toast.LENGTH_LONG).show();
                     ee.printStackTrace();
@@ -228,7 +229,6 @@ public class Editor {
                 shareScript();
                 break;
             case LIS:
-                scriptList();
                 break;
             case NEW:
                 newScript();
@@ -260,13 +260,6 @@ public class Editor {
         path = "";
     }
 
-    private void scriptList() {
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra("fragmentIndex", 1); // 传递要跳转到的Fragment的索引
-        context.startActivity(intent);
-    }
-
-
     public void setEditorSettings() {
         SharedPreferences.Editor sharedPrefEditor = activity.getPreferences(Context.MODE_PRIVATE).edit();
         sharedPrefEditor.putInt("font_size", font_size);
@@ -283,8 +276,8 @@ public class Editor {
 
     private void getEditorSettings() {
         SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
-        font_size = sharedPref.getInt("font_size", 12);
-        show_lines = sharedPref.getBoolean("show_lines", true);
+        font_size = sharedPref.getInt("font_size", 14);
+        show_lines = sharedPref.getBoolean("show_lines", false);
 
         show_lines(show_lines);
         lines.setTextSize(TypedValue.COMPLEX_UNIT_DIP, font_size);
@@ -294,5 +287,4 @@ public class Editor {
         name = sharedPref.getString("name", "");
         if (!path.equals("")) script = new File(path);
     }
-
 }

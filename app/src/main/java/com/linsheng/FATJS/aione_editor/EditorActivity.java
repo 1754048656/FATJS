@@ -264,6 +264,4 @@ public class EditorActivity extends AppCompatActivity {
             finish();
         }
     }
-
-
 }

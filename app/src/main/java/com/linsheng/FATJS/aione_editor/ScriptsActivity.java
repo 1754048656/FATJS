@@ -72,7 +72,6 @@ public class ScriptsActivity extends AppCompatActivity {
         Intent editor_intent = new Intent(this, EditorActivity.class);
         editor_intent.putExtra("name", name);
         editor_intent.putExtra("path", EditorActivity.scripts_path + "/" + name);
-        Toast.makeText(getApplicationContext(), "open " + name, Toast.LENGTH_SHORT).show();
         startActivity(editor_intent);
     }
 
