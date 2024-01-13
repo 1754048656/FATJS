@@ -41,6 +41,7 @@ const clickNode = (node) => task._clickNode(node);
 const clickNodePoint = (node) => task._clickNodePoint(node);
 const click = (x, y) => task._click(x, y);
 const clickExactPoint = (x, y, time) => task._clickExactPoint(x, y, time);
+const clickPercentPoint = (x, y, time) => task._clickPercentPoint(x, y, time);
 const doubleClick = (x, y) => task._doubleClick(x, y);
 const swipe = (x1, y1, x2, y2, duration) => task._swipe(x1, y1, x2, y2, duration);
 const scrollUp = () => task._scrollUp();

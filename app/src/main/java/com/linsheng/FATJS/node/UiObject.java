@@ -125,11 +125,11 @@ public class UiObject implements IUiObject{
     }
 
     /**
-     * 手势点击精确坐标，不带偏移
+     * 手势点击精确坐标，不带偏移，必须指定点击时长
      * @return
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public boolean clickExactPoint() {
+    public boolean clickExactPoint(long time) {
         if (node == null) {
             return false;
         }
@@ -144,7 +144,7 @@ public class UiObject implements IUiObject{
         float bottom = rect.bottom;
         float x = (left + right) / 2;
         float y = (top + bottom) / 2;
-        boolean aBoolean = clickByExactPoint(x, y, new Random().nextInt(55) + 60);
+        boolean aBoolean = clickByExactPoint(x, y, time);
         // 回收
         node.recycle();
         return aBoolean;

@@ -8,7 +8,7 @@ public interface IUiObject {
     public float[] getPoint();
     public boolean click();
     public boolean clickPoint();
-    public boolean clickExactPoint();
+    public boolean clickExactPoint(long time);
     public boolean longClick();
     public boolean setText(String text);
     public boolean copy();

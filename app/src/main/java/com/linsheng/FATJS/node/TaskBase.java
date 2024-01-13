@@ -221,6 +221,9 @@ public class TaskBase extends UiSelector implements ITaskBase{
     public boolean _clickExactPoint(float x, float y, long time) {
         return clickExactPoint(x, y, time);
     }
+    public boolean _clickPercentPoint(float x, float y, long time) {
+        return clickExactPoint(x * mWidth, y * mHeight, time);
+    }
     public boolean _doubleClick(float x, float y) {
         return doubleClickPoint(x , y, new Random().nextInt(50) + 95);
     }
