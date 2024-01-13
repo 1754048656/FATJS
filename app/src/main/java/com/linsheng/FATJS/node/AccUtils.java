@@ -185,7 +185,7 @@ public class AccUtils extends AccessibilityService {
     public static AccessibilityNodeInfo getRootInActiveMy() {
         for (int i = 0; i < 10; i++) {
             root = AccessibilityHelper.getRootInActiveWindow();
-            if (root != null) {
+            if (root != null && root.getChildCount() != 0) {
                 return root;
             }
             timeSleep(50);

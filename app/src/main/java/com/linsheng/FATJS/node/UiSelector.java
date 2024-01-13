@@ -718,8 +718,8 @@ public class UiSelector implements IUiSelector{
     public UiObject untilFindOne(int timeout) {
         printLogMsg("Attributes " + this.containsAttributes, 0);
         Map<String, Object> attributes = this.containsAttributes;
-        this.containsAttributes = new HashMap<>();
         if (attributes == null || attributes.isEmpty()) {
+            this.containsAttributes = new HashMap<>();
             return new UiObject();
         }
         long startTime = System.currentTimeMillis();
@@ -730,6 +730,7 @@ public class UiSelector implements IUiSelector{
             if (uiObject != null) {
                 accNodeInfo.recycle(); // 释放
                 printLogMsg("untilFindOne timeout: found", 0);
+                this.containsAttributes = new HashMap<>();
                 return uiObject;
             }
             AccUtils.timeSleep(10);
@@ -737,10 +738,12 @@ public class UiSelector implements IUiSelector{
             if (currentTime - startTime >= timeout) {
                 accNodeInfo.recycle(); // 释放
                 printLogMsg("untilFindOne timeout: not found", 0);
+                this.containsAttributes = new HashMap<>();
                 return new UiObject();
             }
         }
         printLogMsg("untilFindOne timeout: return null", 0);
+        this.containsAttributes = new HashMap<>();
         return new UiObject();
     }
 
