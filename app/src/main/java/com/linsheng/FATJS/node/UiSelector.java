@@ -8,6 +8,7 @@ import static com.linsheng.FATJS.node.AccUtils.timeSleep;
 
 import android.graphics.Rect;
 import android.os.Build;
+import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.RequiresApi;
@@ -732,6 +733,7 @@ public class UiSelector implements IUiSelector{
                 accNodeInfo.recycle(); // 释放
                 printLogMsg("untilFindOne timeout: found", 0);
                 this.containsAttributes = new HashMap<>();
+                printLogMsg("loop_num: " + i,0);
                 return uiObject;
             }
             AccUtils.timeSleep(10);
@@ -740,6 +742,7 @@ public class UiSelector implements IUiSelector{
                 accNodeInfo.recycle(); // 释放
                 printLogMsg("untilFindOne timeout: not found", 0);
                 this.containsAttributes = new HashMap<>();
+                printLogMsg("loop_num: " + i,0);
                 return new UiObject();
             }
         }
