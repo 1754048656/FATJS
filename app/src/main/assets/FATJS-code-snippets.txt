@@ -1,0 +1,1149 @@
+{
+	// FATJS vscode 代码片段
+	//-------------------- pre set -------------------//
+	"calibrationTimeAli": {
+		"scope": "javascript",
+		"prefix": "calibrationTimeAli",
+		"body": [
+			"let offsetAli = Number(-ntpService.calibrationTimeAli());",
+		],
+		"description": "获取本地时间戳 与 ntp服务器时间戳的差值，负数就是慢了，正数就是快了"
+	},
+	"http.get": {
+		"scope": "javascript",
+		"prefix": "http.get",
+		"body": [
+			"let get_res = http.get('${1:url}');",
+		],
+		"description": "发送 get 请求"
+	},
+	"http.post": {
+		"scope": "javascript",
+		"prefix": "http.post",
+		"body": [
+			"let post_res = http.post('${1:url}', '${2:jsonString}');",
+		],
+		"description": "发送 get 请求"
+	},
+	"execScript": {
+		"scope": "javascript",
+		"prefix": "execScript",
+		"body": [
+			"engines.execScript('${1:script}');",
+		],
+		"description": "执行另外的script脚本，多用于云端拉取脚本执行"
+	},
+	"killTask": {
+		"scope": "javascript",
+		"prefix": "killTask",
+		"body": [
+			"killTask();",
+		],
+		"description": "关闭当前任务"
+	},
+	"floatLocation": {
+		"scope": "javascript",
+		"prefix": "floatLocation",
+		"body": [
+			"let floatXY = floatLocation();",
+		],
+		"description": "获取悬浮球最右侧坐标"
+	},
+	"findMultiColorInRegionFuzzy": {
+		"scope": "javascript",
+		"prefix": "findMultiColorInRegionFuzzy",
+		"body": [
+			"let colorXY = findMultiColorInRegionFuzzy('$1');",
+		],
+		"description": "多点找色"
+	},
+	"showLog": {
+		"scope": "javascript",
+		"prefix": "showLog",
+		"body": [
+			"showLog();",
+		],
+		"description": "显示悬浮窗日志（正常尺寸）"
+	},
+	"hideLog": {
+		"scope": "javascript",
+		"prefix": "hideLog",
+		"body": [
+			"hideLog();",
+		],
+		"description": "隐藏悬浮窗日志（最小化）"
+	},
+	"fullScreenLog": {
+		"scope": "javascript",
+		"prefix": "fullScreenLog",
+		"body": [
+			"fullScreenLog();",
+		],
+		"description": "全屏显示悬浮窗日志（最大化）"
+	},
+	"clearLog": {
+		"scope": "javascript",
+		"prefix": "clearLog",
+		"body": [
+			"clearLog();",
+		],
+		"description": "清除悬浮窗日志内容"
+	},
+	"clip": {
+		"scope": "javascript",
+		"prefix": "clip",
+		"body": [
+			"clip('$1');",
+		],
+		"description": "把文字复制到剪贴板"
+	},
+	"context": {
+		"scope": "javascript",
+		"prefix": "context",
+		"body": [
+			"context()",
+		],
+		"description": "获取上下文"
+	},
+	"startActivity": {
+		"scope": "javascript",
+		"prefix": "startActivity",
+		"body": [
+			"startActivity($1);",
+		],
+		"description": "intent 启动 Activity"
+	},
+	"intent": {
+		"scope": "javascript",
+		"prefix": "intent",
+		"body": [
+			"intent($1);",
+		],
+		"description": "创建 intent"
+	},
+	"lockScreen": {
+		"scope": "javascript",
+		"prefix": "lockScreen",
+		"body": [
+			"lockScreen();",
+		],
+		"description": "锁屏"
+	},
+	"activityName": {
+		"scope": "javascript",
+		"prefix": "activityName",
+		"body": [
+			"activityName()",
+		],
+		"description": "获取当前 Activity 名称"
+	},
+	"new_UiObject": {
+		"scope": "javascript",
+		"prefix": "uiObject",
+		"body": [
+			"let uiObj = new UiObject($1);",
+		],
+		"description": "创建一个 UiObject 对象"
+	},
+	"getPoint": {
+		"scope": "javascript",
+		"prefix": "getPoint",
+		"body": [
+			"getPoint(${1:node});",
+		],
+		"description": "获取元素坐标，参数为node"
+	},
+	"capture": {
+		"scope": "javascript",
+		"prefix": "capture",
+		"body": [
+			"capture('/sdcard/${1:filename}.png');",
+		],
+		"description": "截屏"
+	},
+	"mkdir": {
+		"scope": "javascript",
+		"prefix": "mkdir",
+		"body": [
+			"mkdir('/sdcard/${1:yourdir}');",
+		],
+		"description": "创建目录"
+	},
+	"readFile": {
+		"scope": "javascript",
+		"prefix": "readFile",
+		"body": [
+			"let fileContent = readFile('${1:filePath}');",
+		],
+		"description": "读文件"
+	},
+	"mvFile": {
+		"scope": "javascript",
+		"prefix": "mvFile",
+		"body": [
+			"mvFile('${1:from}', '${2:to}');",
+		],
+		"description": "移动文件"
+	},
+	"lsFolder": {
+		"scope": "javascript",
+		"prefix": "lsFolder",
+		"body": [
+			"const fileList = lsFolder('${1:folderPath}');",
+		],
+		"description": "显示此目录下的所有文件"
+	},
+	"renameFile": {
+		"scope": "javascript",
+		"prefix": "renameFile",
+		"body": [
+			"renameFile('${1:sourcePath}', '${2:targetPath}');",
+		],
+		"description": "重命名文件"
+	},
+	"deleteFile": {
+		"scope": "javascript",
+		"prefix": "deleteFile",
+		"body": [
+			"deleteFile('${1:filePath}');",
+		],
+		"description": "删除文件"
+	},
+	"readLines": {
+		"scope": "javascript",
+		"prefix": "readLines",
+		"body": [
+			"const linesList = readLines('${1:filePath}');",
+		],
+		"description": "按行读取文件，返回list"
+	},
+	"getText": {
+		"scope": "javascript",
+		"prefix": "getText",
+		"body": [
+			"getText();",
+		],
+		"description": "获取元素 text 属性的值"
+	},
+	"getDesc": {
+		"scope": "javascript",
+		"prefix": "getDesc",
+		"body": [
+			"getDesc();",
+		],
+		"description": "获取元素 desc 属性的值"
+	},
+	"width": {
+		"scope": "javascript",
+		"prefix": "width",
+		"body": [
+			"width",
+		],
+		"description": "获取屏幕宽度"
+	},
+	"height": {
+		"scope": "javascript",
+		"prefix": "height",
+		"body": [
+			"height",
+		],
+		"description": "获取屏幕高度"
+	},
+	"statusBarHeight": {
+		"scope": "javascript",
+		"prefix": "statusBarHeight",
+		"body": [
+			"statusBarHeight",
+		],
+		"description": "获取顶部状态栏高度"
+	},
+	"navigationBarHeight": {
+		"scope": "javascript",
+		"prefix": "navigationBarHeight",
+		"body": [
+			"navigationBarHeight",
+		],
+		"description": "获取底部导航栏高度"
+	},
+	"navigationBarOpen": {
+		"scope": "javascript",
+		"prefix": "navigationBarOpen",
+		"body": [
+			"navigationBarOpen",
+		],
+		"description": "底部导航栏是否打开"
+	},
+	"screenSize": {
+		"scope": "javascript",
+		"prefix": "screenSize",
+		"body": [
+			"let screenWH = screenSize();",
+		],
+		"description": "获取屏幕宽和高"
+	},
+	"sleep": {
+		"scope": "javascript",
+		"prefix": "sleep",
+		"body": [
+			"sleep($1);",
+		],
+		"description": "线程休眠"
+	},
+	"open": {
+		"scope": "javascript",
+		"prefix": "open",
+		"body": [
+			"open('${1:appName}');",
+		],
+		"description": "根据名称打开app"
+	},
+	"openPkName": {
+		"scope": "javascript",
+		"prefix": "openPkName",
+		"body": [
+			"openPkName('${1:appPackageName}');",
+		],
+		"description": "根据包名打开app"
+	},
+	"print": {
+		"scope": "javascript",
+		"prefix": "print",
+		"body": [
+			"print($1);",
+		],
+		"description": "日志打印"
+	},
+	"clickNode": {
+		"scope": "javascript",
+		"prefix": "clickNode",
+		"body": [
+			"clickNode($1);",
+		],
+		"description": "点击节点，参数为 node"
+	},
+	"clickNodePoint": {
+		"scope": "javascript",
+		"prefix": "clickNodePoint",
+		"body": [
+			"clickNodePoint($1);",
+		],
+		"description": "手势点击节点坐标，参数为 node"
+	},
+	"click": {
+		"scope": "javascript",
+		"prefix": "click",
+		"body": [
+			"click(${1:x}, ${2:y});",
+		],
+		"description": "手势点击坐标"
+	},
+	"clickExactPoint": {
+		"scope": "javascript",
+		"prefix": "clickExactPoint",
+		"body": [
+			"clickExactPoint(${1:x}, ${2:y}, ${3:time});",
+		],
+		"description": "手势点击精确坐标"
+	},
+	"clickPercentPoint": {
+		"scope": "javascript",
+		"prefix": "clickPercentPoint",
+		"body": [
+			"clickPercentPoint(${1:x}, ${2:y}, ${3:time});",
+		],
+		"description": "手势点击百分比坐标 clickPercentPoint(0.5, 0.3, 1);"
+	},
+	"doubleClick": {
+		"scope": "javascript",
+		"prefix": "doubleClick",
+		"body": [
+			"doubleClick(${1:x}, ${2:y});",
+		],
+		"description": "双击"
+	},
+	"swipe": {
+		"scope": "javascript",
+		"prefix": "swipe",
+		"body": [
+			"swipe(${1:x1}, ${2:y1}, ${3:x2}, ${4:y2}, ${5:duration});",
+		],
+		"description": "手势滑动"
+	},
+	"scrollUp": {
+		"scope": "javascript",
+		"prefix": "scrollUp",
+		"body": [
+			"scrollUp();",
+		],
+		"description": "向上滑动"
+	},
+	"getBounds": {
+		"scope": "javascript",
+		"prefix": "getBounds",
+		"body": [
+			"const nodeRect = getBounds(${1:node});",
+		],
+		"description": "获取节点 bounds"
+	},
+	"back": {
+		"scope": "javascript",
+		"prefix": "back",
+		"body": [
+			"back();",
+		],
+		"description": "返回"
+	},
+	"home": {
+		"scope": "javascript",
+		"prefix": "home",
+		"body": [
+			"home();",
+		],
+		"description": "返回桌面"
+	},
+	"getRoot": {
+		"scope": "javascript",
+		"prefix": "getRoot",
+		"body": [
+			"getRoot()",
+		],
+		"description": "获取整个页面元素"
+	},
+	"backToDesk": {
+		"scope": "javascript",
+		"prefix": "backToDesk",
+		"body": [
+			"backToDesk();",
+		],
+		"description": "连续返回，直到桌面"
+	},
+	"text": {
+		"scope": "javascript",
+		"prefix": "text",
+		"body": [
+			"text('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"textContains": {
+		"scope": "javascript",
+		"prefix": "textContains",
+		"body": [
+			"textContains('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"textStartsWith": {
+		"scope": "javascript",
+		"prefix": "textStartsWith",
+		"body": [
+			"textStartsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"textEndsWith": {
+		"scope": "javascript",
+		"prefix": "textEndsWith",
+		"body": [
+			"textEndsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"textMatches": {
+		"scope": "javascript",
+		"prefix": "textMatches",
+		"body": [
+			"textMatches('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"desc": {
+		"scope": "javascript",
+		"prefix": "desc",
+		"body": [
+			"desc('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"descContains": {
+		"scope": "javascript",
+		"prefix": "descContains",
+		"body": [
+			"descContains('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"descStartsWith": {
+		"scope": "javascript",
+		"prefix": "descStartsWith",
+		"body": [
+			"descStartsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"descEndsWith": {
+		"scope": "javascript",
+		"prefix": "descEndsWith",
+		"body": [
+			"descEndsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"descMatches": {
+		"scope": "javascript",
+		"prefix": "descMatches",
+		"body": [
+			"descMatches('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"id": {
+		"scope": "javascript",
+		"prefix": "id",
+		"body": [
+			"id('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"idContains": {
+		"scope": "javascript",
+		"prefix": "idContains",
+		"body": [
+			"idContains('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"idStartsWith": {
+		"scope": "javascript",
+		"prefix": "idStartsWith",
+		"body": [
+			"idStartsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"idEndsWith": {
+		"scope": "javascript",
+		"prefix": "idEndsWith",
+		"body": [
+			"idEndsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"idMatches": {
+		"scope": "javascript",
+		"prefix": "idMatches",
+		"body": [
+			"idMatches('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"className": {
+		"scope": "javascript",
+		"prefix": "className",
+		"body": [
+			"className('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"classNameContains": {
+		"scope": "javascript",
+		"prefix": "classNameContains",
+		"body": [
+			"classNameContains('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"classNameStartsWith": {
+		"scope": "javascript",
+		"prefix": "classNameStartsWith",
+		"body": [
+			"classNameStartsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"classNameEndsWith": {
+		"scope": "javascript",
+		"prefix": "classNameEndsWith",
+		"body": [
+			"classNameEndsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"classNameMatches": {
+		"scope": "javascript",
+		"prefix": "classNameMatches",
+		"body": [
+			"classNameMatches('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"packageName": {
+		"scope": "javascript",
+		"prefix": "packageName",
+		"body": [
+			"packageName('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"packageNameContains": {
+		"scope": "javascript",
+		"prefix": "packageNameContains",
+		"body": [
+			"packageNameContains('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"packageNameStartsWith": {
+		"scope": "javascript",
+		"prefix": "packageNameStartsWith",
+		"body": [
+			"packageNameStartsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"packageNameEndsWith": {
+		"scope": "javascript",
+		"prefix": "packageNameEndsWith",
+		"body": [
+			"packageNameEndsWith('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"packageNameMatches": {
+		"scope": "javascript",
+		"prefix": "packageNameMatches",
+		"body": [
+			"packageNameMatches('$1')",
+		],
+		"description": "UiSelector 属性选择器"
+	},
+	"bounds": {
+		"scope": "javascript",
+		"prefix": "bounds",
+		"body": [
+			"bounds(${1:left}, ${2:top}, ${3:right}, ${4:bottom})",
+		],
+		"description": "UiSelector 属性选择器: 过滤和 bounds 完全符合的元素"
+	},
+	"boundsInScreen": {
+		"scope": "javascript",
+		"prefix": "boundsInScreen",
+		"body": [
+			"boundsInScreen()",
+		],
+		"description": "UiSelector 属性选择器: 在屏幕范围内查找元素"
+	},
+	"boundsInside": {
+		"scope": "javascript",
+		"prefix": "boundsInside",
+		"body": [
+			"boundsInside(${1:left}, ${2:top}, ${3:right}, ${4:bottom})",
+		],
+		"description": "UiSelector 属性选择器: 过滤在 bounds 范围内的元素"
+	},
+	"drawingOrder": {
+		"scope": "javascript",
+		"prefix": "drawingOrder",
+		"body": [
+			"drawingOrder($1)",
+		],
+		"description": "UiSelector 属性选择器: 按元素绘制顺序过滤（drawingOrder 为一个控件在父控件中的绘制顺序）"
+	},
+	"clickable": {
+		"scope": "javascript",
+		"prefix": "clickable",
+		"body": [
+			"clickable(${1:true})",
+		],
+		"description": "UiSelector 属性选择器: 按照是否可点击过滤"
+	},
+	"longClickable": {
+		"scope": "javascript",
+		"prefix": "longClickable",
+		"body": [
+			"longClickable(${1:true})",
+		],
+		"description": "UiSelector 属性选择器: 按照是否可长按过滤"
+	},
+	"checkable": {
+		"scope": "javascript",
+		"prefix": "checkable",
+		"body": [
+			"checkable(${1:true})",
+		],
+		"description": "UiSelector 属性选择器: 按照是否可选择过滤"
+	},
+	"selected": {
+		"scope": "javascript",
+		"prefix": "selected",
+		"body": [
+			"selected(${1:true})",
+		],
+		"description": "UiSelector 属性选择器: 按照是否已选中过滤"
+	},
+	"enabled": {
+		"scope": "javascript",
+		"prefix": "enabled",
+		"body": [
+			"enabled(${1:true})",
+		],
+		"description": "UiSelector 属性选择器（为当前选择器附加控件是否已启用的条件。大多数控件都是启用的状态(enabled 为 true)，处于“禁用”状态通常是灰色并且不可点击。）"
+	},
+	"scrollable": {
+		"scope": "javascript",
+		"prefix": "scrollable",
+		"body": [
+			"scrollable(${1:true})",
+		],
+		"description": "UiSelector 属性选择器: 按照是否可滑动过滤"
+	},
+	"editable": {
+		"scope": "javascript",
+		"prefix": "editable",
+		"body": [
+			"editable(${1:true})",
+		],
+		"description": "UiSelector 属性选择器: 按照是否可编辑过滤"
+	},
+	"multiLine": {
+		"scope": "javascript",
+		"prefix": "multiLine",
+		"body": [
+			"multiLine(${1:true})",
+		],
+		"description": "UiSelector 属性选择器: 按照 文本或输入框控件是否是多行显示 过滤"
+	},
+	"untilFindOne": {
+		"scope": "javascript",
+		"prefix": "untilFindOne",
+		"body": [
+			"untilFindOne(${1:time})",
+		],
+		"description": "UiSelector 属性选择器: 元素查找方式，根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，直到屏幕上出现满足条件的一个控件为止，并返回该控件。"
+	},
+	"untilFindOne": {
+		"scope": "javascript",
+		"prefix": "untilFindOne",
+		"body": [
+			"untilFindOne()",
+		],
+		"description": "UiSelector 属性选择器: 元素查找方式，根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，直到屏幕上出现满足条件的一个控件为止，并返回该控件。"
+	},
+	"findOne": {
+		"scope": "javascript",
+		"prefix": "findOne",
+		"body": [
+			"findOne()",
+		],
+		"description": "UiSelector 属性选择器: 元素查找方式，根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，如果找到符合条件的控件则返回该控件；否则返回null。"
+	},
+	"findOne_node": {
+		"scope": "javascript",
+		"prefix": "findOne",
+		"body": [
+			"findOne(${1:node})",
+		],
+		"description": "UiSelector 属性选择器: 元素查找方式，根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，是从传入的accNodeInfo节点树往下找。"
+	},
+	"findOne_i": {
+		"scope": "javascript",
+		"prefix": "findOne",
+		"body": [
+			"findOne(${1:i})",
+		],
+		"description": "UiSelector 属性选择器: 元素查找方式，根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，并返回第 i + 1 个符合条件的控件；"
+	},
+	"find": {
+		"scope": "javascript",
+		"prefix": "find",
+		"body": [
+			"find()",
+		],
+		"description": "UiSelector 属性选择器: 元素查找方式，根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，找到所有满足条件的控件集合并返回。"
+	},
+	"exists": {
+		"scope": "javascript",
+		"prefix": "exists",
+		"body": [
+			"exists()",
+		],
+		"description": "UiSelector 属性选择器: 判断屏幕上是否存在控件符合选择器所确定的条件。"
+	},
+	"waitFor": {
+		"scope": "javascript",
+		"prefix": "waitFor",
+		"body": [
+			"waitFor()",
+		],
+		"description": "UiSelector 属性选择器: 等待屏幕上出现符合条件的控件；在满足该条件的控件出现之前，该函数会一直保持阻塞。"
+	},
+	//------------------------------------------------//
+	"nodeList": {
+		"scope": "javascript",
+		"prefix": "nodeList",
+		"body": [
+			"nodeList",
+		],
+		"description": "UiCollection 控件集合: 获取控件集合list"
+	},
+	"size": {
+		"scope": "javascript",
+		"prefix": "size",
+		"body": [
+			"size()",
+		],
+		"description": "UiCollection 控件集合: 获取控件集合长度"
+	},
+	"get": {
+		"scope": "javascript",
+		"prefix": "get",
+		"body": [
+			"get(${1:{i})",
+		],
+		"description": "UiCollection 控件集合: 获取控件集合第i个节点"
+	},
+	"foreachPrint": {
+		"scope": "javascript",
+		"prefix": "foreachPrint",
+		"body": [
+			"foreachPrint()",
+		],
+		"description": "UiCollection 控件集合: 遍历打印控件集合所有节点"
+	},
+	"filter": {
+		"scope": "javascript",
+		"prefix": "filter",
+		"body": [
+			"filter(item => {",
+			"	if (xxx) {",
+			"		return true;",
+			"	}",
+			"	return false;",
+			"})"
+		],
+		"description": "UiCollection 控件集合: 过滤符合自定义条件控件集合的节点"
+	},
+	"node": {
+		"scope": "javascript",
+		"prefix": "node",
+		"body": [
+			"node",
+		],
+		"description": "UiObject 控件: node"
+	},
+	"uiObject.getPoint": {
+		"scope": "javascript",
+		"prefix": "getPoint",
+		"body": [
+			"getPoint();",
+		],
+		"description": "UiObject 控件: 获取 uiObject 元素坐标"
+	},
+	"uiObject.click": {
+		"scope": "javascript",
+		"prefix": "click",
+		"body": [
+			"click();",
+		],
+		"description": "UiObject 控件: uiObject 执行点击"
+	},
+	"uiObject.clickPoint": {
+		"scope": "javascript",
+		"prefix": "clickPoint",
+		"body": [
+			"clickPoint();",
+		],
+		"description": "UiObject 控件: uiObject 执行点击坐标"
+	},
+	"uiObject.clickExactPoint": {
+		"scope": "javascript",
+		"prefix": "clickExactPoint",
+		"body": [
+			"clickExactPoint(${1:time})",
+		],
+		"description": "UiObject 控件: uiObject 执行点击精确坐标，需传入点击时长 time"
+	},
+	"uiObject.longClick": {
+		"scope": "javascript",
+		"prefix": "longClick",
+		"body": [
+			"longClick()",
+		],
+		"description": "UiObject 控件: uiObject 执行长按"
+	},
+	"uiObject.setText": {
+		"scope": "javascript",
+		"prefix": "setText",
+		"body": [
+			"setText('${1:text}')",
+		],
+		"description": "UiObject 控件: uiObject 执行输入文本"
+	},
+	"uiObject.copy": {
+		"scope": "javascript",
+		"prefix": "copy",
+		"body": [
+			"copy()",
+		],
+		"description": "UiObject 控件: uiObject 执行文本复制"
+	},
+	"uiObject.cut": {
+		"scope": "javascript",
+		"prefix": "cut",
+		"body": [
+			"cut()",
+		],
+		"description": "UiObject 控件: uiObject 执行文本剪切"
+	},
+	"uiObject.paste": {
+		"scope": "javascript",
+		"prefix": "paste",
+		"body": [
+			"paste()",
+		],
+		"description": "UiObject 控件: uiObject 执行文本粘贴"
+	},
+	"uiObject.setSelection": {
+		"scope": "javascript",
+		"prefix": "setSelection",
+		"body": [
+			"setSelection(${1:0}, ${2:5})",
+		],
+		"description": "UiObject 控件: uiObject 对输入框控件设置选中的文字内容，并返回是否操作成功。
+		* 索引是从 0 开始计算的；并且，选中内容不包含 end 位置的字符。例如，如果一个输入框内容为 '123456789'，要选中 '4567' 的文字的代码为et.setSelection(3, 7)。
+		* 该函数也可以用来设置光标位置，只要参数的 end 等于 start，即可把输入框光标设置在 start 的位置。例如et.setSelection(1, 1)会把光标设置在第一个字符的后面。"
+	},
+	"uiObject.scrollForward": {
+		"scope": "javascript",
+		"prefix": "scrollForward",
+		"body": [
+			"scrollForward()",
+		],
+		"description": "UiObject 控件: uiObject 执行向前滑动的操作，并返回是否操作成功。"
+	},
+	"uiObject.scrollBackward": {
+		"scope": "javascript",
+		"prefix": "scrollBackward",
+		"body": [
+			"scrollBackward()",
+		],
+		"description": "UiObject 控件: uiObject 执行向前滑动的操作，并返回是否操作成功。"
+	},
+	"uiObject.select": {
+		"scope": "javascript",
+		"prefix": "select",
+		"body": [
+			"select()",
+		],
+		"description": "UiObject 控件: uiObject 对控件执行 '选中' 操作，并返回是否操作成功。 '选中' 和isSelected()的属性相关，但该操作十分少用。"
+	},
+	"uiObject.collapse": {
+		"scope": "javascript",
+		"prefix": "collapse",
+		"body": [
+			"collapse()",
+		],
+		"description": "UiObject 控件: uiObject 对控件执行折叠操作，并返回是否操作成功。"
+	},
+	"uiObject.expand": {
+		"scope": "javascript",
+		"prefix": "expand",
+		"body": [
+			"expand()",
+		],
+		"description": "UiObject 控件: uiObject 对控件执行展开操作，并返回是否操作成功。"
+	},
+	"uiObject.show": {
+		"scope": "javascript",
+		"prefix": "show",
+		"body": [
+			"show()",
+		],
+		"description": "UiObject 控件: uiObject 对集合中所有控件执行显示操作，并返回是否全部操作成功。"
+	},
+	"uiObject.scrollUp": {
+		"scope": "javascript",
+		"prefix": "scrollUp",
+		"body": [
+			"scrollUp()",
+		],
+		"description": "UiObject 控件: uiObject 对集合中所有控件执行向上滑的操作，并返回是否全部操作成功。"
+	},
+	"uiObject.scrollDown": {
+		"scope": "javascript",
+		"prefix": "scrollDown",
+		"body": [
+			"scrollDown()",
+		],
+		"description": "UiObject 控件: uiObject 对集合中所有控件执行向下滑的操作，并返回是否全部操作成功。"
+	},
+	"uiObject.scrollLeft": {
+		"scope": "javascript",
+		"prefix": "scrollLeft",
+		"body": [
+			"scrollLeft()",
+		],
+		"description": "UiObject 控件: uiObject 对集合中所有控件执行向左滑的操作，并返回是否全部操作成功。"
+	},
+	"uiObject.scrollRight": {
+		"scope": "javascript",
+		"prefix": "scrollRight",
+		"body": [
+			"scrollRight()",
+		],
+		"description": "UiObject 控件: uiObject 对集合中所有控件执行向右滑的操作，并返回是否全部操作成功。"
+	},
+	"uiObject.children": {
+		"scope": "javascript",
+		"prefix": "children",
+		"body": [
+			"children()",
+		],
+		"description": "UiObject 控件: uiObject 返回该控件的所有子控件组成的控件集合。返回 UiCollection"
+	},
+	"uiObject.childCount": {
+		"scope": "javascript",
+		"prefix": "childCount",
+		"body": [
+			"childCount()",
+		],
+		"description": "UiObject 控件: uiObject 返回子控件数目。"
+	},
+	"uiObject.child": {
+		"scope": "javascript",
+		"prefix": "child",
+		"body": [
+			"child('${1:i}')",
+		],
+		"description": "UiObject 控件: uiObject 返回第 i+1 个子控件。返回 {UiObject}"
+	},
+	"uiObject.parent": {
+		"scope": "javascript",
+		"prefix": "parent",
+		"body": [
+			"parent()",
+		],
+		"description": "UiObject 控件: uiObject 返回该控件的父控件。如果该控件没有父控件，返回null。返回 {UiObject}"
+	},
+	"uiObject.bounds": {
+		"scope": "javascript",
+		"prefix": "bounds",
+		"body": [
+			"bounds()",
+		],
+		"description": "UiObject 控件: uiObject 返回控件在屏幕上的范围，其值是一个Rect对象。示例：var b = text('Auto.js').findOne().bounds();"
+	},
+	"uiObject.boundsInParent": {
+		"scope": "javascript",
+		"prefix": "boundsInParent",
+		"body": [
+			"boundsInParent()",
+		],
+		"description": "UiObject 控件: uiObject 返回控件在父控件中的范围，其值是一个Rect对象。"
+	},
+	"uiObject.drawingOrder": {
+		"scope": "javascript",
+		"prefix": "drawingOrder",
+		"body": [
+			"drawingOrder()",
+		],
+		"description": "UiObject 控件: uiObject 返回控件在父控件中的绘制次序。该函数在安卓 7.0 及以上才有效，7.0 以下版本调用会返回 0。"
+	},
+	"uiObject.id": {
+		"scope": "javascript",
+		"prefix": "id",
+		"body": [
+			"id()",
+		],
+		"description": "UiObject 控件: uiObject 获取控件的 id，如果一个控件没有 id，则返回null。返回 {string}"
+	},
+	"uiObject.text": {
+		"scope": "javascript",
+		"prefix": "text",
+		"body": [
+			"text()",
+		],
+		"description": "UiObject 控件: uiObject 获取控件的文本，如果控件没有文本，返回 ''。返回 {string}"
+	},
+	"uiObject.desc": {
+		"scope": "javascript",
+		"prefix": "desc",
+		"body": [
+			"desc()",
+		],
+		"description": "UiObject 控件: uiObject 获取控件的desc，如果控件没有desc，返回 ''。返回 {string}"
+	}
+	//------------------------------------------------//
+	"random": {
+		"scope": "javascript",
+		"prefix": "random",
+		"body": [
+			"random(${1:min}, ${2:max})",
+		],
+		"description": "生成随机整数"
+	},
+	"content": {
+		"scope": "javascript",
+		"prefix": "content",
+		"body": [
+			"content(${1:full_str}, ${2:item_str})",
+		],
+		"description": "判断两个字符串是否为包含关系"
+	},
+	"waiths": {
+		"scope": "javascript",
+		"prefix": "waiths",
+		"body": [
+			"waiths",
+		],
+		"description": "表示半秒钟，带随机时间(0, 200)ms"
+	},
+	"wait1s": {
+		"scope": "javascript",
+		"prefix": "wait1s",
+		"body": [
+			"wait1s",
+		],
+		"description": "表示1秒钟，带随机时间(0, 200)ms"
+	},
+	"wait2s": {
+		"scope": "javascript",
+		"prefix": "wait2s",
+		"body": [
+			"wait2s",
+		],
+		"description": "表示2秒钟，带随机时间(0, 200)ms"
+	},
+	"wait3s": {
+		"scope": "javascript",
+		"prefix": "wait3s",
+		"body": [
+			"wait3s",
+		],
+		"description": "表示3秒钟，带随机时间(0, 200)ms"
+	},
+	"wait4s": {
+		"scope": "javascript",
+		"prefix": "wait4s",
+		"body": [
+			"wait4s",
+		],
+		"description": "表示4秒钟，带随机时间(0, 200)ms"
+	},
+	"wait5s": {
+		"scope": "javascript",
+		"prefix": "wait5s",
+		"body": [
+			"wait5s",
+		],
+		"description": "表示5秒钟，带随机时间(0, 200)ms"
+	},
+	"wait6s": {
+		"scope": "javascript",
+		"prefix": "wait6s",
+		"body": [
+			"wait6s",
+		],
+		"description": "表示6秒钟，带随机时间(0, 200)ms"
+	}
+}
