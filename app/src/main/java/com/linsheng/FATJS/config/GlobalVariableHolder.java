@@ -1,11 +1,17 @@
 package com.linsheng.FATJS.config;
 
+import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
+
 import android.content.Context;
+import android.os.Environment;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.caoccao.javet.interop.V8Runtime;
 import com.linsheng.FATJS.aione_editor.MainActivity;
+import com.linsheng.FATJS.utils.FileUtils;
+import com.linsheng.FATJS.utils.StringUtils;
 
 import java.util.HashMap;
 
@@ -59,4 +65,24 @@ public class GlobalVariableHolder {
     public static boolean isRunning = false; // 是否有任务在运行
     public static boolean killThread = false; // 是否强制关闭
     public static boolean isOpenFloatWin = false; // 悬浮窗是否打开
+    public static void saveConfig() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("DEV_MODE", DEV_MODE);
+        jsonObject.put("CHECKED_FILE_NAME", checkedFileName);
+        String config_string = jsonObject.toString();
+        printLogMsg(config_string, 0);
+        FileUtils.writeToTxt("/sdcard/FATJS_DIR/config.json", config_string);
+    }
+
+    public static void reviewConfig() {
+        String readFile = FileUtils.readFile("/sdcard/FATJS_DIR/config.json");
+        if (StringUtils.isEmpty(readFile)) {
+            printLogMsg("reviewConfig empty", 0);
+            saveConfig();
+            return;
+        }
+        JSONObject parseObject = JSONObject.parseObject(readFile);
+        DEV_MODE = parseObject.getBoolean("DEV_MODE");
+        checkedFileName = parseObject.getString("CHECKED_FILE_NAME");
+    }
 }

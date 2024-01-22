@@ -3,33 +3,25 @@ package com.linsheng.FATJS.ui.dashboard;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.DEV_MODE;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.PATH;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
-import static com.linsheng.FATJS.config.GlobalVariableHolder.tag;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.reviewConfig;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.saveConfig;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -39,16 +31,13 @@ import com.hjq.permissions.XXPermissions;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.activitys.FloatingButton;
 import com.linsheng.FATJS.activitys.FloatingWindow;
-import com.linsheng.FATJS.activitys.MainActivity;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.config.WindowPermissionCheck;
 import com.linsheng.FATJS.databinding.FragmentDashboardBinding;
-import com.linsheng.FATJS.findColor.config.CaptureScreenService;
 import com.linsheng.FATJS.findColor.config.ScreenCaptureManager;
 import com.linsheng.FATJS.utils.FileUtils;
 import com.linsheng.FATJS.utils.StringUtils;
 
-import java.io.File;
 import java.util.List;
 
 public class DashboardFragment extends Fragment {
@@ -63,16 +52,12 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
 
         permissions(root); // 赋予权限
-
-//        final TextView textView = binding.textDashboard;
-//        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //printLogMsg("permissions onResume");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -150,6 +135,14 @@ public class DashboardFragment extends Fragment {
                 FileUtils.writeToTxt(
                         Environment.getExternalStorageDirectory() + PATH + "version.txt",
                         "test");
+                String config = FileUtils.readFile(Environment.getExternalStorageDirectory() + PATH + "config.json");
+                if (StringUtils.isEmpty(config)) {
+                    printLogMsg("config is empty", 0);
+                    saveConfig();
+                }else {
+                    printLogMsg("config is not empty, review config", 0);
+                    reviewConfig();
+                }
             }
             @Override
             public void onDenied(@NonNull List<String> permissions, boolean doNotAskAgain) {
@@ -331,8 +324,6 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 if (_screen) {
                     printLogMsg("switch_screen already True", 0);
-//                    switch_screen.setChecked(_screen);
-//                    Toast.makeText(context, "switch_screen already True", Toast.LENGTH_SHORT).show();
                     _screen = false;
                     ScreenCaptureManager.getInstance().stop();
                     return;
@@ -346,6 +337,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 DEV_MODE = !DEV_MODE;
                 switch_dev.setChecked(DEV_MODE);
+                saveConfig();
                 printLogMsg("DEV_MODE => " + DEV_MODE, 0);
                 Toast.makeText(context, "DEV_MODE => " + DEV_MODE, Toast.LENGTH_SHORT).show();
             }

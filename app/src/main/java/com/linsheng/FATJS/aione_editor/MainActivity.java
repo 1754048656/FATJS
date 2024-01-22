@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         if (__mHeight == -1) {
             initDisplay();
         }
+        reviewConfig(); // 回显 config 数据
     }
 
     @Override

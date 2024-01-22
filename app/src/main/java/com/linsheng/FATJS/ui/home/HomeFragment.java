@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,6 @@ import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.aione_editor.EditorActivity;
 import com.linsheng.FATJS.aione_editor.Scripts;
 
-import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.databinding.FragmentHomeBinding;
 import com.linsheng.FATJS.node.TaskBase;
 import com.linsheng.FATJS.utils.ExceptionUtil;
@@ -92,7 +90,7 @@ public class HomeFragment extends Fragment {
         getFileList(0);
         // 备份记录悬浮窗是否打开
         __isOpenFloatWin = isOpenFloatWin;
-        if (DEV_MODE && __isOpenFloatWin) {
+        if (DEV_MODE) {
             moveFloatWindow("隐藏");
         }
     }
@@ -173,8 +171,12 @@ public class HomeFragment extends Fragment {
         public void onBindViewHolder(MyRecyclerAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
             final String name = list.get(position);
             holder.file_name.setText(name);
-
             holder.radio_button.setChecked(position == checkedPosition);
+            // 根据 file_name 判断是否选中
+            if (name.equals(checkedFileName)) {
+                holder.radio_button.setChecked(true);
+                checkedPosition = position;
+            }
             holder.radio_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -183,6 +185,7 @@ public class HomeFragment extends Fragment {
                         checkedPosition = position;
                         checkedFileName = name;
                         notifyItemChanged(checkedPosition);
+                        saveConfig();
                         printLogMsg("已选中 " + checkedFileName, 0);
                         Toast.makeText(context, "已选中 " + checkedFileName, Toast.LENGTH_SHORT).show();
                     }
@@ -255,6 +258,7 @@ public class HomeFragment extends Fragment {
             for (String name : files) {
                 if (name.endsWith(".js")
                         || name.endsWith(".txt")
+                        || name.endsWith(".json")
                         || name.endsWith(".py")
                         || name.endsWith(".java")
                         || name.endsWith(".class")

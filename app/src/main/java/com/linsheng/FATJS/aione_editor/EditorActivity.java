@@ -1,8 +1,10 @@
 package com.linsheng.FATJS.aione_editor;
 
 import static com.linsheng.FATJS.config.GlobalVariableHolder.PATH;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.isOpenFloatWin;
+import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
+import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -25,9 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.linsheng.FATJS.R;
 
 import java.io.File;
@@ -38,6 +37,7 @@ public class EditorActivity extends AppCompatActivity {
     private Editor ed;
     private boolean isDark;
     public static final String scripts_path = Environment.getExternalStorageDirectory() + PATH;
+    private boolean __isOpenFloatWin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,17 +230,25 @@ public class EditorActivity extends AppCompatActivity {
             ed.newScript();
             ed.setEditorSettings();
         }
+        __isOpenFloatWin = isOpenFloatWin; // 备份记录悬浮窗是否打开
+        if (__isOpenFloatWin)
+            moveFloatWindow("隐藏");
         super.onResume();
     }
 
     @Override
     public void finish() {
+        printLogMsg("EditorActivity finish");
+        if (__isOpenFloatWin) {
+            isOpenFloatWin = true;
+        }
         super.finish();
     }
 
     @Override
     protected void onDestroy() {
         ed.setEditorSettings();
+        printLogMsg("EditorActivity onDestroy");
         super.onDestroy();
     }
 
