@@ -1,5 +1,6 @@
 package com.linsheng.FATJS.aione_editor;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.DEV_MODE;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.PATH;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isOpenFloatWin;
 import static com.linsheng.FATJS.node.AccUtils.moveFloatWindow;
@@ -241,6 +242,9 @@ public class EditorActivity extends AppCompatActivity {
         printLogMsg("EditorActivity finish");
         if (__isOpenFloatWin) {
             isOpenFloatWin = true;
+        }
+        if (!DEV_MODE) {
+            moveFloatWindow("打开");
         }
         super.finish();
     }
