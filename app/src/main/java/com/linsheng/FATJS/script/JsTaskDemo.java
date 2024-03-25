@@ -1,6 +1,9 @@
 package com.linsheng.FATJS.script;
 
 import static com.linsheng.FATJS.config.GlobalVariableHolder.hashMapBuffer;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 import android.annotation.SuppressLint;
@@ -14,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.node.TaskBase;
+import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.FileUtils;
 import java.util.HashMap;
 
@@ -50,7 +54,12 @@ public class JsTaskDemo extends AppCompatActivity {
         start_run_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                test();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        test();
+                    }
+                }).start();
             }
         });
     }
@@ -80,6 +89,17 @@ public class JsTaskDemo extends AppCompatActivity {
         printLogMsg("run script " + checkedFileName, 0);
         @SuppressLint("SdCardPath") String script_path = "/sdcard/FATJS_DIR/" + checkedFileName;
         String script = FileUtils.readFile(script_path);
-        TaskBase.execScript(script);
+        try {
+            isRunning = true;
+            isStop = false;
+            killThread = false;
+            TaskBase.execScript(script);
+        }catch (Exception e) {
+            printLogMsg(ExceptionUtil.toString(e), 0);
+        }finally {
+            isRunning = false;
+            isStop = false;
+            killThread = false;
+        }
     }
 }
