@@ -128,6 +128,14 @@ public class TaskBase extends UiSelector implements ITaskBase{
     public void _startActivity(Intent intent) {
         mainActivity.startActivity(intent);
     }
+    public Intent _intentAction(String action) {
+        try {
+            return new Intent(action);
+        }catch (Exception e) {
+            printLogMsg(ExceptionUtil.toString(e), 0);
+        }
+        return null;
+    }
     public Intent _intent(String jsonText) {
         try {
             JSONObject jsonObject = JSONObject.parseObject(jsonText);

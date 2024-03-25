@@ -12,6 +12,7 @@ const clearLog = () => task._clearLog();
 const clip = (text) => task._clip(text);
 const context = () => task._context();
 const startActivity = (intent) => task._startActivity(intent);
+const intentAction = (action) => task._intentAction(action);
 const intent = (json) => task._intent(JSON.stringify(json));
 const lockScreen = () => task._lockScreen();
 const activityName = () => task._activityName();
@@ -144,6 +145,9 @@ const boundsInParent = null;
 //const id = null;
 //const text = null;
 //const desc = null;
+//------------------------------------------------//
+//const http = null;
+//const websocket = null;
 //------------------------------------------------//
 const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const content = (full_str, item_str) => full_str.indexOf(item_str) != -1
