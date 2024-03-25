@@ -38,7 +38,6 @@ public class TaskBase extends UiSelector implements ITaskBase{
         _navigationBarOpen = navigationBarOpen;
     }
     private static String base;
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void initJavet(String script_path) {
         try {
             v8Runtime = V8Host.getV8Instance().createV8Runtime();
@@ -178,12 +177,23 @@ public class TaskBase extends UiSelector implements ITaskBase{
     public boolean _capture(String filePath) {
         return ScreenshotUtils.capture(filePath);
     }
-    public void _mkdir(String dir) {
-        FileUtils.createDirectory(dir);
-    }
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public String _readFile(String filePath) {
         return FileUtils.readFile(filePath);
+    }
+    public List<String> _readLines(String filePath) {
+        return FileUtils.readLines(filePath);
+    }
+    public boolean _writeFile(String filePath, String content) {
+        return FileUtils.writeFile(filePath, content);
+    }
+    public boolean _appendFile(String filePath, String content) {
+        return FileUtils.appendFile(filePath, content);
+    }
+    public boolean _deleteFile(String filePath) {
+        return FileUtils.deleteFile(filePath);
+    }
+    public void _mkdir(String dir) {
+        FileUtils.createDirectory(dir);
     }
     public boolean _mvFile(String from, String to) {
         return FileUtils.moveFile(from, to);
@@ -193,12 +203,6 @@ public class TaskBase extends UiSelector implements ITaskBase{
     }
     public boolean _renameFile(String sourceFilePath, String targetFilePath) {
         return FileUtils.renameFile(sourceFilePath, targetFilePath);
-    }
-    public boolean _deleteFile(String filePath) {
-        return FileUtils.deleteFile(filePath);
-    }
-    public List<String> _readLines(String filePath) {
-        return FileUtils.readLines(filePath);
     }
     public String _getText(AccessibilityNodeInfo node) {
         return String.valueOf(node.getText());

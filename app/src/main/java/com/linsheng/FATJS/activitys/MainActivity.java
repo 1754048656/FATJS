@@ -181,15 +181,6 @@ public class MainActivity extends AppCompatActivity {
         printLogMsg( "phoneName => " + phoneName);
     }
 
-    private String readOrCreateVersion(String absolutePath) {
-        String fromXML = FileUtils.readFromTxt(absolutePath);
-        if (fromXML == null || fromXML.equals("")) {
-            FileUtils.writeToTxt(absolutePath, "2.1.6");
-            return "2.1.6";
-        }
-        return fromXML;
-    }
-
     // 获取本机名称
     private String getPhoneName() {
         return Settings.Secure.getString(getContentResolver(), "bluetooth_name"); // 手机名称

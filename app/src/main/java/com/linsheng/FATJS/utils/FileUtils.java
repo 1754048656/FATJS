@@ -11,8 +11,6 @@ import com.linsheng.FATJS.config.GlobalVariableHolder;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,6 +19,7 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,54 +27,10 @@ public class FileUtils {
     private static final String TAG = GlobalVariableHolder.tag;
 
     /**
-     * 保存内容到TXT文件中
-     */
-    public static boolean writeToTxt(String fileName, String content) {
-        FileOutputStream fileOutputStream;
-        BufferedWriter bufferedWriter;
-        File file = new File(fileName);
-        try {
-            file.createNewFile();
-            fileOutputStream = new FileOutputStream(file);
-            bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
-            bufferedWriter.write(content);
-            bufferedWriter.close();
-        } catch (IOException e) {
-            printLogMsg("writeToTxt: java.io.FileNotFoundException: version.txt: open failed: EACCES (Permission denied)");
-            return false;
-        }
-        return true;
-    }
-    /**
-     * 读取内容
-     * @param filePath
+     * 读取文件，一行一行读并在行尾加上换行
+     * @param filePath 文件的路径
      * @return
      */
-    public static String readFromTxt(String filePath) {
-        FileInputStream fileInputStream;
-        BufferedReader bufferedReader;
-        StringBuilder stringBuilder = new StringBuilder();
-        File file = new File(filePath);
-        if (file.exists()) {
-            try {
-                fileInputStream = new FileInputStream(file);
-                bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                }
-                bufferedReader.close();
-            } catch (FileNotFoundException e) {
-                printLogMsg("readFromTxt: FileNotFoundException");
-                return null;
-            } catch (IOException e) {
-                printLogMsg("readFromTxt: IOException");
-                return null;
-            }
-        }
-        return stringBuilder.toString();
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static String readFile(String filePath) {
         StringBuilder content = new StringBuilder();
@@ -87,6 +42,76 @@ public class FileUtils {
             }
         } catch (IOException e) {}
         return content.toString();
+    }
+
+    /**
+     * 从文本中逐行读取
+     * @param filePath
+     * @return
+     */
+    public static List<String> readLines(String filePath) {
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+
+    /**
+     * 写内容到文件中
+     *
+     * @param fileName 文件的完整路径
+     * @param content 要写入的内容
+     * @return 写入成功返回true，否则返回false
+     */
+    public static boolean writeFile(String fileName, String content) {
+        // 使用try-with-resources来自动管理资源，自动关闭流
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Paths.get(fileName),
+                StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
+            bufferedWriter.write(content);
+            return true; // 成功写入
+        } catch (IOException e) {
+            printLogMsg("writeFile: IOException: " + e.getMessage());
+            return false; // 发生异常，返回false
+        }
+    }
+
+    /**
+     * 追加内容到文件中，并返回操作是否成功
+     *
+     * @param filePath 文件的路径
+     * @param content 要追加的内容
+     * @return 操作成功返回true，否则返回false
+     */
+    public static boolean appendFile(String filePath, String content) {
+        // 使用try-with-resources来自动管理资源，自动关闭流
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Paths.get(filePath),
+                StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+            bufferedWriter.write(content);
+            return true; // 文件写入成功
+        } catch (IOException e) {
+            printLogMsg("appendFile: IOException: " + e.getMessage());
+            return false; // 文件写入失败
+        }
+    }
+
+    /**
+     * 删除对应文件
+     * @param filePath
+     * @return
+     */
+    public static boolean deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            return file.delete();
+        }
+        return false;
     }
 
     /**
@@ -167,35 +192,22 @@ public class FileUtils {
     }
 
     /**
-     * 删除对应文件
-     * @param filePath
-     * @return
+     * 保存内容到TXT文件中
      */
-    public static boolean deleteFile(String filePath) {
-        File file = new File(filePath);
-        if (file.exists()) {
-            return file.delete();
-        }
-        return false;
-    }
-
-    /**
-     * 从文本中逐行读取
-     * @param filePath
-     * @return
-     */
-    public static List<String> readLines(String filePath) {
-        List<String> lines = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                lines.add(line);
-            }
+    public static boolean writeToTxt(String fileName, String content) {
+        FileOutputStream fileOutputStream;
+        BufferedWriter bufferedWriter;
+        File file = new File(fileName);
+        try {
+            file.createNewFile();
+            fileOutputStream = new FileOutputStream(file);
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
+            bufferedWriter.write(content);
+            bufferedWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            printLogMsg("writeToTxt: IOException: " + e.getMessage());
+            return false;
         }
-
-        return lines;
+        return true;
     }
 }
