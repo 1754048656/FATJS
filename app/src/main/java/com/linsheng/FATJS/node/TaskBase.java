@@ -26,6 +26,7 @@ import com.linsheng.FATJS.utils.ScreenshotUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class TaskBase extends UiSelector implements ITaskBase{
@@ -71,6 +72,9 @@ public class TaskBase extends UiSelector implements ITaskBase{
     }
 
     /**********************************************************************************************/
+    public Map<String, Object> _getHashMapBuffer() {
+        return hashMapBuffer;
+    }
     public int _width;
     public int _height;
     public int _statusBarHeight;

@@ -1,5 +1,12 @@
 //-------------------- pre set -------------------//
 let task = new engines();
+const getHashMapBuffer = () => {
+    let buffer = task._getHashMapBuffer();
+    if(buffer != null) {
+        return buffer;
+    }
+    return null;
+}
 const killTask = () => task._killTask();
 const floatLocation = () => task._floatLocation();
 const findMultiColorInRegionFuzzy = (mainColor, subColors, distance, x1, y1, x2, y2) => {

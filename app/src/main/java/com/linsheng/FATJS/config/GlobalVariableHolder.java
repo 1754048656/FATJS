@@ -85,4 +85,5 @@ public class GlobalVariableHolder {
         DEV_MODE = parseObject.getBoolean("DEV_MODE");
         checkedFileName = parseObject.getString("CHECKED_FILE_NAME");
     }
+    public static HashMap<String, Object> hashMapBuffer;
 }

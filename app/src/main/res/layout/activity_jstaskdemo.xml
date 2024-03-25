@@ -17,7 +17,7 @@
 
             <TextView
                 android:layout_width="60dp"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:layout_span="1"
                 android:gravity="center"
                 android:text=""
@@ -51,10 +51,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="运行时间(分钟)：" />
+                android:text="运行数量(uid)：" />
 
             <EditText
-                android:id="@+id/live_time_in"
+                android:id="@+id/run_num_in"
                 android:layout_width="171dp"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
@@ -67,88 +67,49 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="点赞概率(%)：" />
+                android:text="uid文件路径：" />
 
             <EditText
-                android:id="@+id/dianzan_in"
+                android:id="@+id/uid_file_in"
                 android:layout_width="141dp"
                 android:layout_height="wrap_content"
                 android:hint=""
                 android:layout_span="2"
-                android:text="45"
-                android:inputType="number"/>
+                android:text="/sdcard/uid.txt"
+                android:inputType="text"/>
 
         </TableRow>
+
+<!--        <TableRow>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="查看主页(%)：" />-->
+<!--            <EditText-->
+<!--                android:id="@+id/chakan_in"-->
+<!--                android:layout_width="141dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint=""-->
+<!--                android:layout_span="2"-->
+<!--                android:text="30"-->
+<!--                android:inputType="number"/>-->
+<!--        </TableRow>-->
 
         <TableRow>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="关注概率(%)：" />
+                android:text="主页停顿(秒)：" />
 
             <EditText
-                android:id="@+id/guanzhu_in"
-                android:layout_width="141dp"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:layout_span="2"
-                android:text="10"
-                android:inputType="number"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="评论概率(%)：" />
-
-            <EditText
-                android:id="@+id/pinlun_in"
-                android:layout_width="141dp"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:layout_span="2"
-                android:text="5"
-                android:inputType="number"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="查看主页(%)：" />
-
-            <EditText
-                android:id="@+id/chakan_in"
-                android:layout_width="141dp"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:layout_span="2"
-                android:text="30"
-                android:inputType="number"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="操作间隔(秒)：" />
-
-            <EditText
-                android:id="@+id/sleep_0_in"
+                android:id="@+id/index_0_in"
                 android:layout_width="69dp"
                 android:layout_height="wrap_content"
                 android:layout_span="1"
                 android:hint=""
                 android:inputType="number"
-                android:text="2" />
+                android:text="6" />
 
             <TextView
                 android:layout_width="27dp"
@@ -157,12 +118,12 @@
                 android:text="至" />
 
             <EditText
-                android:id="@+id/sleep_1_in"
+                android:id="@+id/index_1_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint=""
                 android:inputType="number"
-                android:text="6"
+                android:text="10"
                 android:layout_span="1"/>
         </TableRow>
 
@@ -171,15 +132,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="视频观看(秒)：" />
+                android:text="视频停顿(秒)：" />
 
             <EditText
-                android:id="@+id/guankan_0_in"
+                android:id="@+id/view_0_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint=""
                 android:inputType="number"
-                android:text="6"
+                android:text="8"
                 android:layout_span="1"/>
 
             <TextView
@@ -189,12 +150,44 @@
                 android:text="至" />
 
             <EditText
-                android:id="@+id/guankan_1_in"
+                android:id="@+id/view_1_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint=""
                 android:inputType="number"
-                android:text="15"
+                android:text="18"
+                android:layout_span="1"/>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳转间隔(秒)：" />
+
+            <EditText
+                android:id="@+id/jump_0_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:inputType="number"
+                android:text="12"
+                android:layout_span="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="至" />
+
+            <EditText
+                android:id="@+id/jump_1_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:inputType="number"
+                android:text="18"
                 android:layout_span="1"/>
         </TableRow>
 
