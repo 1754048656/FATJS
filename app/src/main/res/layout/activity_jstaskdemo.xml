@@ -60,40 +60,8 @@
                 android:layout_span="2"
                 android:hint=""
                 android:inputType="number"
-                android:text="80" />
+                android:text="86" />
         </TableRow>
-
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="uid文件路径：" />
-
-            <EditText
-                android:id="@+id/uid_file_in"
-                android:layout_width="141dp"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:layout_span="2"
-                android:text="/sdcard/uid.txt"
-                android:inputType="text"/>
-
-        </TableRow>
-
-<!--        <TableRow>-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="查看主页(%)：" />-->
-<!--            <EditText-->
-<!--                android:id="@+id/chakan_in"-->
-<!--                android:layout_width="141dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint=""-->
-<!--                android:layout_span="2"-->
-<!--                android:text="30"-->
-<!--                android:inputType="number"/>-->
-<!--        </TableRow>-->
 
         <TableRow>
 
@@ -218,6 +186,23 @@
                 android:layout_height="40dp"
                 android:layout_span="1"
                 android:text="未知"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="uid文件路径：" />
+
+            <EditText
+                android:id="@+id/uid_file_in"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:layout_span="3"
+                android:text="/sdcard/uid.txt"
+                android:inputType="text"/>
+
         </TableRow>
 
         <TableRow>
