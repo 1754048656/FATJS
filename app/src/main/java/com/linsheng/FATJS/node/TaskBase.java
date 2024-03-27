@@ -204,6 +204,15 @@ public class TaskBase extends UiSelector implements ITaskBase{
     public boolean _renameFile(String sourceFilePath, String targetFilePath) {
         return FileUtils.renameFile(sourceFilePath, targetFilePath);
     }
+    public String _getUriFileName(Context context, Uri uri) {
+        return FileUtils.getUriFileName(context, uri);
+    }
+    public String _readUriFile(Context context, Uri uri) {
+        return FileUtils.readUriFile(context, uri);
+    }
+    public boolean _writeUriFile(Context context, Uri uri, String content, boolean append) {
+        return FileUtils.writeUriFile(context, uri, content, append);
+    }
     public String _getText(AccessibilityNodeInfo node) {
         return String.valueOf(node.getText());
     }

@@ -1,5 +1,6 @@
 package com.linsheng.FATJS.script;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.hashMapBuffer;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isStop;
@@ -10,21 +11,28 @@ import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.node.TaskBase;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.FileUtils;
+import com.linsheng.FATJS.utils.StringUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class JsTaskDemo extends AppCompatActivity {
     EditText run_num_in;
@@ -36,6 +44,9 @@ public class JsTaskDemo extends AppCompatActivity {
     EditText view_1_in;
     EditText jump_0_in;
     EditText jump_1_in;
+    EditText num_0_in;
+    EditText tosleep_0_in;
+    EditText tosleep_1_in;
     CheckBox gender_m_in;
     CheckBox gender_w_in;
     CheckBox gender_no_in;
@@ -54,6 +65,9 @@ public class JsTaskDemo extends AppCompatActivity {
         view_1_in = findViewById(R.id.view_1_in);
         jump_0_in = findViewById(R.id.jump_0_in);
         jump_1_in = findViewById(R.id.jump_1_in);
+        num_0_in = findViewById(R.id.num_0_in);
+        tosleep_0_in = findViewById(R.id.tosleep_0_in);
+        tosleep_1_in = findViewById(R.id.tosleep_1_in);
         gender_m_in = findViewById(R.id.gender_m_in);
         gender_w_in = findViewById(R.id.gender_w_in);
         gender_no_in = findViewById(R.id.gender_no_in);
@@ -73,17 +87,83 @@ public class JsTaskDemo extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
+                            saveData();
                             test();
                         } catch (Exception e) {
-                            throw new RuntimeException(e);
+                            printLogMsg(ExceptionUtil.toString(e), 0);
                         }
                     }
                 }).start();
             }
         });
+
+        review();
+    }
+
+    private final String fatjs_config =  "/sdcard/fatjs_config_1.txt";
+    private void review() {
+        String json = FileUtils.readFile(fatjs_config);
+        printLogMsg("json => " + json, 0);
+        // 反序列化 JSON 字符串回 HashMap
+        if (StringUtils.isEmpty(json)) {
+            return;
+        }
+        try {
+            HashMap<String, Object> restoredMap = JSON.parseObject(json, new TypeReference<HashMap<String, Object>>(){});
+
+            // 输出验证
+            printLogMsg("restoredMap: \n" + restoredMap, 0);
+            run_num_in.setText(Objects.requireNonNull(restoredMap.get("run_num")).toString());
+            uid_file_path.setText(Objects.requireNonNull(restoredMap.get("uid_file")).toString());
+            index_0_in.setText(Objects.requireNonNull(restoredMap.get("index_0")).toString());
+            index_1_in.setText(Objects.requireNonNull(restoredMap.get("index_1")).toString());
+            view_0_in.setText(Objects.requireNonNull(restoredMap.get("view_0")).toString());
+            view_1_in.setText(Objects.requireNonNull(restoredMap.get("view_1")).toString());
+            jump_0_in.setText(Objects.requireNonNull(restoredMap.get("jump_0")).toString());
+            jump_1_in.setText(Objects.requireNonNull(restoredMap.get("jump_1")).toString());
+            num_0_in.setText(Objects.requireNonNull(restoredMap.get("num_0")).toString());
+            tosleep_0_in.setText(Objects.requireNonNull(restoredMap.get("tosleep_0")).toString());
+            tosleep_1_in.setText(Objects.requireNonNull(restoredMap.get("tosleep_1")).toString());
+            gender_m_in.setChecked((Boolean) restoredMap.get("gender_m"));
+            gender_w_in.setChecked((Boolean) restoredMap.get("gender_w"));
+            gender_no_in.setChecked((Boolean) restoredMap.get("gender_no"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void saveData() {
+        HashMap<String, Object> saveMap = new HashMap<>();
+        saveMap.put("run_num", Integer.parseInt(run_num_in.getText().toString()));
+        saveMap.put("uid_file", uid_file_path.getText().toString());
+        saveMap.put("index_0", Integer.parseInt(index_0_in.getText().toString()));
+        saveMap.put("index_1", Integer.parseInt(index_1_in.getText().toString()));
+        saveMap.put("view_0", Integer.parseInt(view_0_in.getText().toString()));
+        saveMap.put("view_1", Integer.parseInt(view_1_in.getText().toString()));
+        saveMap.put("jump_0", Integer.parseInt(jump_0_in.getText().toString()));
+        saveMap.put("jump_1", Integer.parseInt(jump_1_in.getText().toString()));
+        saveMap.put("num_0", Integer.parseInt(num_0_in.getText().toString()));
+        saveMap.put("tosleep_0", Integer.parseInt(tosleep_0_in.getText().toString()));
+        saveMap.put("tosleep_1", Integer.parseInt(tosleep_1_in.getText().toString()));
+        saveMap.put("gender_m", gender_m_in.isChecked());
+        saveMap.put("gender_w", gender_w_in.isChecked());
+        saveMap.put("gender_no", gender_no_in.isChecked());
+
+        String json = JSON.toJSONString(saveMap);
+        printLogMsg("json: \n" + json, 0);
+        FileUtils.writeFile(fatjs_config, json);
     }
 
     private void test() throws IOException {
+        if (!uid_file_path.getText().toString().contains("/sdcard/")) {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, "请在内部存储目录下选择文件", Toast.LENGTH_SHORT).show();
+                }
+            });
+            return;
+        }
         hashMapBuffer = new HashMap<>();
         hashMapBuffer.put("run_num", Integer.parseInt(run_num_in.getText().toString()));
         hashMapBuffer.put("uid_file", uid_file_path.getText().toString());
@@ -93,6 +173,9 @@ public class JsTaskDemo extends AppCompatActivity {
         hashMapBuffer.put("view_1", Integer.parseInt(view_1_in.getText().toString()));
         hashMapBuffer.put("jump_0", Integer.parseInt(jump_0_in.getText().toString()));
         hashMapBuffer.put("jump_1", Integer.parseInt(jump_1_in.getText().toString()));
+        hashMapBuffer.put("num_0", Integer.parseInt(num_0_in.getText().toString()));
+        hashMapBuffer.put("tosleep_0", Integer.parseInt(tosleep_0_in.getText().toString()));
+        hashMapBuffer.put("tosleep_1", Integer.parseInt(tosleep_1_in.getText().toString()));
         hashMapBuffer.put("gender_m", gender_m_in.isChecked());
         hashMapBuffer.put("gender_w", gender_w_in.isChecked());
         hashMapBuffer.put("gender_no", gender_no_in.isChecked());
@@ -147,9 +230,17 @@ public class JsTaskDemo extends AppCompatActivity {
                     if (fileUriPath.contains("primary:")) {
                         String path = "/sdcard/" + fileUriPath.split("primary:")[1];
                         uid_file_path.setText(path);
+                    }else {
+                        uid_file_path.setText("请在内部存储目录下选择文件");
                     }
                 }
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        saveData();
+        super.onDestroy();
     }
 }

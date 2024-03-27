@@ -10,10 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="参数设置"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="999"
+            android:hint=""
+            android:text="1999"
             android:inputType="number"
             android:textSize="16sp"/>
 
@@ -65,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="6"
+            android:hint=""
+            android:text="6"
             android:inputType="number"
             android:textSize="16sp"/>
 
@@ -84,7 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="10"
+            android:hint=""
+            android:text="18"
             android:inputType="number"
             android:textSize="16sp"/>
     </LinearLayout>
@@ -108,7 +111,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="6"
+            android:hint=""
+            android:text="12"
             android:inputType="number"
             android:textSize="16sp"/>
 
@@ -127,7 +131,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="10"
+            android:hint=""
+            android:text="20"
             android:inputType="number"
             android:textSize="16sp"/>
     </LinearLayout>
@@ -151,7 +156,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="36"
+            android:hint=""
+            android:text="36"
             android:inputType="number"
             android:textSize="16sp"/>
 
@@ -170,7 +176,71 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="60"
+            android:hint=""
+            android:text="60"
+            android:inputType="number"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每收藏"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/num_0_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint=""
+            android:text="300"
+            android:inputType="number"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个，休息(秒):"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/tosleep_0_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint=""
+            android:text="500"
+            android:inputType="number"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="至"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <EditText
+            android:id="@+id/tosleep_1_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint=""
+            android:text="600"
             android:inputType="number"
             android:textSize="16sp"/>
     </LinearLayout>
@@ -223,10 +293,9 @@
             android:id="@+id/uid_file_path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="uid文件：/sdcard/uid.txt"
+            android:text="uid文件：未选择"
             android:layout_gravity="center_vertical"
             android:textSize="16sp"/>
-
     </LinearLayout>
 
     <Button
@@ -248,6 +317,6 @@
         android:textSize="18sp"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="#FFFFFF"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="5dp"/>
 
 </LinearLayout>

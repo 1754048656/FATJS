@@ -35,6 +35,7 @@ const mkdir = (dir) => task._mkdir(dir);
 const mvFile = (from, to) => task._mvFile(from, to);
 const lsFolder = (folderPath) => task._lsFolder(folderPath);
 const renameFile = (sourcePath, targetPath) => task._renameFile(sourcePath, targetPath);
+const getUriFileName = (context, uri) => task._getUriFileName(context, uri);
 const getText = (node) => task._getText(node);
 const getDesc = (node) => task._getDesc(node);
 const width = task._width;

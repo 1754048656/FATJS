@@ -38,14 +38,13 @@ public class MyService extends Service {
     }
 
     // 在该方法中实现服务的核心业务
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("ResourceType")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
             // 提高进程优先级
-            printLogMsg("提高进程优先级");
-            intent.putExtra("main", "hello ");
+            printLogMsg("提高进程优先级", 0);
+            // intent.putExtra("main", "hello ");
 
             //---------------------------------------------
             String CHANNEL_ONE_ID = "com.primedu.cn";
@@ -73,15 +72,11 @@ public class MyService extends Service {
 
             /*以下是对Android 8.0的适配*/
             //普通notification适配
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                builder.setChannelId("notification_id");
-            }
+            builder.setChannelId("notification_id");
             //前台服务notification适配
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-                NotificationChannel channel = new NotificationChannel("notification_id", "notification_name", NotificationManager.IMPORTANCE_LOW);
-                notificationManager.createNotificationChannel(channel);
-            }
+            NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+            NotificationChannel channel = new NotificationChannel("notification_id", "notification_name", NotificationManager.IMPORTANCE_LOW);
+            notificationManager.createNotificationChannel(channel);
 
             Notification notification = builder.build(); // 获取构建好的Notification
             notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音

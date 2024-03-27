@@ -2,7 +2,11 @@ package com.linsheng.FATJS.utils;
 
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.OpenableColumns;
 
 import androidx.annotation.RequiresApi;
 
@@ -14,7 +18,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -209,5 +215,87 @@ public class FileUtils {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 从给定的Uri中获取文件名。
+     *
+     * @param context 应用程序上下文，用于访问ContentResolver。
+     * @param uri     文件的Uri，可以是content类型的Uri。
+     * @return 文件名，如果无法获取则返回null。
+     */
+    public static String getUriFileName(Context context, Uri uri) {
+        String fileName = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = null;
+            try {
+                cursor = context.getContentResolver().query(uri, null, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    // 注意：不同设备上的列名可能不同，通常情况下是 "_display_name"
+                    int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (columnIndex != -1) {
+                        fileName = cursor.getString(columnIndex);
+                    }
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+        return fileName;
+    }
+
+    /**
+     * 从给定的Uri读取文件内容。
+     *
+     * @param context 应用程序上下文，用于访问ContentResolver。
+     * @param uri     文件的Uri。
+     * @return 文件内容的字符串表示。如果发生IO异常，则返回null。
+     */
+    public static String readUriFile(Context context, Uri uri) {
+        StringBuilder content = new StringBuilder();
+        try {
+            InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    content.append(line);
+                    content.append('\n');
+                }
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return content.toString();
+    }
+
+    /**
+     * 将文本写入给定Uri的文件中。如果文件已存在，可以选择覆盖或追加。
+     *
+     * @param context    应用程序上下文，用于访问ContentResolver。
+     * @param uri        文件的Uri。
+     * @param content    要写入的文本内容。
+     * @param append     如果为true，则在文件末尾追加文本；如果为false，则覆盖文件内容。
+     * @return           成功写入返回true，否则返回false。
+     */
+    public static boolean writeUriFile(Context context, Uri uri, String content, boolean append) {
+        try {
+            // 根据append参数决定是覆盖还是追加模式
+            OutputStream outputStream = context.getContentResolver().openOutputStream(uri, append ? "wa" : "w");
+            if (outputStream != null) {
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                writer.write(content);
+                writer.flush();
+                writer.close();
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
