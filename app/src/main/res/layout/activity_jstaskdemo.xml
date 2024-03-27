@@ -1,227 +1,253 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.linsheng.FATJS.script.JsTaskDemo">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <TableLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="参数设置"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        android:stretchColumns="0.5">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
-        <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="执行收藏数量(个):"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_span="1"
-                android:gravity="center"
-                android:text=""
-                android:textStyle="bold" />
-            <TextView
-                android:layout_width="78dp"
-                android:layout_height="10dp"
-                android:layout_span="1"
-                android:gravity="center"
-                android:text=""
-                android:textStyle="bold" />
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="10dp"
-                android:layout_span="1"
-                android:gravity="center"
-                android:text=""
-                android:textStyle="bold" />
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="10dp"
-                android:layout_span="1"
-                android:gravity="center"
-                android:text=""
-                android:textStyle="bold" />
+        <EditText
+            android:id="@+id/run_num_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="999"
+            android:inputType="number"
+            android:textSize="16sp"/>
 
-        </TableRow>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
+    </LinearLayout>
 
-        <TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="运行数量(uid)：" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主页停留时间(秒):"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
 
-            <EditText
-                android:id="@+id/run_num_in"
-                android:layout_width="171dp"
-                android:layout_height="wrap_content"
-                android:layout_span="2"
-                android:hint=""
-                android:inputType="number"
-                android:text="86" />
-        </TableRow>
+        <EditText
+            android:id="@+id/index_0_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="6"
+            android:inputType="number"
+            android:textSize="16sp"/>
 
-        <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="至"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="主页停顿(秒)：" />
+        <EditText
+            android:id="@+id/index_1_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="10"
+            android:inputType="number"
+            android:textSize="16sp"/>
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/index_0_in"
-                android:layout_width="69dp"
-                android:layout_height="wrap_content"
-                android:layout_span="1"
-                android:hint=""
-                android:inputType="number"
-                android:text="6" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
-            <TextView
-                android:layout_width="27dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="至" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="视频停留时间(秒):"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
 
-            <EditText
-                android:id="@+id/index_1_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:inputType="number"
-                android:text="10"
-                android:layout_span="1"/>
-        </TableRow>
+        <EditText
+            android:id="@+id/view_0_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="6"
+            android:inputType="number"
+            android:textSize="16sp"/>
 
-        <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="至"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="视频停顿(秒)：" />
+        <EditText
+            android:id="@+id/view_1_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="10"
+            android:inputType="number"
+            android:textSize="16sp"/>
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/view_0_in"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:inputType="number"
-                android:text="8"
-                android:layout_span="1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="至" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收藏间隔时间(秒):"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
 
-            <EditText
-                android:id="@+id/view_1_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:inputType="number"
-                android:text="18"
-                android:layout_span="1"/>
-        </TableRow>
+        <EditText
+            android:id="@+id/jump_0_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="36"
+            android:inputType="number"
+            android:textSize="16sp"/>
 
-        <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="至"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="跳转间隔(秒)：" />
+        <EditText
+            android:id="@+id/jump_1_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="60"
+            android:inputType="number"
+            android:textSize="16sp"/>
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/jump_0_in"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:inputType="number"
-                android:text="12"
-                android:layout_span="1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="至" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择用户性别："
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
 
-            <EditText
-                android:id="@+id/jump_1_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:inputType="number"
-                android:text="18"
-                android:layout_span="1"/>
-        </TableRow>
+        <CheckBox
+            android:id="@+id/gender_m_in"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="男"
+            android:textSize="16sp" />
 
-        <TableRow>
+        <CheckBox
+            android:id="@+id/gender_w_in"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="女"
+            android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="选择性别：" />
+        <CheckBox
+            android:id="@+id/gender_no_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未知"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
+    </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/gender_m_in"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_span="1"
-                android:text="男" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
-            <CheckBox
-                android:id="@+id/gender_w_in"
-                android:layout_width="79dp"
-                android:layout_height="40dp"
-                android:layout_span="1"
-                android:text="女" />
+        <TextView
+            android:id="@+id/uid_file_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="uid文件：/sdcard/uid.txt"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
 
-            <CheckBox
-                android:id="@+id/gender_no_in"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_span="1"
-                android:text="未知"/>
-        </TableRow>
+    </LinearLayout>
 
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="uid文件路径：" />
+    <Button
+        android:id="@+id/uid_file_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="选择文件"
+        android:textSize="16sp"
+        android:layout_gravity="center_vertical"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:layout_marginStart="8dp"/>
 
-            <EditText
-                android:id="@+id/uid_file_in"
-                android:layout_width="141dp"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:layout_span="3"
-                android:text="/sdcard/uid.txt"
-                android:inputType="text"/>
+    <Button
+        android:id="@+id/start_run_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始执行"
+        android:textSize="18sp"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp"/>
 
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="" />
-
-        </TableRow>
-
-        <TableRow
-            android:gravity="center">
-            <Button
-                android:id="@+id/start_run_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_span="3"
-                android:text="开始执行" />
-        </TableRow>
-    </TableLayout>
-</RelativeLayout>
+</LinearLayout>
