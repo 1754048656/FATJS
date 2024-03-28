@@ -188,7 +188,7 @@ public class AccUtils extends AccessibilityService {
             if (root != null && root.getChildCount() != 0) {
                 return root;
             }
-            timeSleep(50);
+            timeSleep(150);
         }
         printLogMsg( "Exception: do not find window", 0);
         return root;
