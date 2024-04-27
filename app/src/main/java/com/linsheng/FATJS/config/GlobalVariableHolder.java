@@ -19,7 +19,8 @@ public class GlobalVariableHolder {
     public static boolean DEV_MODE = false; // FATJS 的开发者模式
     public static V8Runtime v8Runtime;
     public static final String PATH = "/FATJS_DIR/";
-    public static final String FATJS_INFO = "\n\n\n\n\n\n\n\n\n\nauthor: 林笙\n\nwx: FATJS_Lin\n\nGitHub: FATJS";
+    public static String FATJS_INFO = "author: 林笙\n\nwx: FATJS_Lin\n\nGitHub: FATJS";
+    public static String FATJS_INFO_HOME = "\n\n\n\n\n\n\n\n\n\nauthor: 林笙\n\nwx: FATJS_Lin\n\nGitHub: FATJS";
     public static String ANDROID_ID = "";
     public static String pseudoID = "";
     public static String guid = "";

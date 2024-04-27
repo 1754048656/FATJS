@@ -1,6 +1,6 @@
 package com.linsheng.FATJS.ui.home;
 
-import static com.linsheng.FATJS.config.GlobalVariableHolder.FATJS_INFO;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.FATJS_INFO_HOME;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,7 +12,7 @@ public class HomeViewModel extends ViewModel {
 
     public HomeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue(FATJS_INFO);
+        mText.setValue(FATJS_INFO_HOME);
     }
 
     public LiveData<String> getText() {

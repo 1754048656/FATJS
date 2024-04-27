@@ -37,7 +37,6 @@ public class FileUtils {
      * @param filePath 文件的路径
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public static String readFile(String filePath) {
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(

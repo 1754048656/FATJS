@@ -10,7 +10,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
@@ -210,7 +209,6 @@ public class HomeFragment extends Fragment {
                 }
             });
             holder.run_script.setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View view) {
                     if (!name.endsWith(".js")) {
@@ -318,7 +316,6 @@ public class HomeFragment extends Fragment {
     }
 
     private List<Thread> threadList = new ArrayList<>();
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void runScript(String name) {
         String script_path = Environment.getExternalStorageDirectory() + PATH + name;
         if (!isAccessibilityServiceOn()){
