@@ -626,6 +626,48 @@ public class UiObject implements IUiObject{
         return String.valueOf(node.getContentDescription());
     }
 
+    /**
+     * 返回 {string}
+     * 获取控件的className，如果控件没有className，返回""。
+     * @return
+     */
+    public String className() {
+        if (node == null) {
+            return null;
+        }
+
+        return String.valueOf(node.getClassName());
+    }
+
+    /**
+     * 打印 node 信息
+     */
+    public void printInfo() {
+        if (node == null) {
+            return;
+        }
+        String builder = "--------\n" +
+                "package: " + node.getPackageName() + "\n" +
+                "clickable: " + node.isClickable() + "\n" +
+                "scrollable: " + node.isScrollable() + "\n" +
+                "childCount: " + node.getChildCount() + "\n" +
+                "index: " + node.getDrawingOrder() + "\n" +
+                "id: " + node.getViewIdResourceName() + "\n" +
+                "text: " + node.getText() + "\n" +
+                "desc: " + node.getContentDescription() + "\n" +
+                "class: " + node.getClassName();
+        printLogMsg(builder);
+    }
+
+    /**
+     * 打印所有文本
+     */
+    public void printText() {
+        if (node == null) {
+            return;
+        }
+        //printLogMsg(builder);
+    }
 
     /**
      * str {string} 文本
