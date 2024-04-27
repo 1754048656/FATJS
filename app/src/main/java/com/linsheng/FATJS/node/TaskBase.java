@@ -27,47 +27,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class TaskBase extends UiSelector implements ITaskBase{
-    public TaskBase() {
-        _width = mWidth;
-        _height = mHeight;
-        _statusBarHeight = statusBarHeight;
-        _navigationBarHeight = navigationBarHeight;
-        _navigationBarOpen = navigationBarOpen;
-    }
-    private static String base;
-    public void initJavet(String script_path) {
-        try {
-            v8Runtime = V8Host.getV8Instance().createV8Runtime();
-            isRunning = true;
-            isStop = false;
-            killThread = false;
-            String script = FileUtils.readFile(script_path);
-            if (base == null) {
-                base = loadScriptFromAssets("base.js");
-            }
-            v8Runtime.setConverter(new JavetProxyConverter()); // 配置可调用Java方法
-            v8Runtime.getGlobalObject().set("engines", TaskBase.class);
-            v8Runtime.getGlobalObject().set("http", HttpUtils.class);
-            v8Runtime.getGlobalObject().set("websocket", WebSocketUtils.class);
-            v8Runtime.getGlobalObject().set("UiObject", UiObject.class);
-            v8Runtime.getGlobalObject().set("app", App.class);
-            v8Runtime.getGlobalObject().set("Intent", Intent.class);
-            v8Runtime.getGlobalObject().set("ntpService", NtpService.class);
-            if (!script.contains("let task = new engines()")) {
-                script = base + "\n" + script;
-            }
-            v8Runtime.getExecutor(script).executeVoid();
-        } catch (Exception e) {
-            killThread = false;
-            printLogMsg(e.toString());
-        }finally {
-            isRunning = false;
-            isStop = false;
-            killThread = false;
-        }
-    }
-
-    /**********************************************************************************************/
     public Map<String, Object> _getHashMapBuffer() {
         return hashMapBuffer;
     }
@@ -417,5 +376,46 @@ public class TaskBase extends UiSelector implements ITaskBase{
     }
     public void _waitFor() {
         waitFor();
+    }
+
+    /**********************************************************************************************/
+    public TaskBase() {
+        _width = mWidth;
+        _height = mHeight;
+        _statusBarHeight = statusBarHeight;
+        _navigationBarHeight = navigationBarHeight;
+        _navigationBarOpen = navigationBarOpen;
+    }
+    private static String base;
+    public void initJavet(String script_path) {
+        try {
+            v8Runtime = V8Host.getV8Instance().createV8Runtime();
+            isRunning = true;
+            isStop = false;
+            killThread = false;
+            String script = FileUtils.readFile(script_path);
+            if (base == null) {
+                base = loadScriptFromAssets("base.js");
+            }
+            v8Runtime.setConverter(new JavetProxyConverter()); // 配置可调用Java方法
+            v8Runtime.getGlobalObject().set("engines", TaskBase.class);
+            v8Runtime.getGlobalObject().set("http", HttpUtils.class);
+            v8Runtime.getGlobalObject().set("websocket", WebSocketUtils.class);
+            v8Runtime.getGlobalObject().set("UiObject", UiObject.class);
+            v8Runtime.getGlobalObject().set("app", App.class);
+            v8Runtime.getGlobalObject().set("Intent", Intent.class);
+            v8Runtime.getGlobalObject().set("ntpService", NtpService.class);
+            if (!script.contains("let task = new engines()")) {
+                script = base + "\n" + script;
+            }
+            v8Runtime.getExecutor(script).executeVoid();
+        } catch (Exception e) {
+            killThread = false;
+            printLogMsg(e.toString());
+        }finally {
+            isRunning = false;
+            isStop = false;
+            killThread = false;
+        }
     }
 }
