@@ -56,7 +56,7 @@ public class UiCollection implements IUiCollection{
      */
     public UiObject get(int i) {
         UiObject uiObject = new UiObject();
-        if (nodeList.size() == 0) {
+        if (nodeList.isEmpty()) {
             return uiObject;
         }
 
