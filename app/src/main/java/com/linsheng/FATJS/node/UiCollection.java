@@ -1,11 +1,7 @@
 package com.linsheng.FATJS.node;
 
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
-
-import android.os.Build;
 import android.view.accessibility.AccessibilityNodeInfo;
-
-import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +67,6 @@ public class UiCollection implements IUiCollection{
     /**
      * 遍历打印accNodeInfoList
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void foreachPrint() {
         this.nodeList.forEach(node -> {
             printLogMsg("foreachPrint: " + node);
@@ -101,7 +96,7 @@ public class UiCollection implements IUiCollection{
                 item.recycle(); // 释放过滤掉的
         }
         UiObject uiObject = new UiObject();
-        if (filteredList.size() > 0) {
+        if (!filteredList.isEmpty()) {
             uiObject.node = filteredList.get(0);
         }
         return uiObject;

@@ -7,12 +7,7 @@ import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 import static com.linsheng.FATJS.node.AccUtils.timeSleep;
 
 import android.graphics.Rect;
-import android.os.Build;
-import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
-
-import androidx.annotation.RequiresApi;
-
 import com.linsheng.FATJS.utils.StringUtils;
 
 import java.util.HashMap;
@@ -669,7 +664,6 @@ public class UiSelector implements IUiSelector{
      * 另外，如果屏幕上有多个满足条件的控件，findOne()采用深度优先搜索(DFS)，会返回该搜索算法找到的第一个控件。注意控件找到的顺序有时会起到作用。
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject untilFindOne() {
         //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
@@ -716,7 +710,6 @@ public class UiSelector implements IUiSelector{
      * @param timeout
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject untilFindOne(int timeout) {
         printLogMsg("Attributes " + this.containsAttributes, 0);
         Map<String, Object> attributes = this.containsAttributes;
@@ -756,7 +749,6 @@ public class UiSelector implements IUiSelector{
      * 根据当前的选择器所确定的筛选条件，对屏幕上的控件进行搜索，如果找到符合条件的控件则返回该控件；否则返回null。
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject findOne() {
         //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
@@ -783,7 +775,6 @@ public class UiSelector implements IUiSelector{
      * @param accNodeInfo
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject findOne(AccessibilityNodeInfo accNodeInfo) {
         //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
@@ -811,7 +802,6 @@ public class UiSelector implements IUiSelector{
      * @param i
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public UiObject findOne(int i) {
         //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
@@ -849,7 +839,6 @@ public class UiSelector implements IUiSelector{
      * }
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public UiCollection find() {
         //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
@@ -865,7 +854,6 @@ public class UiSelector implements IUiSelector{
         this.containsAttributes = new HashMap<>();
         return uiCollection;
     }
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void depthFirstSearchAll(AccessibilityNodeInfo root, Map<String, Object> attributesMap, UiCollection uiCollection) {
         UiObject uiObject = null;
         int numFlag = 0;
@@ -906,7 +894,6 @@ public class UiSelector implements IUiSelector{
      * }
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean exists() {
         printLogMsg("Attributes " + this.containsAttributes, 0);
         Map<String, Object> attributes = this.containsAttributes;
@@ -936,7 +923,6 @@ public class UiSelector implements IUiSelector{
      * 例如要等待包含"哈哈哈"的文本控件出现的代码为：
      * textContains("哈哈哈").waitFor();
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void waitFor() {
         //printLogMsg("Attributes " + this.containsAttributes);
         Map<String, Object> attributes = this.containsAttributes;
@@ -983,13 +969,11 @@ public class UiSelector implements IUiSelector{
         greeting.greet(name);
     }*/
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private UiObject findOneBFS() {
         AccessibilityNodeInfo root = AccUtils.getRootInActiveMy();
         return breadthFirstSearch(root, this.containsAttributes);
     }
     // 广度优先算法
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private static UiObject breadthFirstSearch(AccessibilityNodeInfo root, Map<String, Object> attributesMap) {
         Queue<AccessibilityNodeInfo> queue = new LinkedList<>();
         queue.offer(root);
@@ -1023,7 +1007,6 @@ public class UiSelector implements IUiSelector{
         return null;
     }
     // 深度优先算法
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private UiObject depthFirstSearch(AccessibilityNodeInfo root, Map<String, Object> attributesMap) {
         UiObject uiObject = null;
         int numFlag = 0;
@@ -1051,7 +1034,6 @@ public class UiSelector implements IUiSelector{
         return null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private static boolean checkAttribute(AccessibilityNodeInfo node, String key, Object value) {
         switch (key) {
             case "text":

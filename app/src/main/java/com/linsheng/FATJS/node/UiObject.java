@@ -102,7 +102,6 @@ public class UiObject implements IUiObject{
      * 手势点击坐标
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean clickPoint() {
         if (node == null) {
             return false;
@@ -128,7 +127,6 @@ public class UiObject implements IUiObject{
      * 手势点击精确坐标，不带偏移，必须指定点击时长
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean clickExactPoint(long time) {
         if (node == null) {
             return false;
@@ -157,7 +155,6 @@ public class UiObject implements IUiObject{
      * @param duration
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private boolean clickByPoint(float x1, float y1, long duration) {
         Path path=new Path();
         x1 = x1 + new Random().nextInt(9) - 4;
@@ -194,7 +191,6 @@ public class UiObject implements IUiObject{
      * @param duration
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private boolean clickByExactPoint(float x1, float y1, long duration) {
         Path path = new Path();
         printLogMsg("[x => " + x1 + ", y => " + y1 + "]");
@@ -243,7 +239,6 @@ public class UiObject implements IUiObject{
      * @param text
      * @return
      */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public boolean setText(String text) {
         if (node == null) {
             return false;
@@ -589,10 +584,7 @@ public class UiObject implements IUiObject{
             return -1;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return node.getDrawingOrder();
-        }
-        return 0;
+        return node.getDrawingOrder();
     }
 
     /**
