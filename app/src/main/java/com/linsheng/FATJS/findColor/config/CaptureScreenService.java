@@ -10,18 +10,14 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
-import android.os.Build;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-
 import com.linsheng.FATJS.R;
-import com.linsheng.FATJS.activitys.MainActivity;
+import com.linsheng.FATJS.activitys.aione_editor.MainActivity;
 
 import java.util.Objects;
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class CaptureScreenService extends Service {
     private int mResultCode;
     private Intent mResultData;
@@ -60,15 +56,11 @@ public class CaptureScreenService extends Service {
 
         /*以下是对Android 8.0的适配*/
         //普通notification适配
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setChannelId("notification_id");
-        }
+        builder.setChannelId("notification_id");
         //前台服务notification适配
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-            NotificationChannel channel = new NotificationChannel("notification_id", "notification_name", NotificationManager.IMPORTANCE_LOW);
-            notificationManager.createNotificationChannel(channel);
-        }
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationChannel channel = new NotificationChannel("notification_id", "notification_name", NotificationManager.IMPORTANCE_LOW);
+        notificationManager.createNotificationChannel(channel);
 
         Notification notification = builder.build(); // 获取构建好的Notification
         notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音

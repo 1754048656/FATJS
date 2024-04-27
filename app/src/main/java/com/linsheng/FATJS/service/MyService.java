@@ -11,15 +11,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.IBinder;
-import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
-import com.linsheng.FATJS.node.AccUtils;
 
 public class MyService extends Service {
     private static final String TAG = GlobalVariableHolder.tag;
@@ -82,13 +77,11 @@ public class MyService extends Service {
             notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音
             startForeground(1, notification);
 
-//            notification.flags |= Notification.FLAG_NO_CLEAR;
-//            startForeground(1, notification);
+            //notification.flags |= Notification.FLAG_NO_CLEAR;
+            //startForeground(1, notification);
 
             return START_STICKY;
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        }catch (Exception ignored) {}
         return 1;
     }
 }

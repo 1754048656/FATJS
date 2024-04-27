@@ -32,7 +32,7 @@ import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.activitys.FloatingButton;
 import com.linsheng.FATJS.activitys.FloatingWindow;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
-import com.linsheng.FATJS.config.WindowPermissionCheck;
+import com.linsheng.FATJS.config.WindowPermission;
 import com.linsheng.FATJS.databinding.FragmentDashboardBinding;
 import com.linsheng.FATJS.findColor.config.ScreenCaptureManager;
 import com.linsheng.FATJS.utils.FileUtils;
@@ -159,7 +159,7 @@ public class DashboardFragment extends Fragment {
     }
     private void floatPermission() {
         // 在其他应用上层显示
-        boolean permission = WindowPermissionCheck.checkPermission(getActivity());
+        boolean permission = WindowPermission.checkPermission(getActivity());
         _float = permission;
         switch_float.setChecked(permission);
         if (permission) {

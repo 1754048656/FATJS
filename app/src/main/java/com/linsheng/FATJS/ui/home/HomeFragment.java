@@ -35,8 +35,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.linsheng.FATJS.R;
-import com.linsheng.FATJS.aione_editor.EditorActivity;
-import com.linsheng.FATJS.aione_editor.Scripts;
+import com.linsheng.FATJS.activitys.aione_editor.EditorActivity;
+import com.linsheng.FATJS.activitys.aione_editor.Scripts;
 
 import com.linsheng.FATJS.databinding.FragmentHomeBinding;
 import com.linsheng.FATJS.node.TaskBase;

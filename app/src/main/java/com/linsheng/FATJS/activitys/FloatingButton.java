@@ -34,7 +34,6 @@ import androidx.annotation.RequiresApi;
 import com.linsheng.FATJS.node.TaskBase;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.StringUtils;
-import com.linsheng.FATJS.utils.VibratorUtil;
 
 public class FloatingButton extends Service {
     private static final String TAG = tag;
@@ -492,7 +491,6 @@ public class FloatingButton extends Service {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void testMethodPre() {
         if (StringUtils.isEmpty(checkedFileName)) {
             printLogMsg("未选中脚本", 0);
@@ -579,6 +577,7 @@ public class FloatingButton extends Service {
      */
     private void testMethod() {
         // 将测试的动作写到这里，点击悬浮窗的 打开 按钮，就可以执行
+        // Test 1
         TaskBase taskDemo = new TaskBase();
         printLogMsg("run script " + checkedFileName, 0);
         @SuppressLint("SdCardPath") String script_path = "/sdcard/FATJS_DIR/" + checkedFileName;

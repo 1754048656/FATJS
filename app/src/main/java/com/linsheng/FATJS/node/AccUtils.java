@@ -14,14 +14,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-
-import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.utils.ExceptionUtil;
@@ -92,7 +89,6 @@ public class AccUtils extends AccessibilityService {
     }
 
     // 刷视频
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public static void viewVideo(int num) {
         UiSelector uiSelector = new UiSelector();
         printLogMsg("刷" + num + "个视频，点掉弹窗", 0);
@@ -255,7 +251,6 @@ public class AccUtils extends AccessibilityService {
         timeSleep(6000);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public static void scrollUp() {
         swipe((int)(mWidth / 2) + new Random().nextInt(100), mHeight - 420 + new Random().nextInt(100),
             (int)(mWidth / 2) + new Random().nextInt(200), 310 - new Random().nextInt(100),
@@ -270,7 +265,6 @@ public class AccUtils extends AccessibilityService {
      * @param y2
      * @param duration
      */
-    @RequiresApi(24)
     public static Boolean swipe(float x1,float y1,float x2,float y2,long duration) {
         try {
             Path path=new Path();
@@ -298,7 +292,6 @@ public class AccUtils extends AccessibilityService {
         return false;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public static boolean click(float x, float y) {
         return clickPoint(x, y, 75 + new Random().nextInt(80));
     }
@@ -309,7 +302,6 @@ public class AccUtils extends AccessibilityService {
      * @param y1
      * @param duration
      */
-    @RequiresApi(24)
     public static boolean clickPoint(float x1, float y1, long duration) {
         Path path = new Path();
         x1 = x1 + new Random().nextInt(9) - 4;
@@ -347,7 +339,6 @@ public class AccUtils extends AccessibilityService {
      * @param y1
      * @param duration
      */
-    @RequiresApi(24)
     public static boolean clickExactPoint(float x1, float y1, long duration) {
         Path path = new Path();
         // printLogMsg("[x => " + x1 + ", y => " + y1 + "]", 0);
@@ -1055,7 +1046,6 @@ public class AccUtils extends AccessibilityService {
      * @param nodeInfo
      * @return
      */
-    @RequiresApi(24)
     public static Boolean clickNodeByPoint(AccessibilityNodeInfo nodeInfo) {
         try {
             if (nodeInfo != null) {
@@ -1115,7 +1105,6 @@ public class AccUtils extends AccessibilityService {
      * @param y1
      * @param duration
      */
-    @RequiresApi(24)
     public static boolean doubleClickPoint(float x1,float y1,long duration){
         Path path=new Path();
         path.moveTo(x1,y1);
@@ -1201,7 +1190,6 @@ public class AccUtils extends AccessibilityService {
      * @param appName
      * @return
      */
-    @RequiresApi(24)
     public static boolean openApp(String appName) {
         // 打开应用
         home();
@@ -1209,7 +1197,6 @@ public class AccUtils extends AccessibilityService {
         return new UiSelector().textMatches(appName).findOne().click();
     }
 
-    @RequiresApi(24)
     public static boolean swipeFYS(float x1,float y1,float x2,float y2,long duration){
         Path pathA=new Path();
         Path pathB=new Path();
@@ -1237,7 +1224,6 @@ public class AccUtils extends AccessibilityService {
         },null);
     }
 
-    @RequiresApi(24)
     public static boolean zoom(float x1,float y1,float x2,float y2, float x3,float y3,float x4,float y4,long duration){
         Path pathA=new Path();
         Path pathB=new Path();

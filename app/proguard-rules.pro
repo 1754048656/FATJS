@@ -19,3 +19,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#################
+#项目自定义混淆配置
+#################
+-classobfuscationdictionary ./pro-android.txt
+-packageobfuscationdictionary ./pro-android.txt
+-obfuscationdictionary ./pro-android.txt

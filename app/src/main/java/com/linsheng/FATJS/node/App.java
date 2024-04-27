@@ -3,16 +3,15 @@ package com.linsheng.FATJS.node;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class App {
-
     public Intent _intent(String jsonText) {
-        JSONObject parseObject = JSONObject.parseObject(jsonText);
-        String data = parseObject.getString("data");
+        JsonObject jsonObject = JsonParser.parseString(jsonText).getAsJsonObject();
+        String data = jsonObject.get("data").getAsString();
         Intent intent = new Intent();
         intent.setData(Uri.parse(data));
         return intent;
     }
-
 }

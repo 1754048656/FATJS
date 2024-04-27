@@ -12,6 +12,8 @@ dependencyResolutionManagement {
         mavenCentral()
         // JitPack 远程仓库 https://jitpack.io
         maven { url 'https://jitpack.io' }
+        maven { url 'https://developer.huawei.com/repo' }
+        maven { url 'https://developer.hihonor.com/repo' }
     }
 }
 rootProject.name = "FATJS"

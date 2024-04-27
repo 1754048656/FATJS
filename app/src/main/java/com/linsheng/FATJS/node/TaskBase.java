@@ -7,15 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Build;
 import android.view.accessibility.AccessibilityNodeInfo;
-
-import androidx.annotation.RequiresApi;
-
-import com.alibaba.fastjson2.JSONObject;
 import com.caoccao.javet.exceptions.JavetException;
 import com.caoccao.javet.interop.V8Host;
 import com.caoccao.javet.interop.converters.JavetProxyConverter;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.linsheng.FATJS.findColor.ScreenLib;
 import com.linsheng.FATJS.ntptime.NtpService;
 import com.linsheng.FATJS.okhttp3.WebSocketUtils;
@@ -141,8 +138,8 @@ public class TaskBase extends UiSelector implements ITaskBase{
     }
     public Intent _intent(String jsonText) {
         try {
-            JSONObject jsonObject = JSONObject.parseObject(jsonText);
-            String data = jsonObject.getString("data");
+            JsonObject jsonObject = JsonParser.parseString(jsonText).getAsJsonObject();
+            String data = jsonObject.get("data").getAsString();
             Intent intent = new Intent();
             intent.setData(Uri.parse(data));
             return intent;

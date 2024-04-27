@@ -22,8 +22,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.TypeReference;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.linsheng.FATJS.R;
 import com.linsheng.FATJS.node.TaskBase;
 import com.linsheng.FATJS.utils.ExceptionUtil;
@@ -31,6 +31,7 @@ import com.linsheng.FATJS.utils.FileUtils;
 import com.linsheng.FATJS.utils.StringUtils;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -109,7 +110,10 @@ public class JsTaskDemo extends AppCompatActivity {
             return;
         }
         try {
-            HashMap<String, Object> restoredMap = JSON.parseObject(json, new TypeReference<HashMap<String, Object>>(){});
+            // 使用Gson来解析JSON字符串到Map
+            Gson gson = new Gson();
+            Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
+            HashMap<String, Object> restoredMap = gson.fromJson(json, type);
 
             // 输出验证
             printLogMsg("restoredMap: \n" + restoredMap, 0);
@@ -127,8 +131,7 @@ public class JsTaskDemo extends AppCompatActivity {
             gender_m_in.setChecked((Boolean) restoredMap.get("gender_m"));
             gender_w_in.setChecked((Boolean) restoredMap.get("gender_w"));
             gender_no_in.setChecked((Boolean) restoredMap.get("gender_no"));
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception ignored){
         }
     }
 
@@ -149,7 +152,9 @@ public class JsTaskDemo extends AppCompatActivity {
         saveMap.put("gender_w", gender_w_in.isChecked());
         saveMap.put("gender_no", gender_no_in.isChecked());
 
-        String json = JSON.toJSONString(saveMap);
+        // 使用Gson来将Map转换为JSON字符串
+        Gson gson = new Gson();
+        String json = gson.toJson(saveMap);
         printLogMsg("json: \n" + json, 0);
         FileUtils.writeFile(fatjs_config, json);
     }

@@ -2,17 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--    sdcard 读写权限  -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+    <!-- sdcard 读写权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <!-- network -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--  震动 -->
+    <!--<uses-permission android:name="android.permission.VIBRATE" />-->
 
     <!-- 悬浮窗 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -22,6 +26,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
+        android:name=".WrapperApplication"
         android:requestLegacyExternalStorage="true"
         android:enableOnBackInvokedCallback="true"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -32,7 +37,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.FATJS"
-        tools:targetApi="31">
+        tools:targetApi="34">
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -45,9 +50,8 @@
         </provider>
 
         <activity
-            android:name=".aione_editor.MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:name=".activitys.aione_editor.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -62,7 +66,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".aione_editor.EditorActivity"
+        <activity android:name=".activitys.aione_editor.EditorActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -87,7 +91,7 @@
         </activity>
 
         <activity
-            android:name=".aione_editor.ScriptsActivity"
+            android:name=".activitys.aione_editor.ScriptsActivity"
             android:noHistory="true"
             android:exported="true">
             <intent-filter>

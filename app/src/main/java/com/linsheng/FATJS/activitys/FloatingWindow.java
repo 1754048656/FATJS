@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
@@ -28,10 +27,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-
 import com.linsheng.FATJS.config.GlobalVariableHolder;
-import com.linsheng.FATJS.node.AccUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -105,10 +101,7 @@ public class FloatingWindow extends Service {
                 ll.removeAllViews();
                 ll.addView(createText("日志面板log"));
             } else {
-                // 日志相关
-                GlobalVariableHolder.broadcast_map.put("msg", false);
-
-                // 日志打印
+                // 日志相关 日志打印
                 printLog(intent.getStringExtra("msg"));
             }
         }
@@ -126,9 +119,7 @@ public class FloatingWindow extends Service {
     }
     private void setTypePhone(WindowManager.LayoutParams parameters) {
         Log.i(TAG, "onCreate: Build.VERSION.SDK_INT => " + Build.VERSION.SDK_INT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            parameters.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        }
+        parameters.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
     }
     public TextView createText(String textContent) {
         TextView content_text = new TextView(context);;
@@ -196,7 +187,6 @@ public class FloatingWindow extends Service {
         return formatter.format(currentTime);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate() {
         super.onCreate();

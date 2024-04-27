@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'com.linsheng.FATJS'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.linsheng.FATJS"
@@ -22,8 +22,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -52,5 +53,7 @@ dependencies {
     implementation 'com.caoccao.javet:javet-android:3.0.0' // Android (arm, arm64, x86 and x86_64)
     implementation 'com.github.getActivity:XXPermissions:18.3' // 权限请求框架：https://github.com/getActivity/XXPermissions
     implementation("com.squareup.okhttp3:okhttp:4.10.0") // okhttp3
-    implementation 'com.alibaba.fastjson2:fastjson2:2.0.41' // fastjson v2
+    implementation 'com.google.code.gson:gson:2.10.1' // gson
+    implementation 'com.github.gzu-liyujiang:Android_CN_OAID:4.2.9' // Android_CN_OAID
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'  // Google Play
 }
