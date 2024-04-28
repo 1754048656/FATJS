@@ -2,22 +2,19 @@ package com.linsheng.FATJS.node;
 
 import static com.linsheng.FATJS.node.AccUtils.AccessibilityHelper;
 import static com.linsheng.FATJS.node.AccUtils.findAllText;
+import static com.linsheng.FATJS.node.AccUtils.getBounds;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.accessibility.AccessibilityNodeInfo;
-
-import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.utils.StringUtils;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -671,7 +668,12 @@ public class UiObject implements IUiObject{
         if (StringUtils.isNotEmpty(desc))
             builder.append("desc: ").append(desc).append("\n");
 
-        builder.append("class: ").append(node.getClassName());
+        builder.append("class: ").append(node.getClassName()).append("\n");
+
+        Rect bounds = getBounds(node);
+        String rectString = "[" + bounds.left + "," + bounds.top + "]" + "[" + bounds.right + "," + bounds.bottom + "]";
+        builder.append("bounds: ").append(rectString);
+
         printLogMsg(builder.toString());
     }
 
