@@ -1044,7 +1044,9 @@ public class UiSelector implements IUiSelector{
             case "textEndsWith":
                 return String.valueOf(node.getText()).endsWith(String.valueOf(value));
             case "textMatches":
-                return String.valueOf(node.getText()).matches(String.valueOf(value));
+                String text = String.valueOf(node.getText());
+                text = text.equals("null") ? "" : text;
+                return text.matches(String.valueOf(value));
             case "desc":
             case "descContains":
                 return String.valueOf(node.getContentDescription()).contains(String.valueOf(value));
@@ -1053,7 +1055,9 @@ public class UiSelector implements IUiSelector{
             case "descEndsWith":
                 return String.valueOf(node.getContentDescription()).endsWith(String.valueOf(value));
             case "descMatches":
-                return String.valueOf(node.getContentDescription()).matches(String.valueOf(value));
+                String desc = String.valueOf(node.getContentDescription());
+                desc = desc.equals("null") ? "" : desc;
+                return desc.matches(String.valueOf(value));
             case "id":
             case "idContains":
                 return String.valueOf(node.getViewIdResourceName()).contains(String.valueOf(value));
