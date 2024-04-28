@@ -1,6 +1,7 @@
 package com.linsheng.FATJS.node;
 
 import static com.linsheng.FATJS.node.AccUtils.AccessibilityHelper;
+import static com.linsheng.FATJS.node.AccUtils.findAllText;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 import android.accessibilityservice.AccessibilityService;
@@ -14,7 +15,9 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import androidx.annotation.RequiresApi;
 
 import com.linsheng.FATJS.config.GlobalVariableHolder;
+import com.linsheng.FATJS.utils.StringUtils;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -646,27 +649,49 @@ public class UiObject implements IUiObject{
         if (node == null) {
             return;
         }
-        String builder = "--------\n" +
-                "package: " + node.getPackageName() + "\n" +
-                "clickable: " + node.isClickable() + "\n" +
-                "scrollable: " + node.isScrollable() + "\n" +
-                "childCount: " + node.getChildCount() + "\n" +
-                "index: " + node.getDrawingOrder() + "\n" +
-                "id: " + node.getViewIdResourceName() + "\n" +
-                "text: " + node.getText() + "\n" +
-                "desc: " + node.getContentDescription() + "\n" +
-                "class: " + node.getClassName();
-        printLogMsg(builder);
+
+        StringBuilder builder = new StringBuilder("--------\n");
+
+        builder.append("package: ").append(node.getPackageName()).append("\n");
+        builder.append("clickable: ").append(node.isClickable()).append("\n");
+        builder.append("scrollable: ").append(node.isScrollable()).append("\n");
+        builder.append("childCount: ").append(node.getChildCount()).append("\n");
+        // index (getDrawingOrder) 和 id (getViewIdResourceName) 可能需要根据实际需求来判断是否添加
+        builder.append("index: ").append(node.getDrawingOrder()).append("\n");
+
+        String idResourceName = node.getViewIdResourceName();
+        if (StringUtils.isNotEmpty(idResourceName))
+            builder.append("id: ").append(idResourceName).append("\n");
+
+        CharSequence text = node.getText();
+        if (StringUtils.isNotEmpty(text))
+            builder.append("text: ").append(text).append("\n");
+
+        CharSequence desc = node.getContentDescription();
+        if (StringUtils.isNotEmpty(desc))
+            builder.append("desc: ").append(desc).append("\n");
+
+        builder.append("class: ").append(node.getClassName());
+        printLogMsg(builder.toString());
     }
 
     /**
-     * 打印所有文本
+     * 打印节点下所有文本
      */
     public void printText() {
         if (node == null) {
             return;
         }
-        //printLogMsg(builder);
+        List<String> allText = findAllText(node);
+        if (allText != null && !allText.isEmpty()) {
+            StringBuilder text = new StringBuilder();
+            text.append("------\n");
+            for (String item : allText) {
+                text.append(item).append("\n");
+            }
+            String trim = text.toString().trim();
+            printLogMsg(trim);
+        }
     }
 
     /**

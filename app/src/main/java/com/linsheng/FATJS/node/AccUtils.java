@@ -495,13 +495,16 @@ public class AccUtils extends AccessibilityService {
     // 递归找元素
     private static void recursionFindAllText(AccessibilityNodeInfo root) {
         String text_tmp = String.valueOf(root.getText());
-        if (text_tmp != null && !"".equals(text_tmp) && !"null".equals(text_tmp)) {
+        if (!text_tmp.isEmpty() && !"null".equals(text_tmp)) {
             textList.add("text\t" + text_tmp);
         }
         String desc_tmp = String.valueOf(root.getContentDescription());
-        if (desc_tmp != null && !"".equals(desc_tmp) && !"null".equals(desc_tmp)) {
+        if (!desc_tmp.isEmpty() && !"null".equals(desc_tmp)) {
             textList.add("desc\t" + desc_tmp);
         }
+        /*if (textList.size() >= 20) {
+            return;
+        }*/
         for (int i = 0; i < root.getChildCount(); i++) {
             recursionFindAllText(root.getChild(i));
         }
