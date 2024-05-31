@@ -411,6 +411,10 @@ public class AccUtils extends AccessibilityService {
                             return true;
                         }
                     }
+                }else {
+                    // 系统隐藏了无障碍应用列表
+                    printLogMsg("系统隐藏了无障碍应用列表，需自己判断无障碍权限是否授予", 0);
+                    return true;
                 }
             }
         }catch (Exception ex){
