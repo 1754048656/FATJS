@@ -418,7 +418,6 @@ public class AccUtils extends AccessibilityService {
                 }
             }
         }catch (Exception ex){
-            ex.printStackTrace();
             return false;
         }
         return false;
