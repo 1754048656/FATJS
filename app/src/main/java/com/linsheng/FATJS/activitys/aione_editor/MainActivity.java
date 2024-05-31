@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "guid: " + _guid);
                 Log.i(TAG, "supported: " + DeviceID.supportedOAID(context));
                 Log.i(TAG, "OAID/AAID: " + result);
-                FATJS_INFO += String.format("\n\npseudoID:\n%s\n\nguid:\n%s\n\nOAID/AAID:\n%s", pseudoID, guid, result);
+                //FATJS_INFO += String.format("\n\npseudoID:\n%s\n\nguid:\n%s\n\nOAID/AAID:\n%s", pseudoID, guid, result);
             }
             @Override
             public void onOAIDGetError(Exception error) {

@@ -39,7 +39,7 @@ public class NtpService {
                 index ++;
             }
         }
-        if (ntpTimeList.size() == 0) {
+        if (ntpTimeList.isEmpty()) {
             return -1;
         }
         Log.i(TAG, "calibrationTime: index: " + index);
@@ -67,7 +67,7 @@ public class NtpService {
                 index ++;
             }
         }
-        if (ntpTimeList.size() == 0) {
+        if (ntpTimeList.isEmpty()) {
             return -1;
         }
         Log.i(TAG, "calibrationTime: index: " + index);

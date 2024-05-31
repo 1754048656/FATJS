@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class ImageSaveUtil {
-    private static final String SD_PATH = Environment.getExternalStorageDirectory().getPath() + "/FATJS_DIR/";
+    private static final String SD_PATH = Environment.getExternalStorageDirectory().getPath() + "/fatjs/";
 
     public static void saveBitmap2file(Bitmap bmp, Context context, String name) {
         String savePath;

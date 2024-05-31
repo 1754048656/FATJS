@@ -580,7 +580,7 @@ public class FloatingButton extends Service {
         // Test 1
         TaskBase taskDemo = new TaskBase();
         printLogMsg("run script " + checkedFileName, 0);
-        @SuppressLint("SdCardPath") String script_path = "/sdcard/FATJS_DIR/" + checkedFileName;
+        @SuppressLint("SdCardPath") String script_path = "/sdcard/fatjs/" + checkedFileName;
         // printLogMsg("script_path => " + script_path, 0);
         taskDemo.initJavet(script_path);
     }

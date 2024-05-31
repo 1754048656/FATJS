@@ -234,7 +234,7 @@ public class DashboardFragment extends Fragment {
             TextUtils.SimpleStringSplitter splitter = new TextUtils.SimpleStringSplitter(':');
             if (enabled == 1) {
                 String settingValue = Settings.Secure.getString(GlobalVariableHolder.context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
-                if (settingValue != null) {
+                if (StringUtils.isNotEmpty(settingValue)) {
                     splitter.setString(settingValue);
                     while (splitter.hasNext()) {
                         String accessibilityService = splitter.next();
@@ -245,10 +245,15 @@ public class DashboardFragment extends Fragment {
                             return true;
                         }
                     }
+                }else {
+                    // 系统隐藏了无障碍应用列表
+                    _accessibility = true;
+                    switch_accessibility.setChecked(true);
+                    printLogMsg("系统隐藏了无障碍应用列表，需自己判断无障碍权限是否授予", 0);
+                    return true;
                 }
             }
-        }catch (Exception ex){
-            ex.printStackTrace();
+        }catch (Exception e){
             _accessibility = false;
             switch_accessibility.setChecked(false);
             printLogMsg("无障碍权限未授予", 0);

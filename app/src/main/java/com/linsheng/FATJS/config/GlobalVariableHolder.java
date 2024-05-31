@@ -18,9 +18,8 @@ import java.util.HashMap;
 public class GlobalVariableHolder {
     public static boolean DEV_MODE = false; // FATJS 的开发者模式
     public static V8Runtime v8Runtime;
-    public static final String PATH = "/FATJS_DIR/";
-    public static String FATJS_INFO = "author: 林笙\n\nwx: FATJS_Lin\n\nGitHub: FATJS";
-    public static String FATJS_INFO_HOME = "\n\n\n\n\n\n\n\n\n\nauthor: 林笙\n\nwx: FATJS_Lin\n\nGitHub: FATJS";
+    public static final String PATH = "/fatjs/";
+    public static String FATJS_INFO = "\n\n\n\n\n\n\n\n\n\nauthor: 林笙\n\nwx: FATJS_Lin\n\nGitHub: FATJS";
     public static String ANDROID_ID = "";
     public static String pseudoID = "";
     public static String guid = "";
@@ -49,7 +48,7 @@ public class GlobalVariableHolder {
     public static int float_x = 0;
     public static int float_y = 0;
 
-    public static String tag = "FATJS_LOG";
+    public static String tag = "fatjslog";
     // 停顿时长
     public static final int waitHrefOfSecond  =   500;
     public static final int waitOneSecond     =   1000;
@@ -72,11 +71,11 @@ public class GlobalVariableHolder {
         // 将JsonObject转换为字符串
         String configString = jsonObject.toString();
         printLogMsg(configString, 0);
-        FileUtils.writeToTxt("/sdcard/FATJS_DIR/config.json", configString);
+        FileUtils.writeToTxt("/sdcard/fatjs/config.json", configString);
     }
 
     public static void reviewConfig() {
-        String readFile = FileUtils.readFile("/sdcard/FATJS_DIR/config.json");
+        String readFile = FileUtils.readFile("/sdcard/fatjs/config.json");
         if (StringUtils.isEmpty(readFile)) {
             printLogMsg("reviewConfig empty", 0);
             saveConfig();

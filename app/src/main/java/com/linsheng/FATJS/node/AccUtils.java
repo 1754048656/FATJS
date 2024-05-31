@@ -22,6 +22,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.utils.ExceptionUtil;
+import com.linsheng.FATJS.utils.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -402,7 +403,7 @@ public class AccUtils extends AccessibilityService {
             TextUtils.SimpleStringSplitter splitter = new TextUtils.SimpleStringSplitter(':');
             if (enabled == 1) {
                 String settingValue = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
-                if (settingValue != null) {
+                if (StringUtils.isNotEmpty(settingValue)) {
                     splitter.setString(settingValue);
                     while (splitter.hasNext()) {
                         String accessibilityService = splitter.next();
