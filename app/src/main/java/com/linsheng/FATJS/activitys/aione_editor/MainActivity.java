@@ -33,6 +33,7 @@ import com.linsheng.FATJS.activitys.FloatingButton;
 import com.linsheng.FATJS.activitys.FloatingWindow;
 import com.linsheng.FATJS.config.GlobalVariableHolder;
 import com.linsheng.FATJS.config.WindowPermission;
+import com.linsheng.FATJS.cron4j.CronTaskManager;
 import com.linsheng.FATJS.databinding.ActivityMainBinding;
 import com.linsheng.FATJS.findColor.config.CaptureScreenService;
 import com.linsheng.FATJS.findColor.config.ScreenCaptureManager;
@@ -42,6 +43,7 @@ import com.linsheng.FATJS.ui.dashboard.DashboardFragment;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = GlobalVariableHolder.tag;
     private ActivityMainBinding binding;
+    private CronTaskManager cronTaskManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +80,19 @@ public class MainActivity extends AppCompatActivity {
 
         DevicesOAID(); // OAID/AAID
         reviewConfig(); // 回显 config 数据
+
+        cronTaskManager = new CronTaskManager(this);
+        if (CRON_TASK) {
+            cronTaskManager.loadTasksFromFile(CRON_TASK_FILE);
+            cronTaskManager.start();
+        }
     }
 
     private void DevicesOAID() {
         String _pseudoID = DeviceIdentifier.getPseudoID();
         String _guid = DeviceIdentifier.getGUID(context);
-        String _oaid = DeviceIdentifier.getOAID(this);
-        Log.i(TAG, "_oaid: " + _oaid);
+        //String _oaid = DeviceIdentifier.getOAID(this);
+        //Log.i(TAG, "_oaid: " + _oaid);
         DeviceID.getOAID(context, new IGetter() {
             @Override
             public void onOAIDGetComplete(String result) {
@@ -96,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "guid: " + _guid);
                 Log.i(TAG, "supported: " + DeviceID.supportedOAID(context));
                 Log.i(TAG, "OAID/AAID: " + result);
-                //FATJS_INFO += String.format("\n\npseudoID:\n%s\n\nguid:\n%s\n\nOAID/AAID:\n%s", pseudoID, guid, result);
             }
             @Override
             public void onOAIDGetError(Exception error) {
@@ -113,6 +120,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void to_acc(View v) {
         startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+    }
+
+    public void flash_cron_task(View v) {
+        if (cronTaskManager == null) {
+            Log.i(TAG, "cronTaskManager == null");
+            return;
+        }
+        cronTaskManager.clearAllTasks();
+        cronTaskManager.loadTasksFromFile(CRON_TASK_FILE);
+        cronTaskManager.start();
+        Toast.makeText(context, "定时任务已刷新", Toast.LENGTH_SHORT).show();
     }
 
     private void openFloatWindow() {

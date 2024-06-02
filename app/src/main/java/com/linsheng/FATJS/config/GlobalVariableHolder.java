@@ -16,6 +16,8 @@ import com.linsheng.FATJS.utils.StringUtils;
 import java.util.HashMap;
 
 public class GlobalVariableHolder {
+    public static boolean CRON_TASK = false; // 定时任务是否开启
+    public static String CRON_TASK_FILE = "cron_tasks.txt"; // 定时任务配置
     public static boolean DEV_MODE = false; // FATJS 的开发者模式
     public static V8Runtime v8Runtime;
     public static final String PATH = "/fatjs/";
@@ -66,6 +68,7 @@ public class GlobalVariableHolder {
         // 使用Gson的JsonObject来构建和填充数据
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("DEV_MODE", DEV_MODE);
+        jsonObject.addProperty("CRON_TASK", CRON_TASK);
         jsonObject.addProperty("CHECKED_FILE_NAME", checkedFileName);
 
         // 将JsonObject转换为字符串
@@ -85,8 +88,15 @@ public class GlobalVariableHolder {
         JsonObject parseObject = JsonParser.parseString(readFile).getAsJsonObject();
 
         // 从解析后的JsonObject中获取特定的值
-        DEV_MODE = parseObject.get("DEV_MODE").getAsBoolean();
-        checkedFileName = parseObject.get("CHECKED_FILE_NAME").getAsString();
+        if (parseObject.has("DEV_MODE")) {
+            DEV_MODE = parseObject.get("DEV_MODE").getAsBoolean();
+        }
+        if (parseObject.has("CRON_TASK")) {
+            CRON_TASK = parseObject.get("CRON_TASK").getAsBoolean();
+        }
+        if (parseObject.has("CHECKED_FILE_NAME")) {
+            checkedFileName = parseObject.get("CHECKED_FILE_NAME").getAsString();
+        }
     }
     public static HashMap<String, Object> hashMapBuffer;
 }

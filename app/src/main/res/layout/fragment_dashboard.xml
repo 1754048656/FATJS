@@ -136,6 +136,41 @@
                 android:layout_height="wrap_content" />
         </TableRow>
 
+        <TableRow
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/cron_task"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:textSize="21dp"
+                android:text="定时任务" />
+            <Switch
+                android:id="@+id/switch_cron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/flash_cron_task"
+                android:layout_width="wrap_content"
+                android:backgroundTint="#000000"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:onClick="flash_cron_task"
+                android:padding="2dp"
+                android:layout_span="2"
+                android:textSize="16dp"
+                android:textColor="@color/background_color"
+                android:text="刷新定时任务" />
+        </TableRow>
+
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

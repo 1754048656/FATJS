@@ -56,4 +56,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1' // gson
     implementation 'com.github.gzu-liyujiang:Android_CN_OAID:4.2.9' // Android_CN_OAID
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'  // Google Play
+    implementation 'it.sauronsoftware.cron4j:cron4j:2.2.5' // Cron4j
 }

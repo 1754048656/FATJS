@@ -40,6 +40,7 @@ import com.linsheng.FATJS.activitys.aione_editor.Scripts;
 import com.linsheng.FATJS.databinding.FragmentHomeBinding;
 import com.linsheng.FATJS.node.TaskBase;
 import com.linsheng.FATJS.utils.ExceptionUtil;
+import com.linsheng.FATJS.utils.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -351,7 +352,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void shareScript(final String mpath) {
-        if (mpath == "") return;
+        if (StringUtils.isEmpty(mpath)) return;
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         Uri uri = Uri.fromFile(new File(mpath));
