@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.linsheng.FATJS.activitys.aione_editor.EditorActivity;
 import com.linsheng.FATJS.node.TaskBase;
 import com.linsheng.FATJS.utils.ExceptionUtil;
+import com.linsheng.FATJS.utils.ThreadUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -106,8 +107,10 @@ public class CronTaskManager {
                 if (!isAccessibilityServiceOn()){
                     //Log.i(tag, "请开启无障碍服务");
                     printLogMsg("请开启无障碍服务");
-                    Toast.makeText(context, "请开启无障碍服务", Toast.LENGTH_SHORT).show();
-                    mainActivity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                    ThreadUtils.runOnMainThread(() -> {
+                        Toast.makeText(context, "请开启无障碍服务", Toast.LENGTH_SHORT).show();
+                        mainActivity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                    });
                     return;
                 }
                 // 判断是否有任务正在执行

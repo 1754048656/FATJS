@@ -3,6 +3,7 @@ package com.linsheng.FATJS.activitys.aione_editor;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.*;
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -42,8 +43,8 @@ import com.linsheng.FATJS.ui.dashboard.DashboardFragment;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = GlobalVariableHolder.tag;
-    private ActivityMainBinding binding;
-    private CronTaskManager cronTaskManager;
+    @SuppressLint("StaticFieldLeak")
+    public static CronTaskManager cronTaskManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         // openForwardService();
         openFloatWindow();
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.linsheng.FATJS.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

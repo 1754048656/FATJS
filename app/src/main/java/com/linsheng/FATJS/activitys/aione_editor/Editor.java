@@ -1,5 +1,11 @@
 package com.linsheng.FATJS.activitys.aione_editor;
 
+import static com.linsheng.FATJS.activitys.aione_editor.MainActivity.cronTaskManager;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.CRON_TASK;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.CRON_TASK_FILE;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.tag;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,6 +18,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
@@ -142,9 +149,26 @@ public class Editor {
 
     public void save() {
         Scripts.write(path, editor.getText().toString());
-        Toast.makeText(context, name + " saved", Toast.LENGTH_SHORT).show();
+        if (name.equals(CRON_TASK_FILE)) {
+            flushCronTask();
+        }else {
+            Toast.makeText(context, name + " saved", Toast.LENGTH_SHORT).show();
+        }
         after_save();
         activity.finish();
+    }
+
+    private void flushCronTask() {
+        if (cronTaskManager == null) {
+            Log.i(tag, "cronTaskManager == null");
+            return;
+        }
+        if (CRON_TASK) {
+            cronTaskManager.clearAllTasks();
+            cronTaskManager.loadTasksFromFile(CRON_TASK_FILE);
+            cronTaskManager.start();
+        }
+        Toast.makeText(context, "定时任务已刷新", Toast.LENGTH_SHORT).show();
     }
 
     public void save_as_dialog() {
