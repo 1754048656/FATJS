@@ -243,9 +243,9 @@ public class EditorActivity extends AppCompatActivity {
         if (__isOpenFloatWin) {
             isOpenFloatWin = true;
         }
-        if (!DEV_MODE) {
+        /*if (!DEV_MODE) {
             moveFloatWindow("打开");
-        }
+        }*/
         super.finish();
     }
 
