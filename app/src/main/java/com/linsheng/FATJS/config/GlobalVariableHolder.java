@@ -18,7 +18,8 @@ import java.util.HashMap;
 
 public class GlobalVariableHolder {
     public static boolean CRON_TASK = false; // 定时任务是否开启
-    public static String CRON_TASK_FILE = "cron_tasks.txt"; // 定时任务配置
+    public static String CRON_TASK_FILE = "定时任务配置.txt"; // 定时任务配置
+    public static String CRON_TASK_FILE_TEST = "test_demo.js"; // 定时任务测试
     public static boolean DEV_MODE = false; // FATJS 的开发者模式
     public static V8Runtime v8Runtime;
     @SuppressLint("SdCardPath")

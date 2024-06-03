@@ -1,6 +1,7 @@
 package com.linsheng.FATJS.cron4j;
 
 import static com.linsheng.FATJS.config.GlobalVariableHolder.ABSOLUTE_PATH;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.CRON_TASK_FILE;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
@@ -65,7 +66,7 @@ public class CronTaskManager {
             }
             reader.close();
         } catch (Exception e) {
-            Log.i(tag, "cron_tasks.txt读取失败");
+            Log.i(tag, CRON_TASK_FILE + "读取失败");
         }
     }
 

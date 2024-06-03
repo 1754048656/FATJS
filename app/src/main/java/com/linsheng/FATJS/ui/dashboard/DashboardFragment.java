@@ -3,6 +3,7 @@ package com.linsheng.FATJS.ui.dashboard;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.ABSOLUTE_PATH;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.CRON_TASK;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.CRON_TASK_FILE;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.CRON_TASK_FILE_TEST;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.DEV_MODE;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.PATH;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
@@ -69,7 +70,6 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        printLogMsg("checkPermissions onStart", 0);
         checkPermissions();
     }
 
@@ -111,7 +111,7 @@ public class DashboardFragment extends Fragment {
         switch_storage.setChecked(permission);
         if (permission) {
             // 权限已经被授予，可以进行SD卡读写操作
-            printLogMsg("SD卡读写权限已授予", 0);
+            //printLogMsg("SD卡读写权限已授予", 0);
             cronTaskDemo();
         } else {
             // 权限尚未被授予，需要进行相应处理
@@ -122,8 +122,8 @@ public class DashboardFragment extends Fragment {
     @SuppressLint("SdCardPath")
     private void cronTaskDemo() {
         if (!FileUtils.fileExists(ABSOLUTE_PATH + CRON_TASK_FILE)) {
-            FileUtils.writeFile(ABSOLUTE_PATH + "cron_task_demo.js", "showLog();print('cron task is running')");
-            FileUtils.writeFile(ABSOLUTE_PATH + CRON_TASK_FILE, "* * * * * cron_task_demo.js");
+            FileUtils.writeFile(ABSOLUTE_PATH + CRON_TASK_FILE_TEST, "showLog();print('cron task is running')");
+            FileUtils.writeFile(ABSOLUTE_PATH + CRON_TASK_FILE, "* * * * *  " + CRON_TASK_FILE_TEST);
         }
     }
 
@@ -182,7 +182,7 @@ public class DashboardFragment extends Fragment {
         _float = permission;
         switch_float.setChecked(permission);
         if (permission) {
-            printLogMsg("悬浮窗权限已授予", 0);
+            //printLogMsg("悬浮窗权限已授予", 0);
         }else {
             // 权限尚未被授予，需要进行相应处理
             printLogMsg("悬浮窗权限未授予", 0);
@@ -233,12 +233,12 @@ public class DashboardFragment extends Fragment {
         if (ScreenCaptureManager.getInstance().isOpen()) {
             _screen = true;
             switch_screen.setChecked(true);
-            printLogMsg("屏幕录制权限已授予", 0);
+            //printLogMsg("屏幕录制权限已授予", 0);
             return;
         }
         _screen = false;
         switch_screen.setChecked(false);
-        printLogMsg("屏幕录制权限未授予", 0);
+        //printLogMsg("屏幕录制权限未授予", 0);
     }
     // 开启捕获屏幕
     public void getMediaProjectionManger() {
@@ -259,7 +259,7 @@ public class DashboardFragment extends Fragment {
                         if (accessibilityService.equals(service)) {
                             _accessibility = true;
                             switch_accessibility.setChecked(true);
-                            printLogMsg("无障碍权限已授予", 0);
+                            //printLogMsg("无障碍权限已授予", 0);
                             return true;
                         }
                     }

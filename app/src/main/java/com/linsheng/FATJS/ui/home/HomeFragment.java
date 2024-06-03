@@ -86,13 +86,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        printLogMsg("HomeFragment onStart", 0);
         getFileList(0);
         // 备份记录悬浮窗是否打开
         __isOpenFloatWin = isOpenFloatWin;
-        if (DEV_MODE) {
-            moveFloatWindow("隐藏");
-        }
+        moveFloatWindow("隐藏");
     }
 
     public View aboutBtn;
@@ -248,7 +245,7 @@ public class HomeFragment extends Fragment {
 //            finish();
         }
 
-        final String files[] = f.list();
+        final String[] files = f.list();
         if (files == null || files.length == 0) {
             if (show == 1)
                 Toast.makeText(context, "there are no files", Toast.LENGTH_SHORT).show();
@@ -257,7 +254,7 @@ public class HomeFragment extends Fragment {
             for (String name : files) {
                 if (name.endsWith(".js")
                         || name.endsWith(".txt")
-                        || name.endsWith(".json")
+                        //|| name.endsWith(".json")
                         || name.endsWith(".py")
                         || name.endsWith(".java")
                         || name.endsWith(".class")
@@ -265,6 +262,7 @@ public class HomeFragment extends Fragment {
                         || name.endsWith(".xml")
                         || name.endsWith(".cpp")
                         || name.endsWith(".c")
+                        || name.endsWith(".conf")
                 ) {
                     list.add(name);
                 }
@@ -289,6 +287,7 @@ public class HomeFragment extends Fragment {
         ad.setView(input);
         ad.setMessage("write new file name");
         ad.setNegativeButton("Save", new DialogInterface.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 final String scriptName = input.getText().toString().trim();
@@ -327,7 +326,7 @@ public class HomeFragment extends Fragment {
         }
 
         // 判断是否有任务正在执行
-        if (isRunning || threadList.size() > 0) {
+        if (isRunning || !threadList.isEmpty()) {
             killThread = true;
             printLogMsg("有任务正在执行，已强制停止", 0);
             Toast.makeText(context, "有任务正在执行，已强制停止，请打开悬浮窗", Toast.LENGTH_SHORT).show();
