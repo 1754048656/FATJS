@@ -33,6 +33,16 @@ public class FileUtils {
     private static final String TAG = GlobalVariableHolder.tag;
 
     /**
+     * 检查文件是否存在
+     *
+     * @param filePath 文件的路径
+     * @return 如果文件存在返回true，否则返回false
+     */
+    public static boolean fileExists(String filePath) {
+        return Files.exists(Paths.get(filePath));
+    }
+
+    /**
      * 读取文件，一行一行读并在行尾加上换行
      * @param filePath 文件的路径
      * @return

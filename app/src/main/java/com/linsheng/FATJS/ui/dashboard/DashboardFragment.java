@@ -1,6 +1,8 @@
 package com.linsheng.FATJS.ui.dashboard;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.ABSOLUTE_PATH;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.CRON_TASK;
+import static com.linsheng.FATJS.config.GlobalVariableHolder.CRON_TASK_FILE;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.DEV_MODE;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.PATH;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.context;
@@ -110,12 +112,21 @@ public class DashboardFragment extends Fragment {
         if (permission) {
             // 权限已经被授予，可以进行SD卡读写操作
             printLogMsg("SD卡读写权限已授予", 0);
-            FileUtils.
+            cronTaskDemo();
         } else {
             // 权限尚未被授予，需要进行相应处理
             printLogMsg("SD卡读写权限未授予", 0);
         }
     }
+
+    @SuppressLint("SdCardPath")
+    private void cronTaskDemo() {
+        if (!FileUtils.fileExists(ABSOLUTE_PATH + CRON_TASK_FILE)) {
+            FileUtils.writeFile(ABSOLUTE_PATH + "cron_task_demo.js", "showLog();print('cron task is running')");
+            FileUtils.writeFile(ABSOLUTE_PATH + CRON_TASK_FILE, "* * * * * cron_task_demo.js");
+        }
+    }
+
     public void getStoragePermission() {
         // 获取权限
         XXPermissions.with(this)
@@ -256,7 +267,6 @@ public class DashboardFragment extends Fragment {
                     // 系统隐藏了无障碍应用列表
                     _accessibility = true;
                     switch_accessibility.setChecked(true);
-                    printLogMsg("系统隐藏了无障碍应用列表，需自己判断无障碍权限是否授予", 0);
                     return true;
                 }
             }
@@ -350,7 +360,7 @@ public class DashboardFragment extends Fragment {
             switch_cron.setChecked(CRON_TASK);
             saveConfig();
             Log.i(tag, "CRON_TASK => " + CRON_TASK);
-            Toast.makeText(context, "DEV_MODE => " + DEV_MODE, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "CRON_TASK => " + CRON_TASK, Toast.LENGTH_SHORT).show();
         });
     }
 

@@ -101,7 +101,7 @@ public class JsTaskDemo extends AppCompatActivity {
         review();
     }
 
-    private final String fatjs_config =  "/sdcard/fatjs_config_1.txt";
+    private final String fatjs_config =  "/sdcard/myConfig.txt";
     private void review() {
         String json = FileUtils.readFile(fatjs_config);
         printLogMsg("json => " + json, 0);

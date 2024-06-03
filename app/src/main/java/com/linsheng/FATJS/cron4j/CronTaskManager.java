@@ -1,5 +1,6 @@
 package com.linsheng.FATJS.cron4j;
 
+import static com.linsheng.FATJS.config.GlobalVariableHolder.ABSOLUTE_PATH;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.isRunning;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.killThread;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mHeight;
@@ -7,6 +8,7 @@ import static com.linsheng.FATJS.config.GlobalVariableHolder.mWidth;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.mainActivity;
 import static com.linsheng.FATJS.config.GlobalVariableHolder.tag;
 import static com.linsheng.FATJS.node.AccUtils.isAccessibilityServiceOn;
+import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -54,7 +56,7 @@ public class CronTaskManager {
     public void loadTasksFromFile(String filename) {
         Log.i(tag, "定时任务启动: " + filename);
         try {
-            @SuppressLint("SdCardPath") File file = new File("/sdcard/fatjs/" + filename); // 替换为你的文件路径
+            File file = new File(ABSOLUTE_PATH + filename); // 替换为你的文件路径
             FileInputStream inputStream = new FileInputStream(file);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
@@ -97,9 +99,12 @@ public class CronTaskManager {
         if (files != null) {
             List<String> list = Arrays.asList(files);
             if (list.contains(fileName)) {
-                Log.i(tag, "开始执行: " + fileName);
+
+                printLogMsg("\n************\n************\n\n定时任务开始执行: " + fileName);
+                //Log.i(tag, "开始执行: " + fileName);
                 if (!isAccessibilityServiceOn()){
-                    Log.i(tag, "请开启无障碍服务");
+                    //Log.i(tag, "请开启无障碍服务");
+                    printLogMsg("请开启无障碍服务");
                     Toast.makeText(context, "请开启无障碍服务", Toast.LENGTH_SHORT).show();
                     mainActivity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
                     return;
@@ -133,7 +138,7 @@ public class CronTaskManager {
         // Test 1
         TaskBase taskDemo = new TaskBase();
         Log.i(tag,"run script " + checkedFileName);
-        @SuppressLint("SdCardPath") String script_path = "/sdcard/fatjs/" + checkedFileName;
+        String script_path = ABSOLUTE_PATH + checkedFileName;
         // Log.i(tag, "script_path => " + script_path, 0);
         taskDemo.initJavet(script_path);
     }

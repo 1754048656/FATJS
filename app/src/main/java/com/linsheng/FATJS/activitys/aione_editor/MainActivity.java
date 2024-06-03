@@ -127,9 +127,11 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "cronTaskManager == null");
             return;
         }
-        cronTaskManager.clearAllTasks();
-        cronTaskManager.loadTasksFromFile(CRON_TASK_FILE);
-        cronTaskManager.start();
+        if (CRON_TASK) {
+            cronTaskManager.clearAllTasks();
+            cronTaskManager.loadTasksFromFile(CRON_TASK_FILE);
+            cronTaskManager.start();
+        }
         Toast.makeText(context, "定时任务已刷新", Toast.LENGTH_SHORT).show();
     }
 

@@ -2,6 +2,7 @@ package com.linsheng.FATJS.config;
 
 import static com.linsheng.FATJS.node.AccUtils.printLogMsg;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ public class GlobalVariableHolder {
     public static String CRON_TASK_FILE = "cron_tasks.txt"; // 定时任务配置
     public static boolean DEV_MODE = false; // FATJS 的开发者模式
     public static V8Runtime v8Runtime;
+    @SuppressLint("SdCardPath")
+    public static final String ABSOLUTE_PATH = "/sdcard/fatjs/";
     public static final String PATH = "/fatjs/";
     public static String FATJS_INFO = "\n\n\n\n\n\n\n\n\n\nauthor: 林笙\n\nwx: FATJS_Lin\n\nGitHub: FATJS";
     public static String ANDROID_ID = "";
