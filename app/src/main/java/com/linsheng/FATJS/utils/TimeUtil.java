@@ -8,28 +8,23 @@ public class TimeUtil {
     public TimeUtil() {
     }
 
-    public static String getDIYStringDate(String pattern) {
+    public static String strDate() {
         Date currentTime = new Date();
-//        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm:ss");
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm:ss");
         return formatter.format(currentTime);
     }
 
     public static String getStringDate() {
         Date currentTime = new Date();
-//        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm:ss");
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd");
-//        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         return formatter.format(currentTime);
     }
 
-    public static String getYesterdayStringDate() {
+    public static String getYesterdayDate() {
         Calendar cal=Calendar.getInstance();
         cal.add(Calendar.DATE,-1);
         Date d = cal.getTime();
-//        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm:ss");
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd");
-//        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         return formatter.format(d);
     }
 

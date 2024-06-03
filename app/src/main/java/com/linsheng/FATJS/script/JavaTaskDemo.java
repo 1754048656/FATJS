@@ -16,7 +16,6 @@ public class JavaTaskDemo extends UiSelector {
 
     private static final String TAG = tag;
 
-    @RequiresApi(24)
     public void main() {
         try {
             //run();
@@ -25,7 +24,6 @@ public class JavaTaskDemo extends UiSelector {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void run() {
         moveFloatWindow("打开");
         printLogMsg("w => " + mWidth + ", h => " + mHeight);
