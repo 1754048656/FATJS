@@ -125,9 +125,9 @@ public class HomeFragment extends Fragment {
         // 保存选中状态
         int checkedPosition = myRecyclerAdapter.getCheckedPosition();
         myRecyclerAdapter.saveCheckedPosition(checkedPosition);
-        if (DEV_MODE && __isOpenFloatWin) {
+        /*if (DEV_MODE && __isOpenFloatWin) {
             moveFloatWindow("打开");
-        }
+        }*/
     }
 
     @Override
