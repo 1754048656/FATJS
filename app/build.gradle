@@ -16,6 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
+            //noinspection ChromeOsAbiSupport
             abiFilters "arm64-v8a" // 只编译生成64位so
         }
     }
@@ -30,6 +31,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.22.1'
+        }
     }
     buildFeatures {
         viewBinding true
@@ -52,9 +59,9 @@ dependencies {
 
     implementation 'com.caoccao.javet:javet-android:3.0.0' // Android (arm, arm64, x86 and x86_64)
     implementation 'com.github.getActivity:XXPermissions:18.3' // 权限请求框架：https://github.com/getActivity/XXPermissions
-    implementation("com.squareup.okhttp3:okhttp:4.10.0") // okhttp3
+    implementation("com.squareup.okhttp3:okhttp:4.12.0") // okhttp3
     implementation 'com.google.code.gson:gson:2.10.1' // gson
     implementation 'com.github.gzu-liyujiang:Android_CN_OAID:4.2.9' // Android_CN_OAID
-    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'  // Google Play
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.1.0'  // Google Play
     implementation 'it.sauronsoftware.cron4j:cron4j:2.2.5' // Cron4j
 }

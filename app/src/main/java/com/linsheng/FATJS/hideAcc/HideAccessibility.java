@@ -7,6 +7,9 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.accessibility.AccessibilityManager;
+
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.util.Collections;
 
 import de.robv.android.fposed.FC_MethodHook;
@@ -193,6 +196,22 @@ public class HideAccessibility implements IFposedHookLoadPackage, IFposedHookZyg
                     }
                 }
                 super.afterHookedMethod(param);
+            }
+        });
+
+        // 绕过maps检测
+        FposedHelpers.findAndHookConstructor("java.io.FileReader", mClassLoader, String.class, new FC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                String arg0 = (String) param.args[0];
+                if(arg0.toLowerCase().contains("/proc/")){
+                    Log.i(tag,"FileReader " + arg0);
+
+                    // 创建一个假的 BufferedReader 对象并返回
+                    String fakeContent = "蜘蛛侠";
+                    BufferedReader fakeReader = new BufferedReader(new StringReader(fakeContent));
+                    param.setResult(fakeReader);
+                }
             }
         });
     }

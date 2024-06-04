@@ -46,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     public static CronTaskManager cronTaskManager;
 
+    static {
+        System.loadLibrary("fatjs");
+    }
+
+    public native String stringFromJNI();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
             cronTaskManager.loadTasksFromFile(CRON_TASK_FILE);
             cronTaskManager.start();
         }
+
+        String string = stringFromJNI();
+        Log.i(TAG, "onCreate: string: " + string);
     }
 
     private void DevicesOAID() {
@@ -187,26 +196,6 @@ public class MainActivity extends AppCompatActivity {
         return navigationBarHeight;
     }
 
-//    public int getNavigationBarHeight() {
-//        int navigationBarHeight = 0;
-//        Resources resources = getResources();
-//        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-//        if (resourceId > 0 && hasNavigationBar()) {
-//            navigationBarHeight = resources.getDimensionPixelSize(resourceId);
-//        }
-//        return navigationBarHeight;
-//    }
-//    public boolean hasNavigationBar() {
-//        boolean hasNavigationBar = false;
-//        Resources resources = getResources();
-//        int resourceId = resources.getIdentifier("config_showNavigationBar", "bool", "android");
-//        if (resourceId > 0) {
-//            hasNavigationBar = resources.getBoolean(resourceId);
-//        }
-//        return hasNavigationBar;
-//    }
-
-
     public int getStatusBarHeight() {
         int statusBarHeight = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -215,16 +204,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return statusBarHeight;
     }
-
-//    public int getStatusBarHeight() {
-//        int statusBarHeight = 0;
-//        Rect rectangle = new Rect();
-//        Window window = getWindow();
-//        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
-//        statusBarHeight = rectangle.top;
-//        return statusBarHeight;
-//    }
-
 
     private void openForwardService() {
         Intent intent = new Intent(this, MyService.class);

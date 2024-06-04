@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "FATJS"
 include ':app'
+include ':library'
