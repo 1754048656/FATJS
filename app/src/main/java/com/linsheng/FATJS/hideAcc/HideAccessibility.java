@@ -166,8 +166,9 @@ public class HideAccessibility implements IFposedHookLoadPackage, IFposedHookZyg
                 if (result != null){
                     if (
                             result.contains("LFPHooker_") ||
-                                    result.contains("org.lsposed.lspd.impl.") ||
-                                    result.contains("de.robv.android.fposed.")
+                            result.contains("org.lsposed.lspd.impl.") ||
+                            result.contains("de.robv.android.fposed.") ||
+                            result.contains("posedBridge")
                     ) {
                         Log.i(tag,"替换了，字符串名称 " + result);
                         param.setResult("f");
