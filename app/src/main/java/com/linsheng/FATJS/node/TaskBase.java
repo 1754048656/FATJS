@@ -335,6 +335,9 @@ public class TaskBase extends UiSelector implements ITaskBase{
     public UiSelector _longClickable(boolean b){
         return longClickable(b);
     }
+    public UiSelector _checked(boolean b){
+        return checked(b);
+    }
     public UiSelector _checkable(boolean b){
         return checkable(b);
     }

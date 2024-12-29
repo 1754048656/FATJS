@@ -587,6 +587,16 @@ public class UiSelector implements IUiSelector{
     }
 
     /**
+     * b {Boolean} 表示控件是否已经被选中
+     * @param b
+     * @return
+     */
+    public UiSelector checked(boolean b) {
+        containsAttributes.put("checked", b);
+        return this;
+    }
+
+    /**
      * b {Boolean} 表示控件是否可勾选
      * 为当前选择器附加控件是否可勾选的条件。勾选通常是对于勾选框而言的，例如图片多选时左上角通常有一个勾选框。
      * @param b
@@ -1101,6 +1111,8 @@ public class UiSelector implements IUiSelector{
                 return (boolean) value == node.isClickable();
             case "longClickable":
                 return (boolean) value == node.isLongClickable();
+            case "checked":
+                return (boolean) value == node.isChecked();
             case "checkable":
                 return (boolean) value == node.isCheckable();
             case "selected":

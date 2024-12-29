@@ -95,6 +95,7 @@ const boundsContains = (left, top, right, bottom) => task._boundsContains(left, 
 const drawingOrder = (order) => task._drawingOrder(order);
 const clickable = (b) => task._clickable(b);
 const longClickable = (b) => task._longClickable(b);
+const checked = (b) => task._checked(b);
 const checkable = (b) => task._checkable(b);
 const selected = (b) => task._selected(b);
 const enabled = (b) => task._enabled(b);
