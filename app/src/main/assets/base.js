@@ -7,6 +7,7 @@ const getHashMapBuffer = () => {
     }
     return null;
 }
+const execCommand = (command) => task._execCommand(command);
 const killTask = () => task._killTask();
 const floatLocation = () => task._floatLocation();
 const findMultiColorInRegionFuzzy = (mainColor, subColors, distance, x1, y1, x2, y2) => {

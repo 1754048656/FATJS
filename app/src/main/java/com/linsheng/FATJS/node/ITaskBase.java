@@ -8,6 +8,8 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import java.util.List;
 
 public interface ITaskBase {
+    public String _execCommand(String command);
+    public boolean _killTask();
     public int[] _findMultiColorInRegionFuzzy(int mainColor, String subColors, double distance, int x1, int y1, int x2, int y2);
     public void _showLog();
     public void _hideLog();

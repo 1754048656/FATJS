@@ -18,6 +18,7 @@ import com.linsheng.FATJS.ntptime.NtpService;
 import com.linsheng.FATJS.okhttp3.WebSocketUtils;
 import com.linsheng.FATJS.utils.ExceptionUtil;
 import com.linsheng.FATJS.utils.FileUtils;
+import com.linsheng.FATJS.utils.ShellUtils;
 import com.linsheng.FATJS.okhttp3.HttpUtils;
 import com.linsheng.FATJS.utils.ScreenshotUtils;
 
@@ -35,6 +36,9 @@ public class TaskBase extends UiSelector implements ITaskBase{
     public int _statusBarHeight;
     public int _navigationBarHeight;
     public boolean _navigationBarOpen;
+    public String _execCommand(String command) {
+        return ShellUtils.execCommandAndGetOutput(command);
+    }
     public boolean _killTask() {
         if (!isRunning) {
             return false;
